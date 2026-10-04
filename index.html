@@ -1722,7 +1722,6 @@ body.rside #sidecol-uw{left:auto;right:var(--uw-margin);flex-direction:row-rever
 .uw-btn.on{color:var(--ink);border-color:var(--ink)}
 .uw-btn svg{display:block}
 /* LCL is pinned to the BOTTOM of the screen, not stacked with the toggles. */
-#uw-lcl{margin-top:auto;width:36px;height:36px;font-size:8px;letter-spacing:.02em}
 
 /* ── Top toolbar + primitives bar, as in-flow COLUMNS (session 95) ──
    Both are reparented into #sidecol-uw and sit between CONTROL and the toggle
@@ -2048,6 +2047,7 @@ body.tc-on #ctl .ctl-selbar{display:none!important}
 #tc-vis-pop .tvp-sz button{flex:1;min-height:34px;border:none;border-radius:17px;background:rgba(var(--ink-r),var(--ink-g),var(--ink-b),.07);
   color:var(--ink);font:400 10px 'DM Mono',monospace;cursor:pointer;padding:0 6px}
 #tc-vis-pop .tvp-sz button.on{background:var(--acc);color:#fff}
+#tc-vis-pop .tvp-sz button.dis{opacity:.32;cursor:default}
 #tc-vis-pop .tvp-sep{height:1px;background:var(--bdr);margin:4px 0}
 /* FPS mounted: the sticks live in the pucks, so the floating look-stick
    wrapper is empty (its canvas and Up/Down buttons were MOVED out). */
@@ -2099,8 +2099,7 @@ body.tc-on #btbhide.on{background:var(--surf);color:var(--ink);border-color:var(
 body.tc-on #bprims.on{border-color:var(--acc);color:var(--acc)}
 body.tc-on .uw-btn{color:var(--ink)}
 body.tc-on .uw-btn.on{background:var(--acc);color:#fff;border-color:var(--acc)}
-body.tc-on #uw-tb-toggle.on,body.tc-on #uw-lcl{background:var(--surf);color:var(--ink);border-color:var(--bdr)}
-body.tc-on #uw-lcl.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+body.tc-on #uw-tb-toggle.on{background:var(--surf);color:var(--ink);border-color:var(--bdr)}
 
 /* Hide UI (general) is retired in every arrangement. The button only exists
    while ui-hidden is on — recording still enters that state, and this is the
@@ -2794,7 +2793,6 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
     </button>
     <button class="uw-btn on" id="uw-ctrl-toggle" title="Hide/show control card">⬡</button>
     <button class="uw-btn" id="uw-side-switch" title="Switch columns to the other side">◧</button>
-    <button class="uw-btn" id="uw-lcl" title="Toggle 3D local gizmo">LCL</button>
   </div>
 
 </div>
@@ -5035,7 +5033,7 @@ buildSurf();
     // doesn't fit in that size, so it's always the bare LCL label.
     // Session 130: as a loose button beside the pucks it wears the dashed
     // circle (brief §5); everywhere else it keeps the word.
-    [b3,document.getElementById('uw-lcl')].forEach(function(b){
+    [b3].forEach(function(b){
       if(!b)return;
       if(b===b3&&window._ctlMounted){
         if(!b._ctlIco){b.innerHTML='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.8" stroke-dasharray="1.7 1.7"/><circle cx="7" cy="7" r=".9" fill="currentColor" stroke="none"/></svg>';b._ctlIco=true;}
@@ -5094,7 +5092,6 @@ buildSurf();
       });
     }
     _wireLclHold(b3);
-    _wireLclHold(document.getElementById('uw-lcl'));
     _syncButtons();
   }, 0);
 
@@ -26383,7 +26380,8 @@ animate();
   // Medium/Small shrink pucks, pills, buttons, icons, LCL and swap together.
   // R = d/2 + 8k + 19k (band 38 → half-band 19), second ring at R + 48k.
   var C_D=170,C_BTN=34,C_BAND=38,C_GAP=8,C_PITCH=35,C_RING2=48;
-  var SIZES=[1,0.87,0.75],SIZE_NAMES={'1':'Large','0.87':'Medium','0.75':'Small'};
+  var SIZES=[1,0.87,0.75],SIZE_NAMES={'1':'Large','0.87':'Medium','0.75':'Small','0.7':'under Small','0.65':'under Small'};
+  var UW_STACK_SIZES=[0.75,0.7,0.65],_stackOnly=false;   // 145, see computeLayout
   var SEARCH=120,SEARCH_STEP=2;
   var ST_H=30,ST_RESERVE=240,ST_RESERVE_WIDE=290;   // 136b: UW keeps 240 (pill is capped to it in CSS); Side/Bottom have room    // status pill height, and the width reserved for it
   // Tool card model (Phase B renders it; Phase A only reports its stage).
@@ -26529,10 +26527,18 @@ animate();
       if(cy-d/2<M.t)return null;
       if(both){
         lead={x:leadX+(variant==='bottom'?off:0),y:cy};
-        other=(variant==='bottom')?{x:W-M.r-d/2-off,y:cy}:{x:leadX+d+2*(PB+CLR)+off,y:cy};
-        if(other.x-lead.x<d+2*(PB+CLR))return null;      // the swap sits between the pucks
+        // 144 SPLIT ('row'): the second puck goes to the OPPOSITE screen edge and
+        // comes inward (off) only as far as the fit needs. Through 143 it started
+        // beside the lead puck and slid outward until its pill fitted, so it
+        // stopped somewhere in the middle of the screen.
+        other={x:W-M.r-d/2-off,y:cy};
+        if(other.x-lead.x<d+2*(PB+CLR))return null;      // room for a button between the pucks
         if(other.x+d/2>W-M.r)return null;
-        P.swap={x:(lead.x+other.x)/2,y:cy};
+        // Bottom: the swap sits between the pucks. Split: the midpoint is the
+        // status pill's place, so the swap joins the toggle column on the lead
+        // puck's outer side, above LCL (135 deg / 225 deg).
+        if(variant==='bottom')P.swap={x:(lead.x+other.x)/2,y:cy};
+        else{var sw0=polar(lead.x,lead.y,tog,135);P.swap={x:sw0[0],y:sw0[1]};}
       }else{if(off)return null;lead={x:leadX,y:cy};}
     }else{
       // 'col' — anchored to the bottom, raised by off only if the fit needs it.
@@ -26799,19 +26805,39 @@ animate();
     // same column spread to the full height, where the fit search turns each
     // pill to the open side (right of a left column, left with .rside) — and
     // only then side by side.
-    var passes=(arr==='bottom')?['bottom']:['col','colx','row'],pi,got=null;
-    outer:
-    for(si=si0;si<SIZES.length;si++){setK(SIZES[si]);
-      cardS.right=(card&&arr!=='bottom')?card.x+card.w:M.l-8*K;
-      for(pi=0;pi<passes.length;pi++){got=attempt(passes[pi]);if(got)break outer;}}
+    // ORDER (136d, confirmed 144 by Sebas): at each size the stack first
+    // ('col', then 'colx'); if that size does not stack, split at that size
+    // ('row', second puck on the opposite edge); only then the next size down.
+    // (143 tried every size stacked before any split — withdrawn.)
+    // 145 ULTRA-WIDE WITH BOTH PUCKS = STACKED ONLY (Sebas). Never split. The
+    // size is Small whatever is chosen (Large / Medium are greyed in the
+    // size row, see _ctlStackOnly); each pill is turned by the fit search,
+    // and if the column still does not fit, the pucks go a little under
+    // Small (UW_UNDER) rather than apart. One puck alone, or First Person,
+    // keeps every size.
+    var stackOnly=(arr==='uw'&&showN&&showG&&!fps),szList=stackOnly?UW_STACK_SIZES:SIZES;
+    if(stackOnly)si0=0;
+    _stackOnly=stackOnly;
+    var pi,got=null;
+    function search(passes){
+      var g=null,s2,p2;
+      for(s2=si0;s2<szList.length&&!g;s2++){setK(szList[s2]);
+        cardS.right=(card&&arr!=='bottom')?card.x+card.w:M.l-8*K;
+        for(p2=0;p2<passes.length&&!g;p2++)g=attempt(passes[p2]);}
+      return g;
+    }
+    if(arr==='bottom')got=search(['bottom']);
+    else if(stackOnly)got=search(['col','colx']);
+    else got=search(['col','colx','row']);
     if(!got){
-      setK(SIZES[SIZES.length-1]);cardS.right=(card&&arr!=='bottom')?card.x+card.w:M.l-8*K;
+      setK(szList[szList.length-1]);cardS.right=(card&&arr!=='bottom')?card.x+card.w:M.l-8*K;
       var Pf=placePucks(W,H,M,cardS,showN,showG,0,firstVar,swapped);
       if(!Pf){warn.push('PUCKS DO NOT FIT even at Small');L.k=K;L.d=puckD();return L;}
       got=tryFit(Pf,true);
       warn.push('NO CLEAN FIT even at Small'+(got.res?' (overlap '+got.res.t.toFixed(0)+'px)':''));
     }
-    if(K!==window._ctlSize)warn.push('size fell back: '+SIZE_NAMES[String(window._ctlSize)]+' → '+SIZE_NAMES[String(K)]);
+    if(stackOnly){if(K<0.75)warn.push('stacked under Small ('+K+')');}
+    else if(K!==window._ctlSize)warn.push('size fell back: '+SIZE_NAMES[String(window._ctlSize)]+' → '+SIZE_NAMES[String(K)]);
     var P=got.P,k2;
     L.k=K;L.d=P.d;L.off=P.off;L.variant=P.variant;L.pills=got.pills;
     if(P.nav)L.pucks.nav={x:P.nav.x,y:P.nav.y,d:P.d};
@@ -27292,6 +27318,8 @@ animate();
   };
   window._ctlGetVis=function(){return vis_;};
   window._ctlGetSize=function(){return window._ctlSize;};
+  // 145: true while the layout is Ultra-wide with both pucks (Small, stacked).
+  window._ctlStackOnly=function(){return _stackOnly;};
   // Tap: Both <-> Hide Both; any single-puck state goes back to Both.
   window._ctlVisTap=function(){window._ctlSetVis(vis_==='both'?'none':'both');};
   var VIS_NAMES={both:'Gizmo and NavCube',nav:'NavCube only',giz:'Gizmo only',none:'Controls hidden'};
@@ -27904,7 +27932,14 @@ animate();
     if(typeof _fpsMode!=='undefined'&&_fpsMode)h.push('<div class="tvp-h">FIRST PERSON: STICKS STAY · GIZMO PILL ON LOOK STICK</div>');
     VIS_ROWS.forEach(function(r){h.push('<button class="tvp-r'+(r[0]===v?' dis':'')+'" data-vis="'+r[0]+'">'+VIS_ICO[r[0]]+'<span>'+r[1]+'</span></button>');});
     h.push('<div class="tvp-sep"></div><div class="tvp-h">SIZE</div><div class="tvp-sz">');
-    SIZE_ROWS.forEach(function(r){h.push('<button data-sz2="'+r[0]+'"'+(r[0]===k?' class="on"':'')+'>'+r[1]+'</button>');});
+    // 145: Ultra-wide with both pucks is Small only — Large and Medium are
+    // shown greyed (the stored choice is kept and returns with one puck or
+    // another layout).
+    var lock=!!(window._ctlStackOnly&&window._ctlStackOnly());
+    if(lock)k=0.75;
+    SIZE_ROWS.forEach(function(r){var off=lock&&r[0]!==0.75;
+      h.push('<button data-sz2="'+r[0]+'"'+(off?' class="dis" disabled':(r[0]===k?' class="on"':''))+'>'+r[1]+'</button>');});
+    if(lock)h.push('</div><div class="tvp-h">LANDSCAPE PHONE: STACKED, SMALL');
     h.push('</div>');
     visPop.innerHTML=h.join('');
   }
@@ -27933,6 +27968,7 @@ animate();
       var r=e.target.closest('[data-vis]');
       if(r){if(window._ctlSetVis)window._ctlSetVis(r.getAttribute('data-vis'));if(window._brushClosePops)window._brushClosePops();return;}
       var z=e.target.closest('[data-sz2]');
+      if(z&&z.disabled)return;
       if(z){var k=+z.getAttribute('data-sz2');if(window._ctlSetSize)window._ctlSetSize(k);
         say(SIZE_ROWS.filter(function(x){return x[0]===k;})[0][1]);visFill();}
     });
