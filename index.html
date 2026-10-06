@@ -583,7 +583,7 @@ input[type=range].vr::-webkit-slider-thumb{-webkit-appearance:none;width:12px;he
    --pan / --ink / --bdr. z-index 480 sits above every popover (max
    450) and below #toast (500) and the modals (600+), so the page-cap
    toast and showConfirmModal() both still land on top of it. */
-#flipbook{position:fixed;top:0;right:0;bottom:0;left:0;z-index:480;background:#1b1b1d;
+#flipbook{position:fixed;top:0;right:0;bottom:0;left:0;z-index:480;background:var(--fb-desk,#1b1b1d);
   display:none;flex-direction:column;align-items:stretch;
   font-family:'DM Mono',monospace;color:#8f8f95;
   -webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -591,7 +591,7 @@ input[type=range].vr::-webkit-slider-thumb{-webkit-appearance:none;width:12px;he
 #fb-top{flex:0 0 auto;position:relative;display:flex;align-items:center;justify-content:center;
   padding:14px 46px 6px;box-sizing:border-box}
 #fb-name,#fb-name-input{font-family:'DM Mono',monospace;font-size:16px;letter-spacing:.05em;
-  color:#e6e2da;padding:5px 12px;border-radius:6px;border:1px solid transparent;
+  color:var(--fb-dname,#e6e2da);padding:5px 12px;border-radius:6px;border:1px solid transparent;
   background:transparent;max-width:100%;box-sizing:border-box;text-align:center}
 #fb-name{cursor:text;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #fb-name:hover{border-color:#3a3a41}
@@ -803,7 +803,7 @@ input[type=range].vr::-webkit-slider-thumb{-webkit-appearance:none;width:12px;he
    exposure, and it is crisp at any zoom because the viewport moves rather
    than the pixels being scaled. */
 #fb-hole{position:fixed;display:none;pointer-events:none;z-index:0;
-  border-radius:3px;box-shadow:0 0 0 9999px #1b1b1d}
+  border-radius:3px;box-shadow:0 0 0 9999px var(--fb-desk,#1b1b1d)}
 #flipbook.fb-live{background:transparent}
 #flipbook.fb-live #fb-hole{display:block}
 /* The snapshot faces sit above the hole and would cover the live render. */
@@ -979,8 +979,8 @@ input[type=range].vr::-webkit-slider-thumb{-webkit-appearance:none;width:12px;he
    The page getting darker mid-turn is the whole shading budget. */
 .fb-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
 #fb-leaf-back{transform:rotateY(180deg)}
-#fb-num{flex:0 0 auto;text-align:center;font-size:9px;letter-spacing:.11em;color:#7d7d86;padding:8px 0 2px}
-#fb-hint{flex:0 0 auto;text-align:center;font-size:8px;letter-spacing:.09em;color:#5d5d66;padding:0 0 8px}
+#fb-num{flex:0 0 auto;text-align:center;font-size:9px;letter-spacing:.11em;color:var(--fb-dink,#7d7d86);padding:8px 0 2px}
+#fb-hint{flex:0 0 auto;text-align:center;font-size:8px;letter-spacing:.09em;color:var(--fb-dink2,#5d5d66);padding:0 0 8px}
 /* THE STRIP'S SURFACE LIVES ON #fb-nav, NOT ON #fb-scrub (session 126).
    #fb-scrub is overflow-x:auto, so an arrow parented inside it would scroll
    away with the thumbnails — which is the one thing a navigation control must
@@ -2185,6 +2185,19 @@ body.tc-on:not([hidden]) #fps-plane-ctrl .fps-slider-label{font-size:9px;width:a
 #fb-tb button:active,#fb-pal button:active{background:var(--surf-press)}
 #fb-tb button.on,#fb-pal button.on{background:var(--acc);color:#fff;border:none}
 #fb-tb button:disabled,#fb-pal button:disabled{opacity:.3;cursor:default}
+/* 146 — desk colour swatch and its popover */
+#fb-desk i,#fb-deskpop i{display:block;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--bdr);box-sizing:border-box}
+#fb-tb #fb-desk.open{background:var(--surf-press)}
+/* Phone, editing notes: the pill is full (new-note buttons); the desk swatch steps aside. */
+@media(max-width:480px){#flipbook.fb-nedit #fb-desk{display:none}}
+#fb-deskpop{position:fixed;z-index:601;display:none;gap:4px;padding:5px;border-radius:21px;background:var(--surf);
+  border:1px solid var(--bdr);box-shadow:var(--elev)}
+#fb-deskpop.on{display:flex}
+#fb-deskpop button,#fb-deskpop label{position:relative;width:34px;height:34px;border-radius:50%;border:none;background:transparent;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;flex-shrink:0}
+#fb-deskpop button.on i,#fb-deskpop label.on i{outline:2px solid var(--acc);outline-offset:2px}
+#fb-deskpop .fb-dk-pick{background:conic-gradient(#e74c3c,#f1c40f,#2ecc71,#3498db,#9b59b6,#e74c3c)}
+#fb-deskpop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:none;padding:0}
 /* 138 — the page strip and the page arrows join the pill language (they were
    the last dark-chrome pieces of Pages). Colour, radius, border and shadow
    only: every width/height is the 126 value, so the fit arithmetic that reads
@@ -2241,7 +2254,15 @@ body.narrow-mode #fb-pal .fb-sep{width:1px;height:20px;margin:7px 3px}
 .fb-note .fb-selbox{fill:none;stroke:#0a84ff;stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke;pointer-events:none}
 .fb-note .fb-selh{fill:#fff;stroke:#0a84ff;stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:none}
 .fb-note .fb-sellasso{fill:rgba(10,132,255,.08);stroke:#0a84ff;stroke-width:1;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;pointer-events:none}
-#fb-toolpop.for-select .fb-tp-dup{display:flex}
+#fb-toolpop.for-select .fb-tp-dup,#fb-toolpop.for-select .fb-tp-fr{display:flex}
+#fb-toolpop .fb-tp-fr::before{background:none;border:1.5px solid rgba(var(--ink-r),var(--ink-g),var(--ink-b),.4);border-radius:2px;box-sizing:border-box}
+#fb-toolpop .fb-tp-row{display:none;align-items:center;gap:8px;height:34px;padding:0 12px;color:var(--ink);
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.04em;white-space:nowrap}
+#fb-toolpop .fb-tp-row input[type=range]{-webkit-appearance:none;appearance:none;width:110px;height:4px;border-radius:2px;
+  background:rgba(var(--ink-r),var(--ink-g),var(--ink-b),.18);outline:none;margin:0}
+#fb-toolpop .fb-tp-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--acc);border:none}
+#fb-toolpop .fb-tp-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--acc);border:none}
+#fb-toolpop .fb-tp-v{min-width:22px;text-align:right;opacity:.7}
 /* Colour and size presets: 26px cells with the scene card's ring for "on" */
 #fb-pal button.fb-sw,#fb-pal button.fb-szb{width:26px;height:26px;margin:4px}
 #fb-pal button.fb-sw{width:18px;height:18px;margin:8px;border:1px solid rgba(var(--ink-r),var(--ink-g),var(--ink-b),.18)}
@@ -8300,9 +8321,13 @@ let stylusOnly=false;
 
 // ── Invert lateral orbit ────────────────────────────────────────────
 // When true, flips the horizontal (theta) component of orbit drags only —
-// vertical (phi) is never touched. Applies to 1F/2F/3F canvas orbit drags,
-// not FPS look-around and not the NavCube widget's own drag-to-spin.
+// vertical (phi) is never touched. Applies to 1F/2F/3F canvas orbit drags
+// AND (147) to the NavCube's drag-to-spin, so a drag on the cube turns the
+// scene the same way as the same drag on the canvas. Not FPS look-around.
 let invertOrbitX=true;
+// 148: radians per px of drag, shared by the canvas orbit and the NavCube
+// (the cube was .022, faster than the canvas; Sebas asked for the same speed).
+var ORBIT_RATE=.013;
 function _orbX(dx){return invertOrbitX?-dx:dx;}
 function updateInvOrbLabel(){
   var txt=invertOrbitX?'INV ORB: ON':'INV ORB: OFF';
@@ -8351,7 +8376,7 @@ function _savePrefs(){
       stylusOnly:stylusOnly,twoFingerMode:twoFingerMode,fpsFly:!!window._fpsFly,
       invertOrbitX:invertOrbitX,uiTheme:_uiTheme,
       tapGest:_mtTapGest,fileName:_lastFileName,
-      fbTaper:_fbTaper,fbTool:_fbTool,fbPress:_fbPress,fbSmooth:_fbSmooth,fbErasePart:_fbErasePart,fbInk:_fbInkColor,fbPen:_fbInkSize,fbErase:_fbErase,
+      fbTaper:_fbTaper,fbTool:_fbTool,fbPress:_fbPress,fbSmoothPct:_fbSmooth,fbDesk:_fbDesk,fbErasePart:_fbErasePart,fbInk:_fbInkColor,fbPen:_fbInkSize,fbErase:_fbErase,
       smoothAmt:smoothAmt,
       // 127a. Anything but 'all' reads back as the default 'active'.
       selScope:_selScope,
@@ -8403,7 +8428,10 @@ function _loadPrefs(){
     if(typeof p.fbErase==='boolean')_fbErase=p.fbErase;
     if(typeof p.fbTaper==='boolean')_fbTaper=p.fbTaper;
     if(p.fbTool==='pen'||p.fbTool==='marker'||p.fbTool==='lasso'||p.fbTool==='select')_fbTool=p.fbTool;
-    if(p.fbSmooth===0||p.fbSmooth===1||p.fbSmooth===2||p.fbSmooth===3)_fbSmooth=p.fbSmooth;
+    // 146: fbSmoothPct (0-100). A pre-146 blob has fbSmooth 0-3 instead.
+    if(typeof p.fbSmoothPct==='number')_fbSmooth=Math.max(0,Math.min(100,Math.round(p.fbSmoothPct)));
+    else if(p.fbSmooth===1||p.fbSmooth===2||p.fbSmooth===3)_fbSmooth=FB_SMOOTH_OLD[p.fbSmooth];
+    if(typeof p.fbDesk==='string'&&(p.fbDesk===''||p.fbDesk==='scene'||/^#[0-9a-f]{6}$/i.test(p.fbDesk)))_fbDesk=p.fbDesk;
     if(typeof p.fbErasePart==='boolean')_fbErasePart=p.fbErasePart;
     if(typeof p.fbPress==='boolean')_fbPress=p.fbPress;
     if(typeof p.fbInk==='string')_fbInkColor=p.fbInk;
@@ -9668,7 +9696,18 @@ var FB_MAX_PAGES=24;
 // NEITHER IS PERSISTED — sceneData() still omits both, so the save format
 // stays 4.5 and .json files do not grow. Unvisited pages get a vector proxy
 // instead (see _fbProxyCanvas). See gotchas.md Critical Rule #108.
-var FB_PREVIEW_MAX=640, FB_THUMB_MAX=160;
+var FB_PREVIEW_MIN=640, FB_PREVIEW_CAP=2048, FB_THUMB_MAX=160;
+// 146: the page picture is sized for the SCREEN it is shown on. A fixed
+// 640px long edge was sharp on a phone and visibly blocky on a tablet or a
+// desktop, where the page is drawn 1000-2000 device px wide. Long edge =
+// the viewport's long edge x device-pixel-ratio (ratio capped at 2), between
+// 640 and 2048. Previews are never saved (Rule #108), so this costs memory
+// only: about 0.2-0.4MB per VISITED page at the cap.
+function _fbPreviewMax(){
+  var dpr=Math.min(window.devicePixelRatio||1,2);
+  var e=Math.max(window.innerWidth||0,window.innerHeight||0)*dpr;
+  return Math.max(FB_PREVIEW_MIN,Math.min(FB_PREVIEW_CAP,Math.round(e)));
+}
 
 function _fbBgHex(){return scene.background?('#'+scene.background.getHexString()):'#cdb899';}
 
@@ -9731,7 +9770,7 @@ function _pgSnap(){
   try{
     renderer.render(scene,activeCam());
     var src=renderer.domElement;
-    var p=_fbScaleCanvas(src,FB_PREVIEW_MAX,.6);
+    var p=_fbScaleCanvas(src,_fbPreviewMax(),.72);
     var th=_fbScaleCanvas(src,FB_THUMB_MAX,.5);
     // pw/ph travel with the page object (so splice/reorder carry them for
     // free) and are runtime-only — they are never written to the save file.
@@ -9968,9 +10007,9 @@ function _fbEnsureShots(i){
   if(pg.preview&&!pg.proxy)return;
   var r=renderer.domElement;
   var ar=(r.height||3)/(r.width||4);
-  var W=FB_PREVIEW_MAX, H=Math.max(1,Math.round(W*ar));
+  var W=_fbPreviewMax(), H=Math.max(1,Math.round(W*ar));
   var c=_fbProxyCanvas(pg.strokes||[],W,H);
-  pg.preview=c.toDataURL('image/jpeg',.6);
+  pg.preview=c.toDataURL('image/jpeg',.72);
   pg.pw=c.width;pg.ph=c.height;
   pg.thumb=_fbScaleCanvas(c,FB_THUMB_MAX,.5).url;
   pg.proxy=true;
@@ -10812,8 +10851,11 @@ var _fbPress=false;
 // 136i: smoothing level for note ink (0 off .. 3 high; applied on release,
 // point count unchanged so sp / pr stay aligned), partial erase, and the
 // Select tool's selection (strokes of ONE note).
+// 146: smoothing is a 0-100 slider (was a 4-step cycle: Off/Low/Mid/High).
+// Passes of the 1-2-1 filter at lift = FB_SMOOTH_MAX_PASSES x value/100.
 var _fbSmooth=0,_fbErasePart=false;
-var FB_SMOOTH_PASSES=[0,2,5,10];
+var FB_SMOOTH_MAX_PASSES=12, FB_SMOOTH_OLD=[0,17,42,83];
+function _fbSmoothPasses(){return Math.round(FB_SMOOTH_MAX_PASSES*Math.max(0,Math.min(100,_fbSmooth))/100);}
 // 138: the selection spans NOTES. _fbSel.g is a list of {n:note, st:[strokes]},
 // one entry per note that has something selected. Everything goes through
 // the helpers below; nothing outside them reads .g's shape except the
@@ -10894,8 +10936,9 @@ function _fbSelBox(nn){
   if(!any)return null;
   var k=1/(nn.s||1),pd=FB_SEL_PAD*k;
   x0-=pd;y0-=pd;x1+=pd;y1+=pd;
+  // 146: a scale handle on every corner (c), not only bottom-right.
   return {x0:x0,y0:y0,x1:x1,y1:y1,cx:(x0+x1)/2,cy:(y0+y1)/2,
-          sx:x1,sy:y1,rx:(x0+x1)/2,ry:y0-FB_SEL_ROT_OFF*k,hr:FB_SEL_HR*k};
+          sx:x1,sy:y1,c:[[x0,y0],[x1,y0],[x1,y1],[x0,y1]],rx:(x0+x1)/2,ry:y0-FB_SEL_ROT_OFF*k,hr:FB_SEL_HR*k};
 }
 function _fbPtInPoly(x,y,poly){
   var c=false,i,j,n=poly.length/2;
@@ -11566,8 +11609,10 @@ function _fbNotePaint(d){
     g.appendChild(el);
     el=document.createElementNS(FB_SVGNS,'circle');el.setAttribute('class','fb-selh');
     el.setAttribute('cx',bx.rx);el.setAttribute('cy',bx.ry);el.setAttribute('r',bx.hr);g.appendChild(el);
-    el=document.createElementNS(FB_SVGNS,'rect');el.setAttribute('class','fb-selh');
-    el.setAttribute('x',bx.sx-bx.hr);el.setAttribute('y',bx.sy-bx.hr);el.setAttribute('width',bx.hr*2);el.setAttribute('height',bx.hr*2);g.appendChild(el);
+    for(var ci=0;ci<bx.c.length;ci++){
+      el=document.createElementNS(FB_SVGNS,'rect');el.setAttribute('class','fb-selh');
+      el.setAttribute('x',bx.c[ci][0]-bx.hr);el.setAttribute('y',bx.c[ci][1]-bx.hr);el.setAttribute('width',bx.hr*2);el.setAttribute('height',bx.hr*2);g.appendChild(el);
+    }
   }
 }
 function _fbNoteSize(d){
@@ -12300,7 +12345,8 @@ function _fbNoteWire(d,n,svg,grip,rsz){
   //   drag a stroke           move the whole selection, every note of it
   //   drag from empty paper   lasso: strokes of THIS note with a point inside
   //   tap empty paper         clear
-  //   drag the square handle  scale   | each note's strokes about that note's
+  //   drag inside the box     move the selection (146)
+  //   drag a corner square    scale   | each note's strokes about that note's
   //   drag the round handle   rotate  | own box centre, one factor / angle
   // A transform swaps the strokes for COPIES on its first move, so undo has
   // both sides ('swap' for one note, 'multi' for several).
@@ -12319,7 +12365,9 @@ function _fbNoteWire(d,n,svg,grip,rsz){
   function selDown(e){
     var q=selUV(e);if(!q)return;
     var bx=_fbSelBox(n),ht=Math.max(q.tol,bx?bx.hr*1.6:0);
-    if(bx&&Math.abs(q.u-bx.sx)<=ht&&Math.abs(q.v-bx.sy)<=ht){sC=bx;selBegin(e,q,'scale');return;}
+    if(bx)for(var ci=0;ci<bx.c.length;ci++){
+      if(Math.abs(q.u-bx.c[ci][0])<=ht&&Math.abs(q.v-bx.c[ci][1])<=ht){sC=bx;selBegin(e,q,'scale');return;}
+    }
     if(bx&&Math.abs(q.u-bx.rx)<=ht&&Math.abs(q.v-bx.ry)<=ht){sC=bx;selBegin(e,q,'rot');return;}
     var hits=_fbEraseHits(n.ink,q.u,q.v,q.tol);
     if(hits.length){
@@ -12327,6 +12375,8 @@ function _fbNoteWire(d,n,svg,grip,rsz){
       selBegin(e,q,'move');
       _fbNotePaint(d);return;
     }
+    // 146: a press INSIDE the box (not on a stroke) drags the selection.
+    if(bx&&q.u>=bx.x0&&q.u<=bx.x1&&q.v>=bx.y0&&q.v<=bx.y1){selBegin(e,q,'move');return;}
     sLas=[q.u,q.v];sLasEl=null;
     selBegin(e,q,'lasso');
   }
@@ -12521,7 +12571,7 @@ function _fbNoteWire(d,n,svg,grip,rsz){
       // stroke is known to have survived the dot test. abortInk() removes
       // one that never got here, so there is nothing to undo for it.
       // 136i: smoothing settles on release, like the scene's strength.
-      if(_fbSmooth>0&&!cur.f){_fbSmoothPts(cur.p,FB_SMOOTH_PASSES[_fbSmooth]||0);if(live)_fbInkApply(live,cur);}
+      if(_fbSmooth>0&&!cur.f){_fbSmoothPts(cur.p,_fbSmoothPasses());if(live)_fbInkApply(live,cur);}
       _fbUndoPush({t:'ink',n:n,st:cur,i:n.ink.indexOf(cur)});
     }
     cur=null;live=null;
@@ -12977,6 +13027,78 @@ function _fbFit(){
   _fbZ=1;_fbTX=0;_fbTY=0;
   _fbApplyXf();_fbSyncFit();
 }
+// 146 — FRAME. Zoom and pan so a rectangle of the desk fills the stage.
+// Rectangles are in #fb-notes' coordinates: origin = the page centre, unscaled
+// px (a note's x / y / w / h are already in that space).
+//   'page' the page alone (= the identity view, _fbFit)
+//   'sel'  the notes that hold selected strokes, else the focused note
+//   'all'  the page and every note on it
+var FB_FRAME_PAD=28;
+function _fbFrame(what){
+  if(what==='page'){_fbFit();return 'Page';}
+  var st=_fbEl('fb-stage'),list=[],i,g,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,n;
+  if(!st)return '';
+  if(what==='sel'){
+    for(i=0;i<_fbSel.g.length;i++)if(_fbSel.g[i].st.length)list.push(_fbSel.g[i].n);
+    if(!list.length&&_fbNoteFoc)list.push(_fbNoteFoc);
+    if(!list.length)return 'Select a note first';
+  }else{
+    list=_fbVisibleNotes().slice();
+    x0=-_fbBoxW/2;y0=-_fbBoxH/2;x1=_fbBoxW/2;y1=_fbBoxH/2;
+  }
+  for(i=0;i<list.length;i++){n=list[i];
+    if(n.x<x0)x0=n.x;if(n.y<y0)y0=n.y;if(n.x+n.w>x1)x1=n.x+n.w;if(n.y+n.h>y1)y1=n.y+n.h;}
+  var sw=st.clientWidth,sh=st.clientHeight,C=_fbPageC();
+  if(!sw||!sh||x1<=x0||y1<=y0)return '';
+  var z=Math.min((sw-2*FB_FRAME_PAD)/(x1-x0),(sh-2*FB_FRAME_PAD)/(y1-y0));
+  _fbZ=Math.max(FB_Z_MIN,Math.min(FB_Z_MAX,z));
+  // stage centre = C + T + Z x rect centre
+  _fbTX=sw/2-C.x-_fbZ*(x0+x1)/2;
+  _fbTY=sh/2-C.y-_fbZ*(y0+y1)/2;
+  _fbClampPan();_fbApplyXf();_fbSyncFit();
+  return what==='sel'?(list.length>1?list.length+' notes':'Note'):'All';
+}
+
+// 146 — DESK COLOUR. '' = the dark desk (as before, pills keep the scene
+// theme); 'scene' = the 3D scene's background (pills then match exactly as
+// they do in the scene); '#rrggbb' = a picked colour, and the pills, their
+// ink and borders are derived from it the way the scene themes are (a pill
+// is the background nudged a few percent, ink flips at mid luminance).
+// Everything is written as custom properties on #flipbook, so nothing
+// outside Pages changes.
+var FB_DESK_DEFAULT='#1b1b1d',_fbDesk='';
+var FB_DESK_PROPS=['--fb-desk','--fb-dink','--fb-dink2','--fb-dname','--surf','--surf-press','--ink','--ink-r','--ink-g','--ink-b','--bdr'];
+function _fbDeskHex(){return _fbDesk==='scene'?_fbBgHex():(_fbDesk||FB_DESK_DEFAULT);}
+function _fbHexMix(a,b,t){
+  function ch(h,i){return parseInt(h.substr(1+i*2,2),16);}
+  var o='#',i,v;
+  for(i=0;i<3;i++){v=Math.round(ch(a,i)+(ch(b,i)-ch(a,i))*t);o+=(v<16?'0':'')+v.toString(16);}
+  return o;
+}
+function _fbDeskApply(){
+  var fb=_fbEl('flipbook');if(!fb)return;
+  var st=fb.style,i;
+  for(i=0;i<FB_DESK_PROPS.length;i++)st.removeProperty(FB_DESK_PROPS[i]);
+  if(window._fbDeskSyncBtn)window._fbDeskSyncBtn();
+  if(!_fbDesk)return;
+  var hex=_fbDeskHex().toLowerCase();
+  var r=parseInt(hex.substr(1,2),16),g=parseInt(hex.substr(3,2),16),b=parseInt(hex.substr(5,2),16);
+  var lum=(0.299*r+0.587*g+0.114*b)/255,dark=lum<0.45;
+  st.setProperty('--fb-desk',hex);
+  // desk lettering (page count, hint): readable on either kind of desk
+  st.setProperty('--fb-dink',dark?'#8d8d96':'rgba(26,26,46,.62)');
+  st.setProperty('--fb-dink2',dark?'#6a6a73':'rgba(26,26,46,.42)');
+  st.setProperty('--fb-dname',dark?'#d9d5cd':'#1a1a2e');
+  if(_fbDesk==='scene')return;      // pills: the scene theme, untouched
+  var surf=lum>0.82?_fbHexMix(hex,'#000000',0.09):_fbHexMix(hex,'#ffffff',lum<0.25?0.10:0.05);
+  var press=lum>0.82?_fbHexMix(hex,'#000000',0.16):_fbHexMix(surf,dark?'#ffffff':'#000000',0.08);
+  st.setProperty('--surf',surf);st.setProperty('--surf-press',press);
+  st.setProperty('--ink',dark?'#e8e4dc':'#1a1a2e');
+  st.setProperty('--ink-r',dark?'232':'26');st.setProperty('--ink-g',dark?'228':'26');st.setProperty('--ink-b',dark?'220':'46');
+  st.setProperty('--bdr',dark?_fbHexMix(surf,'#ffffff',0.14):_fbHexMix(surf,'#000000',0.14));
+}
+function _fbDeskSet(v){_fbDesk=v;_fbDeskApply();if(typeof _savePrefs==='function')_savePrefs();}
+
 function _fbSyncFit(){
   var b=_fbEl('fb-fit');
   if(b)b.classList.toggle('on',_fbZ!==1||!!_fbTX||!!_fbTY);
@@ -13522,6 +13644,7 @@ function openFlipbook(){
   _fbRefresh();
   // After 'open': the _fbSyncNotesUI() call above ran while #flipbook was still
   // display:none, so the palette had no height to fit against yet.
+  _fbDeskApply();   // 146: 'scene' follows the scene background as it is now
   if(window._fbPalSync)window._fbPalSync();
   _fbPalFit();
   var pb=_fbEl('pgbtn');if(pb)pb.classList.add('on');
@@ -13827,6 +13950,43 @@ function togglePages(){if(_fbOpen)closeFlipbook();else openFlipbook();}
     var top=_fbEl('fb-top');if(!top||_fbEl('fb-tb'))return;
     var tb=document.createElement('div');tb.id='fb-tb';
     ['fb-fit','fb-notes-edit','fb-live'].forEach(function(id){var b=_fbEl(id);if(b)tb.appendChild(b);});
+    // 146: desk colour. A swatch button; its popover has Dark (default),
+    // Scene (the 3D background), White and a free picker.
+    var dk=document.createElement('button');dk.id='fb-desk';dk.title='Desk colour';dk.innerHTML='<i></i>';tb.appendChild(dk);
+    var dp=document.createElement('div');dp.id='fb-deskpop';
+    dp.innerHTML='<button data-dk="" title="Dark desk"><i style="background:#1b1b1d"></i></button>'+
+      '<button data-dk="scene" title="Same as the 3D scene"><i class="fb-dk-scene"></i></button>'+
+      '<button data-dk="#f2f2f4" title="White desk"><i style="background:#f2f2f4"></i></button>'+
+      '<label title="Pick a colour"><i class="fb-dk-pick"></i><input type="color" value="#6b7a6e"></label>';
+    (_fbEl('flipbook')||document.body).appendChild(dp);
+    var dpIn=dp.querySelector('input'),dpLb=dp.querySelector('label');
+    window._fbDeskSyncBtn=function(){
+      var sw=dk.firstChild;if(sw)sw.style.background=_fbDeskHex();
+      var sc=dp.querySelector('.fb-dk-scene');if(sc)sc.style.background=_fbBgHex();
+      var bs=dp.querySelectorAll('button'),k,custom=!!_fbDesk&&_fbDesk!=='scene'&&_fbDesk!=='#f2f2f4';
+      for(k=0;k<bs.length;k++)bs[k].classList.toggle('on',bs[k].getAttribute('data-dk')===_fbDesk);
+      dpLb.classList.toggle('on',custom);if(custom)dpIn.value=_fbDesk;
+    };
+    function dpClose(){dp.classList.remove('on');dk.classList.remove('open');}
+    dk.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(dp.classList.contains('on')){dpClose();return;}
+      window._fbDeskSyncBtn();dp.classList.add('on');dk.classList.add('open');
+      var br=dk.getBoundingClientRect(),pw=dp.offsetWidth;
+      dp.style.left=Math.max(8,Math.min(br.left+br.width/2-pw/2,window.innerWidth-pw-8))+'px';
+      dp.style.top=(br.bottom+8)+'px';
+    });
+    dp.addEventListener('click',function(e){
+      e.stopPropagation();
+      var t=e.target;while(t&&t!==dp&&!(t.getAttribute&&t.getAttribute('data-dk')!==null))t=t.parentNode;
+      if(t&&t!==dp){_fbDeskSet(t.getAttribute('data-dk'));dpClose();}
+    });
+    dpIn.addEventListener('input',function(){_fbDeskSet(dpIn.value);});
+    document.addEventListener('pointerdown',function(e){
+      if(!dp.classList.contains('on'))return;
+      var t=e.target;while(t){if(t===dp||t===dk)return;t=t.parentNode;}
+      dpClose();
+    },true);
     var nw=document.createElement('div');nw.id='fb-tb-new';tb.appendChild(nw);
     top.insertBefore(tb,top.firstChild);
   })();
@@ -14372,14 +14532,25 @@ function togglePages(){if(_fbOpen)closeFlipbook();else openFlipbook();}
     prB.className='fb-tp-pr';
     toolPop.appendChild(prB);
     // 136i: smoothing (cycles), partial erase, delete selection.
-    var smB=mk('Smoothing \u2014 applied when you lift');smB.className='fb-tp-sm';
-    function syncSm(){smB.textContent='Smoothing: '+['Off','Low','Mid','High'][_fbSmooth];smB.classList.toggle('on',_fbSmooth>0);}
-    on(smB,function(){_fbSmooth=(_fbSmooth+1)%4;syncSm();_savePrefs();});
+    // 146: smoothing is a slider row (applied when you lift).
+    var smB=document.createElement('div');smB.className='fb-tp-sm fb-tp-row';smB.title='Smoothing \u2014 applied when you lift';
+    smB.innerHTML='<span>Smoothing</span><input type="range" min="0" max="100" step="5"><span class="fb-tp-v"></span>';
+    var smR=smB.querySelector('input'),smV=smB.querySelector('.fb-tp-v');
+    function syncSm(){smR.value=_fbSmooth;smV.textContent=_fbSmooth?(_fbSmooth+''):'Off';}
+    smR.addEventListener('input',function(){_fbSmooth=+smR.value;smV.textContent=_fbSmooth?(_fbSmooth+''):'Off';});
+    smR.addEventListener('change',function(){_savePrefs();});
+    smB.addEventListener('pointerdown',function(e){e.stopPropagation();});
     toolPop.appendChild(smB);
     var ptB=mk('Partial erase \u2014 only what is under the eraser');ptB.className='fb-tp-part';ptB.textContent='Partial erase';
     function syncPt(){ptB.classList.toggle('on',_fbErasePart);}
     on(ptB,function(){_fbErasePart=!_fbErasePart;syncPt();_savePrefs();});
     toolPop.appendChild(ptB);
+    // 146: three framing commands in the Select menu.
+    [['Frame page','page'],['Frame selected notes','sel'],['Frame all','all']].forEach(function(r){
+      var fb2=mk(r[0]);fb2.className='fb-tp-fr';fb2.textContent=r[0];
+      on(fb2,function(){var m=_fbFrame(r[1]);if(m)toast(m);toolPop.classList.remove('on');});
+      toolPop.appendChild(fb2);
+    });
     var dpB=mk('Duplicate the selected strokes');dpB.className='fb-tp-dup';dpB.textContent='Duplicate';
     on(dpB,function(){toast(_fbSelDuplicate()?'Duplicated':'Nothing selected');toolPop.classList.remove('on');});
     toolPop.appendChild(dpB);
@@ -20779,7 +20950,7 @@ window._setSnapEnabled=function(v){
       if(!ncDrag)return;
       const dx=p.x-ncDrag.sx,dy=p.y-ncDrag.sy;
       if(Math.hypot(dx,dy)>4){ncDrag.moved=true;}
-      if(ncDrag.moved){cam.theta=ncDrag.st+dx*.022;cam.phi=Math.max(.05,Math.min(Math.PI-.05,ncDrag.sp-dy*.022));updCam();draw();}
+      if(ncDrag.moved){cam.theta=ncDrag.st+_orbX(dx)*ORBIT_RATE;cam.phi=Math.max(.05,Math.min(Math.PI-.05,ncDrag.sp-dy*ORBIT_RATE));updCam();draw();}
     }
     function onMouseUp(e){
       if(!ncDrag)return;
@@ -20805,7 +20976,7 @@ window._setSnapEnabled=function(v){
       if(!ncDrag)return;
       const p=getPos(e);const dx=p.x-ncDrag.sx,dy=p.y-ncDrag.sy;
       if(Math.hypot(dx,dy)>4){ncDrag.moved=true;if(ncHoldTimer){clearTimeout(ncHoldTimer);ncHoldTimer=null;}}
-      if(ncDrag.moved){cam.theta=ncDrag.st+dx*.022;cam.phi=Math.max(.05,Math.min(Math.PI-.05,ncDrag.sp-dy*.022));updCam();draw();}
+      if(ncDrag.moved){cam.theta=ncDrag.st+_orbX(dx)*ORBIT_RATE;cam.phi=Math.max(.05,Math.min(Math.PI-.05,ncDrag.sp-dy*ORBIT_RATE));updCam();draw();}
     }
     function onTouchEnd(e){
       e.stopPropagation();
