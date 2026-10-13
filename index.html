@@ -2406,7 +2406,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   </button>
   <!-- Symmetry: tap mirrors strokes across the surface center, arrow opens V/H axis dropdown -->
   <button class="btn btn-sm" id="bsym" title="Symmetry: mirror strokes across plane center">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="1" x2="7" y2="13" stroke-dasharray="1.6 1.6"/><path d="M4.2 3L2 4.5V9.5L4.2 11"/><path d="M9.8 3L12 4.5V9.5L9.8 11"/></svg>
+    <svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M14.58 14.06C21.18 19.83 10.45 25.61 17.05 32.21M29.42 14.06C22.82 19.83 33.55 25.61 26.95 32.21M22 9.11L22 9.93M22 13.94L22 14.77M22 18.78L22 19.6M22 23.62L22 24.44M22 28.45L22 29.27M22 33.29L22 34.11" stroke-width="3.12"/></svg>
   </button>
   <button class="btn btn-sm" id="bsym-arrow" title="Symmetry axis" style="width:20px;height:30px;padding:0;margin-left:-5px">
     <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 3L4 5.5L6.5 3"/></svg>
@@ -2427,7 +2427,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   <div class="tsep"></div>
   <!-- Pages + Views -->
   <button class="btn btn-lbl" id="pgbtn" title="Pages" style="width:30px;padding:0"><svg class="tb-ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2H6Q7 2.2 7 3.4V12Q7 11 6 11H2Z"/><path d="M12 2.2H8Q7 2.2 7 3.4V12Q7 11 8 11H12Z"/><path d="M9.4 1.2Q12 2.6 11.3 5.2"/></svg></button>
-  <button class="btn btn-lbl" id="vwbtn" title="Saved Views" style="width:30px;padding:0"><svg class="tb-ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.2 4.6H4L5.2 3H8.8L10 4.6H12.8V11H1.2Z"/><circle cx="7" cy="7.6" r="2.3"/></svg></button>
+  <button class="btn btn-lbl" id="vwbtn" title="Saved Views" style="width:30px;padding:0"><svg class="tb-ico" width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M15.6 10.6L28.4 10.6Q30.4 10.6 30.4 12.6L30.4 32.4Q30.4 33.6 29.4 32.9L22 27.6L14.6 32.9Q13.6 33.6 13.6 32.4L13.6 12.6Q13.6 10.6 15.6 10.6Z" stroke-width="3.12"/></svg></button>
   <div class="tsep"></div>
   <!-- File menu: save, load, export, png, record, scale -->
   <button class="btn btn-sm" id="bfile" title="File · save, load, export">
@@ -2700,7 +2700,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   <!-- Plane gizmo parts -->
   <div id="ghud" class="card" style="padding:0">
     <div class="pb-panel-hdr">
-      <button class="cyc-btn on" id="sb-cyc-mode"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2.6L9.6 7L7 11.4L4.4 7Z"/><path d="M4.9 1.6L7 0.6L9.1 1.6" stroke-width="1.15"/><path d="M4.9 12.4L7 13.4L9.1 12.4" stroke-width="1.15"/><path d="M2.2 5.5L1 7L2.2 8.5" stroke-width="1.15"/><path d="M11.8 5.5L13 7L11.8 8.5" stroke-width="1.15"/></svg></button>
+      <button class="cyc-btn on" id="sb-cyc-mode"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M24.2 23.08L24.2 23.79C24.2 24.22 24.2 24.43 24.12 24.66C24.03 24.92 23.83 25.11 23.58 25.21C23.35 25.28 23.13 25.28 22.7 25.28L21.3 25.28C20.87 25.28 20.65 25.28 20.42 25.21C20.17 25.11 19.97 24.92 19.88 24.66C19.8 24.43 19.8 24.22 19.8 23.79L19.8 22.38C19.8 21.95 19.8 21.73 19.88 21.5C19.97 21.25 20.17 21.05 20.42 20.96C20.65 20.88 20.87 20.88 21.3 20.88L22.7 20.88C23.13 20.88 23.35 20.88 23.58 20.96C23.83 21.05 24.03 21.25 24.12 21.5C24.2 21.73 24.2 21.95 24.2 22.38ZM22 18.93L22 8.92M25.32 12.24L22 8.92L18.68 12.24M25.59 25.16L34.26 30.16M29.73 31.38L34.26 30.16L33.05 25.63M18.41 25.16L9.74 30.16M10.95 25.63L9.74 30.16L14.27 31.38M25.18 12.72L25.18 12.72C30.61 14.38 33.84 19.97 32.56 25.52M29.39 31.01L29.39 31.01C25.23 34.89 18.77 34.89 14.61 31.01M11.44 25.52L11.44 25.52C10.16 19.97 13.39 14.38 18.83 12.72" stroke-width="3.12"/></svg></button>
       <button class="cyc-btn on" id="sb-cyc-plane">Front</button>
       <button class="cyc-btn on" id="sb-cyc-axis"><span class="ax-x">X</span><span class="ax-y">Y</span><span class="ax-z">Z</span></button>
       <button class="cyc-btn on" id="sb-cyc-surf"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2.6" y="2.6" width="8.8" height="8.8" rx="0.6" fill="currentColor" fill-opacity="0.22"/></svg></button>
@@ -2728,10 +2728,10 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
         <div id="ghud-sel-prec" style="display:none;position:absolute;bottom:2px;left:4px;font-size:7px;color:var(--ink);font-family:'DM Mono',monospace;letter-spacing:.03em;pointer-events:none;text-shadow:0 0 4px var(--pan),0 0 4px var(--pan)"></div>
       </div>
       <div id="ghud-bottom">
-        <button id="greset" class="btn btn-lbl" style="font-size:6.5px" title="Reset"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.6L7 2.4L12 6.6"/><path d="M3.5 6.1V11.6H10.5V6.1"/></svg></button>
+        <button id="greset" class="btn btn-lbl" style="font-size:6.5px" title="Reset"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M22 12.83C27.06 12.83 31.15 16.94 31.15 22C31.15 27.06 27.06 31.15 22 31.15C16.94 31.15 12.85 27.06 12.85 22C12.85 21.52 12.87 21.03 12.96 20.57M27.04 8.56L22 12.83L27.04 17.12" stroke-width="3.12"/></svg></button>
         <button id="gsnap" class="btn btn-lbl on" style="font-size:6.5px" title="Snap"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(45 7 7)"><path d="M4 2H6.2V7.2A1.1 1.1 0 0 0 8.4 7.2V2H10.6V7.2A3.3 3.3 0 0 1 4 7.2Z"/><path d="M4 4.4H6.2" stroke-width="1.1"/><path d="M8.4 4.4H10.6" stroke-width="1.1"/></g></svg></button>
-        <button id="gface" class="btn btn-lbl" style="font-size:6.5px" title="Align camera to face the drawing plane"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0.5 7Q1.7 5.4 3 5.4Q4.3 5.4 5.5 7Q4.3 8.6 3 8.6Q1.7 8.6 0.5 7Z"/><circle cx="3" cy="7" r="0.85" fill="currentColor" stroke="none"/><line x1="11.5" y1="2" x2="11.5" y2="12" stroke-width="1.4"/><line x1="6.4" y1="7" x2="9.4" y2="7" stroke-width="1.1"/><path d="M8 5.7L9.4 7L8 8.3" stroke-width="1.1"/></svg></button>
-        <button id="gview" class="btn btn-lbl" style="font-size:6.5px" title="Align plane to face camera"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="2.5" y1="2" x2="2.5" y2="12" stroke-width="1.4"/><path d="M4.6 3.6Q7.2 5.2 7.2 7Q7.2 8.8 4.6 10.4" stroke-width="1.1"/><path d="M3.4 3.9L4.6 3.6L4.9 4.9" stroke-width="1.1"/><path d="M8.5 7Q9.7 5.4 11 5.4Q12.3 5.4 13.5 7Q12.3 8.6 11 8.6Q9.7 8.6 8.5 7Z"/><circle cx="11" cy="7" r="0.85" fill="currentColor" stroke="none"/></svg></button>
+        <button id="gface" class="btn btn-lbl" style="font-size:6.5px" title="Align camera to face the drawing plane"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M14.97 10.75L12.51 10.75Q10.75 10.75 10.75 12.51L10.75 14.97M29.03 10.75L31.49 10.75Q33.25 10.75 33.25 12.51L33.25 14.97M14.97 33.25L12.51 33.25Q10.75 33.25 10.75 31.49L10.75 29.03M29.03 33.25L31.49 33.25Q33.25 33.25 33.25 31.49L33.25 29.03M27.62 22L27.62 25.48C27.62 26.09 27.62 26.4 27.52 26.74C27.39 27.1 27.1 27.39 26.74 27.52C26.4 27.62 26.09 27.62 25.48 27.62L18.52 27.62C17.91 27.62 17.6 27.62 17.26 27.52C16.9 27.39 16.61 27.1 16.48 26.74C16.37 26.4 16.37 26.09 16.37 25.48L16.37 18.52C16.37 17.91 16.37 17.6 16.48 17.26C16.61 16.9 16.9 16.61 17.26 16.48C17.6 16.37 17.91 16.37 18.52 16.37L25.48 16.37C26.09 16.37 26.4 16.37 26.74 16.48C27.1 16.61 27.39 16.9 27.52 17.26C27.62 17.6 27.62 17.91 27.62 18.52Z" stroke-width="3.12"/></svg></button>
+        <button id="gview" class="btn btn-lbl" style="font-size:6.5px" title="Align plane to face camera"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M17.47 26.41L16.33 26.41Q14.92 26.41 14.35 27.82L11.23 32.07Q10.67 33.49 12.44 33.49L31.56 33.49Q33.33 33.49 32.77 32.07L29.65 27.82Q29.08 26.41 27.67 26.41L26.53 26.41M22 29.95L22 21.72M19.95 23.77L22 21.72L24.05 23.77M12.08 14.01Q22 5.68 31.92 14.01Q22 22.34 12.08 14.01" stroke-width="3.12"/><path d="M23.56 14.01C23.56 14.87 22.86 15.57 22 15.57C21.14 15.57 20.44 14.87 20.44 14.01C20.44 13.15 21.14 12.45 22 12.45C22.86 12.45 23.56 13.15 23.56 14.01Z" fill="currentColor" stroke="none"/></svg></button>
         <button id="glocal" class="btn btn-lbl" style="font-size:6.5px" title="Toggle 3D local gizmo overlay"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 12.2L4.6 10.2L11.8 10.2L9.4 12.2Z" fill="currentColor" fill-opacity="0.20" stroke-width="0.95"/><circle cx="7" cy="11.2" r="0.85" fill="currentColor" stroke="none"/><path d="M7 11.2V2.2" stroke-width="1.2"/><path d="M5.6 3.6L7 2.0L8.4 3.6" stroke-width="1.2"/><path d="M7 11.2L12.4 8.4" stroke-width="1.05"/><path d="M10.7 8.2L12.7 8.2L12.2 10.0" stroke-width="1.05"/></svg></button>
         <button id="gc-axmode" class="btn btn-lbl" style="font-size:6.5px" title="World axes — tap for local" onclick="window._gcToggleAxisMode&&window._gcToggleAxisMode()"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.2"/><ellipse cx="7" cy="7" rx="2.2" ry="5.2"/><line x1="1.8" y1="7" x2="12.2" y2="7"/><path d="M2.7 4.2Q7 5.8 11.3 4.2" stroke-width="1"/><path d="M2.7 9.8Q7 8.2 11.3 9.8" stroke-width="1"/></svg></button>
       </div>
@@ -2776,7 +2776,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
       <button id="nav-toggle" class="cyc-btn" style="letter-spacing:.03em">NAV</button>
       <button id="nav-persp" class="cyc-btn nav-persp-btn" title="Toggle perspective/ortho"></button>
       <button id="nav-reset" class="cyc-btn" title="Reset view">
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.6L7 2.4L12 6.6"/><path d="M3.5 6.1V11.6H10.5V6.1"/></svg>
+        <svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M14.97 10.62L12.51 10.62Q10.75 10.62 10.75 12.38L10.75 14.84M29.03 10.62L31.49 10.62Q33.25 10.62 33.25 12.38L33.25 14.84M14.97 33.12L12.51 33.12Q10.75 33.12 10.75 31.37L10.75 28.9M29.03 33.12L31.49 33.12Q33.25 33.12 33.25 31.37L33.25 28.9M15.67 22.23L22 16.25L28.33 22.23M17.08 21.17L17.08 26.8L26.92 26.8L26.92 21.17" stroke-width="3.12"/></svg>
       </button>
       <div id="nav-zoom" class="nav-zoom-jog" title="Zoom — tap a side for one step, hold and slide for continuous">
         <span class="nzj-track"></span><span class="nzj-tick"></span><span class="nzj-thumb"></span>
@@ -3021,8 +3021,8 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   <div id="fb-top">
     <div id="fb-name" title="Tap to rename">001</div>
     <button id="fb-notes-edit" title="Edit notes">&#9998;</button>
-    <button id="fb-live" title="Live 3D view of this page">3D</button>
-    <button id="fb-fit" title="Fit page">&#9723;</button>
+    <button id="fb-live" title="Live 3D view of this page"><svg width="18" height="18" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M25.61 18.62L26.59 18.83L27.5 19.09L28.35 19.41L29.14 19.78L29.82 20.18L30.44 20.6L30.93 21.07L31.31 21.54L31.59 22.05L31.75 22.56L31.78 23.08L31.71 23.59L31.52 24.12L31.21 24.61L30.79 25.08L30.26 25.54L29.65 25.95L28.93 26.34L28.12 26.69L27.25 26.99L26.3 27.25L25.31 27.44L24.29 27.6L23.23 27.69L22.16 27.72L21.07 27.7L20.01 27.63L18.97 27.49L17.98 27.3L17.01 27.07L16.12 26.78L15.3 26.45L14.55 26.08L13.9 25.66L13.34 25.22L12.88 24.75L12.55 24.26L12.32 23.75L12.22 23.22L12.22 22.72L12.36 22.19L12.59 21.69L12.95 21.2L13.41 20.74L13.99 20.29L14.65 19.88L15.4 19.51L16.24 19.18M15.47 23.03L16.24 19.18L20.09 19.95M22 12.16L22 15.31M22 30.7L22 31.75" stroke-width="3.12"/></svg></button>
+    <button id="fb-fit" title="Fit page"><svg width="18" height="18" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M28 19.6L27.93 20.7L27.71 21.77L27.36 22.81L26.87 23.8L26.26 24.71L25.54 25.54L24.71 26.26L23.8 26.87L22.81 27.36L21.77 27.71L20.7 27.93L19.6 28L18.5 27.93L17.43 27.71L16.39 27.36L15.4 26.87L14.49 26.26L13.66 25.54L12.94 24.71L12.33 23.8L11.84 22.81L11.49 21.77L11.27 20.7L11.2 19.6L11.27 18.5L11.49 17.43L11.84 16.39L12.33 15.4L12.94 14.49L13.66 13.66L14.49 12.94L15.4 12.33L16.39 11.84L17.43 11.49L18.5 11.27L19.6 11.2L20.7 11.27L21.77 11.49L22.81 11.84L23.8 12.33L24.71 12.94L25.54 13.66L26.26 14.49L26.87 15.4L27.36 16.39L27.71 17.43L27.93 18.5L28 19.6ZM25.94 25.94 L33.2 33.2" stroke-width="3.12"/><path d="M16.3 16.3L22.9 22.9M16.3 18.9L16.3 16.3L18.9 16.3M20.3 22.9L22.9 22.9L22.9 20.3" stroke-width="2.50"/></svg></button>
     <button id="fb-close" title="Close">&#10005;</button>
   </div>
   <div id="fb-pal"></div>
@@ -3179,7 +3179,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
     <button class="tc-b" data-tct="pen" title="Pen (D)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.8 1.8H10.2V5L7 12.4L3.8 5Z"/><path d="M7 12.4V7.6"/><circle cx="7" cy="6.6" r=".9"/></svg></button>
     <button class="tc-b" data-tct="marker" title="Marker (F)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 9.4L9.4 3.4L11.2 5.2L5.2 11.2H3.4Z"/><path d="M8.2 4.6L10 6.4"/><path d="M1.6 12.8H12.4"/></svg></button>
     <button class="tc-b" data-tct="lasso" title="Lasso Fill (O)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2.2C10.2 2.2 12.4 3.7 12.4 5.7S10.2 9.2 7 9.2S1.6 7.7 1.6 5.7S3.8 2.2 7 2.2Z"/><path d="M4.6 8.7Q3.4 10.6 4.6 12.4"/></svg></button>
-    <button class="tc-b" data-tct="erase" title="Eraser (E)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L8 4L11 7L6 12Z"/><line x1="1" y1="12" x2="13" y2="12"/></svg></button>
+    <button class="tc-b" data-tct="erase" data-ev="whole" title="Eraser · Full line (E)"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12" fill="currentColor"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg></button>
     <button class="tc-b" data-tct="select" title="Select (Q)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3L3 10L6 8L8 12L10 11L8 7L11 7Z"/></svg></button>
   </div>
   <!-- Phase C (133): CONTROL visibility. Tap = Both <-> Hide Both (a single-
@@ -3228,16 +3228,16 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   <div id="ctl-host"></div>
 </div>
 <div id="ctl-park">
-  <button id="nav-frame" title="Frame All"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.8 1.8L4.8 4.8M4.8 2.6V4.8H2.6M12.2 1.8L9.2 4.8M9.2 2.6V4.8H11.4M1.8 12.2L4.8 9.2M2.6 9.2H4.8V11.4M12.2 12.2L9.2 9.2M11.4 9.2H9.2V11.4"/></svg></button>
+  <button id="nav-frame" title="Frame All"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M28 19.6L27.93 20.7L27.71 21.77L27.36 22.81L26.87 23.8L26.26 24.71L25.54 25.54L24.71 26.26L23.8 26.87L22.81 27.36L21.77 27.71L20.7 27.93L19.6 28L18.5 27.93L17.43 27.71L16.39 27.36L15.4 26.87L14.49 26.26L13.66 25.54L12.94 24.71L12.33 23.8L11.84 22.81L11.49 21.77L11.27 20.7L11.2 19.6L11.27 18.5L11.49 17.43L11.84 16.39L12.33 15.4L12.94 14.49L13.66 13.66L14.49 12.94L15.4 12.33L16.39 11.84L17.43 11.49L18.5 11.27L19.6 11.2L20.7 11.27L21.77 11.49L22.81 11.84L23.8 12.33L24.71 12.94L25.54 13.66L26.26 14.49L26.87 15.4L27.36 16.39L27.71 17.43L27.93 18.5L28 19.6ZM25.94 25.94 L33.2 33.2" stroke-width="3.12"/><path d="M16.3 16.3L22.9 22.9M16.3 18.9L16.3 16.3L18.9 16.3M20.3 22.9L22.9 22.9L22.9 20.3" stroke-width="2.50"/></svg></button>
   <button id="nav-fps" title="First person"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.7" cy="2.3" r="1"/><path d="M7.4 4.4L6.2 7.4L7.8 9L7.1 12.2M6.2 7.4L4.9 11.8M7.1 5.3L9 6.9M7.1 5.3L5 6.6"/></svg></button>
   <button id="nav-lock" title="Lock Orbit"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4.2" y="6.4" width="5.6" height="4.6" rx="0.9"/><path d="M5.5 6.4V5A1.5 1.5 0 0 1 8.5 5V6.4M1.8 7.4A5 2.4 0 0 0 3.2 9.2M12.2 7.4A5 2.4 0 0 1 10.8 9.2"/></svg></button>
   <button id="gmore" title="More"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="3.2" cy="7" r=".8" fill="currentColor" stroke="none"/><circle cx="7" cy="7" r=".8" fill="currentColor" stroke="none"/><circle cx="10.8" cy="7" r=".8" fill="currentColor" stroke="none"/></svg></button>
   <!-- 134: Move Plane to Selection (gizmo More page; also a Select action). -->
-  <button id="gfit" title="Plane to selection"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.6 10.4L4.6 7.4H12.4L9.4 10.4Z"/><path d="M5.6 4.2L7 2.6L8.4 4.2M7 2.6V6.2"/><circle cx="4" cy="3.4" r=".7" fill="currentColor" stroke="none"/><circle cx="10.2" cy="4.6" r=".7" fill="currentColor" stroke="none"/></svg></button>
+  <button id="gfit" title="Plane to selection"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M17.21 25.33L16.84 25.33Q15.36 25.33 14.77 26.8L10.79 31.59Q10.2 33.07 12.05 33.07L31.95 33.07Q33.8 33.07 33.21 31.59L29.23 26.8Q28.64 25.33 27.16 25.33L26.79 25.33M22 9.48L22 24.96M14.26 17.22L29.74 17.22M19.64 11.84L22 9.48L24.36 11.84M19.64 22.6L22 24.96L24.36 22.6M16.62 14.86L14.26 17.22L16.62 19.58M27.38 14.86L29.74 17.22L27.38 19.58" stroke-width="3.12"/></svg></button>
   <!-- Phase C (133): First Person move-stick pill. Up/Down are the existing
        #fps-vt-up / #fps-vt-down (moved in); these two are new. -->
   <button id="fps-exit2" title="Exit first person"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 2.2H11.8V11.8H8.4"/><path d="M6.4 4.4L3.8 7L6.4 9.6M3.8 7H9.6"/></svg></button>
-  <button id="fps-trace" title="Trace plane"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.8 9.4L5.2 5.6H12.2L8.8 9.4Z"/><path d="M7 2V7.6" stroke-dasharray="1.2 1.4"/><circle cx="7" cy="2" r=".9" fill="currentColor" stroke="none"/></svg></button>
+  <button id="fps-trace" data-tm="2" title="Trace plane: Scene"><svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><defs><mask id="trace-scene-cut1" maskUnits="userSpaceOnUse" x="-10" y="-10" width="64" height="64"><rect x="-10" y="-10" width="64" height="64" fill="white"/><path d="M24.55 8.46L22.11 18.72L19.67 8.46M23.01 14.41L21.21 14.41" fill="black" stroke="black" stroke-width="6.25"/></mask></defs><g mask="url(#trace-scene-cut1)"><path d="M22 14.23L31.8 19.13L31.8 28.93L22 33.83L12.2 28.93L12.2 19.13ZM12.2 19.13L22 24.03L31.8 19.13M22 24.03L22 33.83" stroke-width="3.12"/></g><path d="M24.55 8.46L22.11 18.72L19.67 8.46M23.01 14.41L21.21 14.41" stroke-width="2.50"/></svg></button>
   <button id="gback" class="on" title="Back"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8.6 3L4.6 7L8.6 11"/></svg></button>
 </div>
 <div id="ctl-dbg"></div>
@@ -3282,6 +3282,19 @@ const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.01,2000);
 let orthoZoom=8;
 const ortho=new THREE.OrthographicCamera(-orthoZoom,orthoZoom,orthoZoom,-orthoZoom,-2000,4000);
 let useOrtho=false;
+// Session 151 — AUTO ORTHO. A preset-view snap (NavCube face, Align View to
+// Plane) switches to ortho. When that snap is what turned ortho on, it is a
+// property of the VIEW, not a projection the user chose: orbiting away from
+// the snapped direction hands back the projection the snap found (perspective).
+// {th,ph} = the snapped direction; null = no auto ortho in force. Any explicit
+// projection choice (toggle, saved view, new scene, file load, FPS) clears it,
+// so a projection the user picked is never taken away. Checked in ONE place,
+// updCam(), so every orbit path (1F/2F/3F, NavCube drag, any future one) is
+// covered without a per-call-site hook — the _orbX() lesson (Rule #226).
+var _autoOrtho=null;
+var AUTO_ORTHO_COS=Math.cos(3*Math.PI/180); // leave the snapped view by more than 3° → back to perspective
+// True while setOrtho(false)'s 400ms lerp is running (useOrtho still true).
+var _orthoToPersp=false;
 function activeCam(){return useOrtho?ortho:camera;}
 // preserveDrawingBuffer is deliberately FALSE (session 113). Setting it true
 // forces the browser to keep a second copy of the colour buffer and blocks the
@@ -3396,7 +3409,11 @@ function formatSize(x,y,z){
     if(!anchor){pipEl.style.top='12px';return;}
     var r=anchor.getBoundingClientRect();
     if(!r.height){pipEl.style.top='12px';return;}
-    pipEl.style.top=Math.round(r.bottom+8)+'px';
+    var py=Math.round(r.bottom+8);
+    // Bottom: the status pill sits right here (under the topbar, or under the
+    // open #prim-bar) and above this popup — open below it instead.
+    if(window._stClearY)py=window._stClearY(py,8);
+    pipEl.style.top=py+'px';
   }
   window._pipOpen=function(label,raw,kind,applyFn){
     _pipEls();if(!pipEl)return;
@@ -5160,6 +5177,15 @@ function updCam(){
     var p=new THREE.Vector3(target.x+radius*Math.sin(phi)*Math.cos(theta),target.y+radius*Math.sin(phi)*Math.sin(theta),target.z+radius*Math.cos(phi));
     camera.position.copy(p);camera.up.set(0,0,1);camera.lookAt(target);
     ortho.position.copy(p);ortho.up.set(0,0,1);ortho.lookAt(target);syncOrtho();
+    // Auto ortho (session 151): orbited out of the snapped view → perspective.
+    // Angle between the two view directions on the unit sphere. Pan and zoom
+    // never change theta/phi, so they keep ortho. _autoOrtho is cleared BEFORE
+    // setOrtho(false), whose lerp calls back into updCam().
+    if(_autoOrtho&&useOrtho&&!_orthoToPersp){
+      var _ao=_autoOrtho;
+      var _aoc=Math.sin(phi)*Math.sin(_ao.ph)*Math.cos(theta-_ao.th)+Math.cos(phi)*Math.cos(_ao.ph);
+      if(_aoc<AUTO_ORTHO_COS){_autoOrtho=null;setOrtho(false);}
+    }
   }
   // Session 120: was markDirty(). EVERY camera move in the app funnels through
   // this one line, which is why the view/content split needed exactly one edit
@@ -8305,8 +8331,8 @@ var SB_ICO_LYR_ACT=SB_ICO_HEAD+'<path d="M7 1.8L12.4 4.7L7 7.6L1.6 4.7Z" fill="c
 var SB_ICO_LYR_ALL=SB_ICO_HEAD+'<path d="M7 1.8L12.4 4.7L7 7.6L1.6 4.7Z" fill="currentColor" fill-opacity=".3"/><path d="M1.6 7.3L7 10.2L12.4 7.3M1.6 9.7L7 12.6L12.4 9.7"/></svg>';
 //   ERASE_WHOLE — one unbroken stroke. ERASE_PART — the same stroke with its
 //                 middle missing.
-var SB_ICO_ERASE_WHOLE=SB_ICO_HEAD+'<path d="M1.8 10Q3.6 4.2 7 7Q10.4 9.8 12.2 4"/></svg>';
-var SB_ICO_ERASE_PART=SB_ICO_HEAD+'<path d="M1.8 10Q2.7 7 4.2 6.2"/><path d="M9.8 8.1Q11.3 7 12.2 4"/><path d="M5.8 6.3L6.2 6.6M7.8 7.4L8.2 7.7" stroke-width="1"/></svg>';
+var SB_ICO_ERASE_WHOLE='<svg width="10" height="10" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12" fill="currentColor"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg>';   // S3: filled / outline eraser
+var SB_ICO_ERASE_PART='<svg width="10" height="10" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12"/><path d="M18.54 19.49L24.32 26.38" stroke-width="2.50"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg>';   // S3: filled / outline eraser
 var SB_ICO_SIDE_L=SB_ICO_HEAD+'<rect x="1.5" y="2.5" width="11" height="9" rx="1.5"/><path d="M5.4 2.5H3Q1.5 2.5 1.5 4V10Q1.5 11.5 3 11.5H5.4Z" fill="currentColor" fill-opacity=".3" stroke="none"/><line x1="5.4" y1="2.5" x2="5.4" y2="11.5"/></svg>';
 // One swap, two triggers: #bgestswap in the view popover and #sb-gest in the
 // status bar. Kept as a single function so the toast and the persisted pref
@@ -8318,6 +8344,11 @@ function toggleGestSwap(){
 }
 // stylusOnly: when true, finger touch = navigate (1F orbit, 2F pan); only pen draws
 let stylusOnly=false;
+// _penAutoDone: the first pen contact on this device has already switched
+// stylusOnly on (see the pen-detect listener after toggleStylusOnly). Saved in
+// sk3d_prefs (per device, like stylusOnly itself) so it fires ONCE per device:
+// after that the setting is the user's, and turning it off sticks.
+var _penAutoDone=false;
 
 // ── Invert lateral orbit ────────────────────────────────────────────
 // When true, flips the horizontal (theta) component of orbit drags only —
@@ -8373,7 +8404,7 @@ function _setLastFileName(n){
 function _savePrefs(){
   try{
     localStorage.setItem('sk3d_prefs',JSON.stringify({
-      stylusOnly:stylusOnly,twoFingerMode:twoFingerMode,fpsFly:!!window._fpsFly,
+      stylusOnly:stylusOnly,penAuto:!!_penAutoDone,twoFingerMode:twoFingerMode,fpsFly:!!window._fpsFly,
       invertOrbitX:invertOrbitX,uiTheme:_uiTheme,
       tapGest:_mtTapGest,fileName:_lastFileName,
       fbTaper:_fbTaper,fbTool:_fbTool,fbPress:_fbPress,fbSmoothPct:_fbSmooth,fbDesk:_fbDesk,fbErasePart:_fbErasePart,fbInk:_fbInkColor,fbPen:_fbInkSize,fbErase:_fbErase,
@@ -8413,6 +8444,7 @@ function _loadPrefs(){
     if(!raw)return;
     var p=JSON.parse(raw);
     if(typeof p.stylusOnly==='boolean')stylusOnly=p.stylusOnly;
+    if(p.penAuto===true)_penAutoDone=true;
     if(p.twoFingerMode==='orbit'||p.twoFingerMode==='pan')twoFingerMode=p.twoFingerMode;
     if(typeof p.fpsFly==='boolean')window._fpsFly=p.fpsFly;
     if(typeof p.invertOrbitX==='boolean')invertOrbitX=p.invertOrbitX;
@@ -8831,6 +8863,20 @@ function toggleStylusOnly(){
   updateStylusLabel();updateGestLabel();_savePrefs();
   toast(stylusOnly?'Stylus mode: pen draws, finger navigates':'Stylus mode off');
 }
+// Pen detected → stylus mode, once per device. Any pen contact anywhere
+// (scene, Pages, UI) counts; capture phase so no handler can swallow it. The
+// pen's own gesture is unaffected: stylusOnly only changes what FINGERS do.
+// If stylus mode is already on, only the flag is saved.
+document.addEventListener('pointerdown',function(e){
+  if(_penAutoDone||e.pointerType!=='pen')return;
+  _penAutoDone=true;
+  if(!stylusOnly){
+    stylusOnly=true;
+    updateStylusLabel();updateGestLabel();
+    toast('Pen detected: stylus mode on (finger navigates)');
+  }
+  _savePrefs();
+},true);
 
 // ── Pointer / gesture handling ────────────────────────────────────
 // Store the identifier of the finger that started drawing so we track the right finger even if indices shift
@@ -9486,11 +9532,170 @@ renderer.domElement.addEventListener('touchmove',function(e){
 // the redundant touch events that Android also fires for stylus contacts.
 var _penActive=false;
 
+// ── Palm rejection, scene canvas (Android pen tablets, session 149) ──
+// Android's own palm rejection is AFTER THE FACT: a palm first arrives as a
+// normal touch, and once the OS decides it was a palm it cancels it
+// (touchcancel). The app's job is to undo what that touch did, and to keep
+// out the palms the OS lets through. Layers, most reliable first:
+//   1. stylusOnly, switched on by the first pen contact (see toggleStylusOnly)
+//      — fingers never draw, so a palm can never leave ink.
+//   2. Pen down → touches ignored (_penActive, below — unchanged).
+//   3. Pen wins: a palm that landed first and started orbiting or drawing is
+//      dropped when the pen lands (pen pointerdown).
+//   4. OS cancel → undo: the palm's stroke is dropped (cancelDraw) AND the
+//      camera goes back to where the touch found it (_scCamSnap).
+//   5. Pen hovering → touches ignored (S Pen / Wacom / USI report hover;
+//      only presence is used, never distance — Android says values vary).
+//   6. 800ms after a pen lift → touches ignored (same as Pages, FB_PALM_MS).
+// Contact size (radiusX) is deliberately NOT used: devices report finger size
+// too differently for it to be consistent.
+// 3–6 are armed only once a pen has been seen (_scPenSeen: contact or hover,
+// anywhere in the app), so finger-only devices are unchanged, and never on
+// iPad / iPhone (iPadOS rejects palms itself). A rejected gesture stays
+// rejected until its LAST contact lifts (_scPalmGesture) — a palm is never
+// split into "half palm, half pinch".
+//
+// Session 151 — NOT A USER-AGENT TEST FOR ANDROID ANY MORE. Session 149 gated
+// 3–6 on /Android/ in the UA, and Chrome on large Android tablets requests the
+// DESKTOP site by default: the UA then reads "X11; Linux x86_64", no
+// "Android", and every palm layer past stylus mode was silently off. That is
+// the "palm still interacts on some tablets" report. The gate is inverted to
+// the one platform that must be excluded: Apple touch devices, including
+// iPadOS, which reports itself as a Mac and is told apart by its touch points.
+// Windows / ChromeOS pen devices now get the layers too, which they want.
+// _scPalmOS keeps the old variable's role; the name no longer claims Android.
+var _scIsApple=/iPad|iPhone|iPod/.test(navigator.userAgent||'')||
+  (/Macintosh/.test(navigator.userAgent||'')&&(navigator.maxTouchPoints||0)>1);
+var _scPalmOS=!_scIsApple;
+var _scPenSeen=false,_scPenUpAt=0,_scPenHoverAt=0,_scPalmGesture=false,_scCamSnap=null;
+var SC_PALM_MS=800;    // after a pen lift (layer 6)
+var SC_HOVER_MS=200;   // hover events stream at 60–120Hz; a gap this long = pen out of range (layer 5)
+function _scPalmStart(){
+  if(!_scPalmOS||!_scPenSeen)return false;
+  if(_scPenDown)return true;   // pen on the glass anywhere (UI, Pages, scene)
+  var now=Date.now();
+  if(now-_scPenUpAt<SC_PALM_MS)return true;
+  if(_scPenHoverAt&&now-_scPenHoverAt<SC_HOVER_MS)return true;
+  return false;
+}
+// Layer 4: the camera as the touch gesture found it. Same fields as the tap
+// snapshot (_mtStart) — everything orbit / pan / pinch can change.
+function _scSnapCam(){
+  return {r:cam.radius,oz:orthoZoom,tx:cam.target.x,ty:cam.target.y,tz:cam.target.z,th:cam.theta,ph:cam.phi};
+}
+function _scRestoreCam(s){
+  cam.radius=s.r;orthoZoom=s.oz;cam.theta=s.th;cam.phi=s.ph;
+  cam.target.set(s.tx,s.ty,s.tz);
+  if(useOrtho)syncOrtho();
+  updCam();
+}
+function _scNoTouches(e){return !e.touches||e.touches.length===0;}
+
+// ── Pen state, app-wide (session 151) ──
+// 149 tracked the pen only on the scene canvas, so a pen that lifted or
+// hovered over CONTROL, the topbar or a popover never armed layers 5/6 — and
+// the hand that holds it rests exactly there. Capture phase on window, so no
+// handler below can swallow the pen before it is seen. Read-only: nothing here
+// changes what the pen itself does.
+var _scPenDown=false,_scPenAt=null;
+window.addEventListener('pointerdown',function(e){
+  if(e.pointerType!=='pen')return;
+  _scPenSeen=true;_scPenDown=true;
+  _scPenAt={x:e.clientX,y:e.clientY,t:Date.now()};
+},true);
+window.addEventListener('pointermove',function(e){
+  if(e.pointerType!=='pen')return;
+  _scPenSeen=true;
+  if(e.buttons===0)_scPenHoverAt=Date.now();
+},true);
+function _scPenLift(e){
+  if(e.pointerType!=='pen')return;
+  _scPenDown=false;_scPenUpAt=Date.now();
+}
+window.addEventListener('pointerup',_scPenLift,true);
+window.addEventListener('pointercancel',_scPenLift,true);
+
+// ── Palm rejection on the CONTROL canvases (session 151) ──
+// The 149 layers live in the scene canvas's own handlers, so a palm resting on
+// a puck went straight to the NavCube / plane gizmo / FPS sticks and orbited
+// the view or moved the plane. Same windows as the scene (pen down, hovering,
+// 800ms after a lift — _scPalmStart), applied to every drag canvas outside the
+// scene and outside Pages (Pages has its own palm code, FB_PALM_MS).
+// CANVASES ONLY, deliberately: buttons stay live, because "draw, then tap
+// undo with a finger" inside 800ms is normal use and must not be eaten.
+// A contact rejected on touchstart / pointerdown stays rejected for its whole
+// life (tracked by identifier), as on the scene. Window capture, so the
+// canvas's own listener never sees it.
+var _scUiPalmT={},_scUiPalmP={};
+// Chrome on Android ALSO fires touch events for the pen's own contact, right
+// after its pointerdown, and the puck canvases listen to touch events. Without
+// this the guard below would take the pen's own touch for a palm (the pen is
+// down, so the window is open) and the pen could no longer drive the pucks.
+// Touch.touchType is Safari-only, so the pen's touch is recognised by landing
+// where, and when, the pen just went down.
+function _scIsPenTouch(tc){
+  var a=_scPenAt;if(!a||!_scPenDown||Date.now()-a.t>300)return false;
+  return Math.abs(tc.clientX-a.x)<14&&Math.abs(tc.clientY-a.y)<14;
+}
+function _scUiPalmTarget(t){
+  if(!t||t.tagName!=='CANVAS'||t===renderer.domElement)return false;
+  if(t.closest&&t.closest('#flipbook'))return false;
+  return true;
+}
+function _scAllChangedIn(e,set){
+  var ct=e.changedTouches;if(!ct||!ct.length)return false;
+  for(var i=0;i<ct.length;i++){if(!set[ct[i].identifier])return false;}
+  return true;
+}
+window.addEventListener('touchstart',function(e){
+  if(!_scPalmStart())return;
+  var ct=e.changedTouches;if(!ct||!ct.length)return;
+  for(var i=0;i<ct.length;i++){if(!_scUiPalmTarget(ct[i].target)||_scIsPenTouch(ct[i]))return;}
+  for(var j=0;j<ct.length;j++)_scUiPalmT[ct[j].identifier]=1;
+  e.stopPropagation();if(e.cancelable)e.preventDefault();
+},{capture:true,passive:false});
+window.addEventListener('touchmove',function(e){
+  if(!_scAllChangedIn(e,_scUiPalmT))return;
+  e.stopPropagation();if(e.cancelable)e.preventDefault();
+},{capture:true,passive:false});
+function _scUiPalmTouchEnd(e){
+  if(!_scAllChangedIn(e,_scUiPalmT))return;
+  var ct=e.changedTouches;for(var i=0;i<ct.length;i++)delete _scUiPalmT[ct[i].identifier];
+  e.stopPropagation();
+}
+window.addEventListener('touchend',_scUiPalmTouchEnd,true);
+window.addEventListener('touchcancel',_scUiPalmTouchEnd,true);
+window.addEventListener('pointerdown',function(e){
+  if(e.pointerType!=='touch'||!_scPalmStart()||!_scUiPalmTarget(e.target))return;
+  _scUiPalmP[e.pointerId]=1;e.stopPropagation();
+},true);
+window.addEventListener('pointermove',function(e){
+  if(e.pointerType==='touch'&&_scUiPalmP[e.pointerId])e.stopPropagation();
+},true);
+function _scUiPalmPtrEnd(e){
+  if(e.pointerType!=='touch'||!_scUiPalmP[e.pointerId])return;
+  delete _scUiPalmP[e.pointerId];e.stopPropagation();
+}
+window.addEventListener('pointerup',_scUiPalmPtrEnd,true);
+window.addEventListener('pointercancel',_scUiPalmPtrEnd,true);
+
 // ── Double-tap stylus removed — barrel button is the only toggle mechanism ──
 
 renderer.domElement.addEventListener('pointerdown',function(e){
   if(e.pointerType!=='pen')return;
   e.preventDefault();
+  // Palm layer 3, pen wins: a palm that got down first may already be orbiting
+  // or drawing. Drop that touch gesture (its ink, and its camera move) before
+  // the pen starts, and treat its contacts as palm until they all lift.
+  // Only touch-started state can be live here: _penActive is false, and a
+  // mouse and a pen are never down together on a tablet.
+  _scPenSeen=true;
+  if(_scPalmOS&&!_penActive&&!_scPalmGesture&&(isDrawing||cam.active||cam.panActive||_touchDragMode||_mtMax>0)){
+    cancelDraw();resetGesture();
+    _mtMax=0;_mtLastN=0;_mtSnap=null;_mtMoved=false;
+    if(_scCamSnap){_scRestoreCam(_scCamSnap);_scCamSnap=null;}
+    _scPalmGesture=true;
+  }
   _penActive=true;
   try{renderer.domElement.setPointerCapture(e.pointerId);}catch(ex){}
 
@@ -9522,7 +9727,9 @@ renderer.domElement.addEventListener('pointermove',function(e){
         if(_hoverRafId==null)_hoverRafId=requestAnimationFrame(_runHover);
       }
     } else {
-      // Pen hovering (buttons=0) — feed hover preview
+      // Pen hovering (buttons=0) — feed hover preview, and arm palm layer 5:
+      // a pen in range means the hand is about to rest on the glass.
+      if(e.buttons===0){_scPenHoverAt=Date.now();_scPenSeen=true;}
       _hoverPending={pointerType:e.pointerType,buttons:e.buttons,clientX:e.clientX,clientY:e.clientY};
       if(_hoverRafId==null)_hoverRafId=requestAnimationFrame(_runHover);
     }
@@ -9538,6 +9745,7 @@ renderer.domElement.addEventListener('pointermove',function(e){
 renderer.domElement.addEventListener('pointerup',function(e){
   if(e.pointerType!=='pen')return;
   _penActive=false;
+  _scPenUpAt=Date.now();   // palm layer 6
   try{renderer.domElement.releasePointerCapture(e.pointerId);}catch(ex){}
   onUp(e);
 });
@@ -9545,6 +9753,7 @@ renderer.domElement.addEventListener('pointerup',function(e){
 renderer.domElement.addEventListener('pointercancel',function(e){
   if(e.pointerType!=='pen')return;
   _penActive=false;
+  _scPenUpAt=Date.now();   // palm layer 6
   try{renderer.domElement.releasePointerCapture(e.pointerId);}catch(ex){}
   cancelDraw();resetGesture();
 });
@@ -9556,6 +9765,9 @@ renderer.domElement.addEventListener('pointerover',function(e){
 });
 
 renderer.domElement.addEventListener('pointerleave',function(e){
+  // Pen out of range (or off the canvas): palm layer 5 disarms at once rather
+  // than waiting out SC_HOVER_MS.
+  if(e.pointerType==='pen'&&!_penActive)_scPenHoverAt=0;
   if(e.pointerType!=='touch'){
     setHoverStroke(null);
     if(window._primHoverClear)window._primHoverClear();
@@ -9594,24 +9806,58 @@ function _runHover(){
 //    report pointerType='pen'). Suppressed while a pen pointer is active
 //    to avoid double-firing on devices that send both.
 renderer.domElement.addEventListener('touchstart',function(e){
-  if(_penActive)return; // pen is handled via pointer events
+  if(_penActive)return; // pen is handled via pointer events (layer 2)
+  // Palm layers 5/6: a gesture that STARTS while the pen hovers or just lifted
+  // is a palm, and so is every contact added to it until all have lifted.
+  if(_scPalmGesture||_scPalmStart()){
+    _scPalmGesture=true;lastTouchTime=Date.now();e.preventDefault();return;
+  }
+  // Layer 4: camera as this gesture found it (first contact only).
+  if(_scPalmOS&&!_scCamSnap)_scCamSnap=_scSnapCam();
   lastTouchTime=Date.now();onDown(e);
 },{passive:false});
 renderer.domElement.addEventListener('touchmove',function(e){
   if(_penActive)return;
+  if(_scPalmGesture){lastTouchTime=Date.now();e.preventDefault();return;}
   lastTouchTime=Date.now();onMove(e);
 },{passive:false});
 renderer.domElement.addEventListener('touchend',function(e){
-  if(_penActive)return;
+  if(_penActive){
+    // A palm that lifts while the pen is down never reaches onUp, so its
+    // contact count and palm flag would otherwise survive into the next
+    // gesture. The pen itself never touches _mt (it counts e.touches only).
+    if(_scNoTouches(e)){_mtMax=0;_mtLastN=0;_mtSnap=null;_mtMoved=false;_scPalmGesture=false;_scCamSnap=null;}
+    return;
+  }
+  if(_scPalmGesture){
+    if(_scNoTouches(e)){_scPalmGesture=false;_scCamSnap=null;}
+    lastTouchTime=Date.now();return;
+  }
   lastTouchTime=Date.now();onUp(e);
+  if(_scNoTouches(e))_scCamSnap=null;
 });
 renderer.domElement.addEventListener('touchcancel',function(e){
-  if(_penActive)return;
   // Tap state is cleared HERE and not inside resetGesture(): onUp calls
   // resetGesture() before _mtEnd(), so clearing it there would zero _mtMax and
   // the tap would never be classified.
   _mtMax=0;_mtLastN=0;_mtSnap=null;_mtMoved=false;
-  lastTouchTime=Date.now();cancelDraw();resetGesture();
+  lastTouchTime=Date.now();
+  if(_scPalmGesture){
+    if(_scNoTouches(e)){_scPalmGesture=false;_scCamSnap=null;}
+    return;
+  }
+  // Pen down: this is Android cancelling a palm the pen was rejected for. That
+  // palm was already ignored (layer 2), so there is nothing of it to undo —
+  // and resetGesture()/cancelDraw() here would break the PEN's own stroke,
+  // select-drag or orbit (they share cam.active, _dragSelectMode, ...).
+  if(_penActive){if(_scNoTouches(e))_scCamSnap=null;return;}
+  // Palm layer 4: the OS took this touch back. Drop its stroke (cancelDraw)
+  // and, on Android, put the camera back where the touch found it.
+  cancelDraw();resetGesture();
+  // Gated on _scPenSeen like layers 3/5/6, so finger-only phones are unchanged.
+  // _penAutoDone: a pen was seen on this device in an earlier session.
+  if(_scPalmOS&&(_scPenSeen||_penAutoDone)&&_scCamSnap){_scRestoreCam(_scCamSnap);}
+  if(_scNoTouches(e))_scCamSnap=null;
 });
 
 // ── Mouse events (desktop, guarded against synthetic mouse from touch) ──
@@ -10065,6 +10311,7 @@ function _pgApplyState(st){
     var c=st.cam;
     cam.theta=c.theta;cam.phi=c.phi;cam.radius=c.radius;
     cam.target.set(c.tx||0,c.ty||0,c.tz||0);
+    _autoOrtho=null;_orthoToPersp=false;
     useOrtho=!!c.ortho;orthoZoom=c.orthoZoom||8;
     syncOrtho();
     // Instant, not lerped — see the note above _pgCaptureState.
@@ -14079,96 +14326,32 @@ function togglePages(){if(_fbOpen)closeFlipbook();else openFlipbook();}
     }
     var sep=function(){var d=document.createElement('div');d.className='fb-sep';return d;};
 
-    // ── The two add buttons are one icon family (session 126d) ──────
-    // Both make a sticky; what differs is what goes on it. So both draw the
-    // same sticky — identical path data, identical fold — and then one adds a
-    // pen and the other writes 3D on it. A `+` and a `\u25F1` shared nothing and
-    // said nothing about either being a note.
-    //
-    // createElementNS element by element, not innerHTML: innerHTML on an SVG
-    // node is not dependable in the old Android WebViews this app targets
-    // (Rule #149), which is the same ground the 125b palette icons stand on.
-    // currentColor throughout so #fb-pal button.on's #d9d5cd reaches the
-    // glyph, and pointer-events:none so the button keeps its own pointerdown.
-    function _fbSticky(){
-      var svg=document.createElementNS(FB_SVGNS,'svg');
-      svg.setAttribute('width','15');svg.setAttribute('height','15');
-      svg.setAttribute('viewBox','0 0 16 16');svg.setAttribute('fill','none');
-      svg.style.pointerEvents='none';
-      // Body with the bottom-right corner cut, plus the fold that turns the
-      // cut into a dog-ear rather than a chamfer.
-      var body=document.createElementNS(FB_SVGNS,'path');
-      body.setAttribute('d','M2.6 2.6H13.4V9.4L9.4 13.4H2.6Z');
-      body.setAttribute('stroke','currentColor');
-      body.setAttribute('stroke-width','1.2');
-      body.setAttribute('stroke-linejoin','round');
-      svg.appendChild(body);
-      var fold=document.createElementNS(FB_SVGNS,'path');
-      fold.setAttribute('d','M13.4 9.4H9.4V13.4');
-      fold.setAttribute('stroke','currentColor');
-      fold.setAttribute('stroke-width','1.2');
-      fold.setAttribute('stroke-linejoin','round');
-      fold.setAttribute('stroke-linecap','round');
-      svg.appendChild(fold);
-      return svg;
-    }
+    // S3 icon import: the three "new" buttons wear the S3 set — sticky + stroke
+    // (note), sticky + 3D-rotate orbit (reference), sticky + camera (snapshot:
+    // the same action and icon as Snapshot to Sticky in the native app). One
+    // shared sticky body, as exported. They replace 126d's _fbSticky() family
+    // (sticky + pen nib, sticky + "3D" text, sticky + wire cube), which built
+    // each glyph with createElementNS because innerHTML on an SVG NODE is not
+    // dependable in old WebViews (Rule #149). This writes innerHTML on the HTML
+    // BUTTON instead — a whole <svg> parsed by the HTML parser, the same path
+    // the 126g status chips use. 18px, like #tc .tc-b icons in the same 34px
+    // buttons (15px read too small beside the scene's tool card).
+    var FB_NEW_ICO={note:'<svg width="18" height="18" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M10.92 10.92L33 10.92L33 28.86L28.86 33L10.92 33ZM33 28.86L28.86 28.86L28.86 33" stroke-width="2.50"/><path d="M15.4 24.03C19.89 12.99 24.03 30.93 28.51 19.89" stroke-width="3.12"/></svg>',
+      ref:'<svg width="18" height="18" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M10.92 10.92L33 10.92L33 28.86L28.86 33L10.92 33ZM33 28.86L28.86 28.86L28.86 33" stroke-width="2.50"/><path d="M23.64 19.67L24.2 19.79L24.72 19.94L25.21 20.12L25.66 20.33L26.05 20.56L26.4 20.8L26.68 21.07L26.9 21.34L27.06 21.63L27.15 21.92L27.17 22.22L27.13 22.51L27.02 22.81L26.84 23.09L26.6 23.36L26.3 23.62L25.95 23.86L25.54 24.08L25.08 24.28L24.58 24.45L24.04 24.6L23.47 24.71L22.89 24.8L22.28 24.85L21.67 24.87L21.05 24.86L20.44 24.82L19.85 24.74L19.28 24.63L18.73 24.5L18.22 24.33L17.75 24.14L17.32 23.93L16.95 23.69L16.63 23.44L16.37 23.17L16.18 22.89L16.05 22.6L15.99 22.3L15.99 22.01L16.07 21.71L16.2 21.42L16.41 21.14L16.67 20.88L17 20.62L17.38 20.39L17.81 20.18L18.29 19.99M17.85 22.19L18.29 19.99L20.49 20.43M21.58 15.98L21.58 17.78M21.58 26.57L21.58 27.17" stroke-width="2.50"/></svg>',
+      snap:'<svg width="18" height="18" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M10.92 10.92L33 10.92L33 28.86L28.86 33L10.92 33ZM33 28.86L28.86 28.86L28.86 33" stroke-width="2.50"/><path d="M16.78 18.16L27.13 18.16L27.13 25.75L16.78 25.75ZM20.58 16.78L23.34 16.78" stroke-width="3.12"/><path d="M23.29 21.96C23.29 22.69 22.69 23.29 21.96 23.29C21.22 23.29 20.63 22.69 20.63 21.96C20.63 21.22 21.22 20.63 21.96 20.63C22.69 20.63 23.29 21.22 23.29 21.96Z" fill="currentColor" stroke="none"/></svg>'};
 
     var add=mk('New note');
-    (function(){
-      var svg=_fbSticky();
-      // Pen: a shaft on the sticky's diagonal with a filled nib at the
-      // lower-left end. Kept inside the body outline so it reads as writing
-      // ON the note rather than next to it.
-      var shaft=document.createElementNS(FB_SVGNS,'path');
-      shaft.setAttribute('d','M6.1 9.9L10.2 5.8');
-      shaft.setAttribute('stroke','currentColor');
-      shaft.setAttribute('stroke-width','1.2');
-      shaft.setAttribute('stroke-linecap','round');
-      svg.appendChild(shaft);
-      var nib=document.createElementNS(FB_SVGNS,'path');
-      nib.setAttribute('d','M5.9 10.1L5.2 11.8L6.9 11.1Z');
-      nib.setAttribute('fill','currentColor');
-      svg.appendChild(nib);
-      add.appendChild(svg);
-    })();
+    add.innerHTML=FB_NEW_ICO.note;
     on(add,function(){_fbNoteAdd();});
     tbNew.appendChild(add);
 
     var refB=mk('Reference view of this page');
-    (function(){
-      var svg=_fbSticky();
-      // Literally written on the sticky. DM Mono so it is the app's own
-      // lettering rather than the WebView's default sans, and a <text> node
-      // rather than traced outlines because two characters of real type at
-      // 6.4px stay legible where hand-built paths would not.
-      var t=document.createElementNS(FB_SVGNS,'text');
-      t.setAttribute('x','7.7');t.setAttribute('y','10.1');
-      t.setAttribute('text-anchor','middle');
-      t.setAttribute('font-size','6.4');
-      t.setAttribute('font-family',"'DM Mono',monospace");
-      t.setAttribute('letter-spacing','-0.2');
-      t.setAttribute('fill','currentColor');
-      t.textContent='3D';
-      svg.appendChild(t);
-      refB.appendChild(svg);
-    })();
+    refB.innerHTML=FB_NEW_ICO.ref;
     on(refB,function(){_fbRefAdd();});
     tbNew.appendChild(refB);
 
-    // 128: snapshot. Same sticky; on it, a small wire cube — the 3D drawn
-    // as LINES, which is what the note will hold, as against the reference's
-    // "3D", which is a view you can still move.
     var snapB=mk('Snapshot of the current 3D view — draw on it');
-    (function(){
-      var svg=_fbSticky();
-      var cube=document.createElementNS(FB_SVGNS,'path');
-      cube.setAttribute('d','M4.3 6.1L7 4.6L9.7 6.1V9.1L7 10.6L4.3 9.1ZM4.3 6.1L7 7.6L9.7 6.1M7 7.6V10.6');
-      cube.setAttribute('stroke','currentColor');
-      cube.setAttribute('stroke-width','0.9');
-      cube.setAttribute('stroke-linejoin','round');
-      svg.appendChild(cube);
-      snapB.appendChild(svg);
-    })();
+    snapB.innerHTML=FB_NEW_ICO.snap;
     on(snapB,function(){_fbSnapAdd();});
     tbNew.appendChild(snapB);
 
@@ -14924,6 +15107,7 @@ function recallView(v){
   // ── Smooth ortho/persp transition ──
   // Instead of snapping useOrtho at the end, lerp orthoZoom to/from a value
   // that matches the perspective frustum, so the visual transition is gradual.
+  _autoOrtho=null; // a saved view's projection is an explicit choice (151)
   var targetOrtho=c.ortho||false;
   var targetOrthoZoom=c.orthoZoom||8;
   var startOrthoZoom=orthoZoom;
@@ -14950,6 +15134,7 @@ function recallView(v){
 
   if(_vwLerp)cancelAnimationFrame(_vwLerp);
   if(_orthoLerp){cancelAnimationFrame(_orthoLerp);_orthoLerp=null;}
+  _orthoToPersp=false; // the cancelled lerp may have been the ortho→persp one (151)
   var startT=performance.now();
   function step(){
     var t=Math.min(1,(performance.now()-startT)/dur);
@@ -17284,7 +17469,7 @@ window._setSnapEnabled=function(v){
     // Guard near poles — if phi is ~0 or ~PI, camera up (0,0,1) degenerates; nudge slightly
     if(tp.phi<0.02)tp.phi=0.02;
     if(tp.phi>Math.PI-0.02)tp.phi=Math.PI-0.02;
-    animateCameraTo(tp.theta,tp.phi,center,function(){setOrtho(true);});
+    animateCameraTo(tp.theta,tp.phi,center,function(){_snapOrtho();});
     _lastFaceNormal=normal.clone();
   }
   var gface=document.getElementById('gface');
@@ -20406,6 +20591,8 @@ window._setSnapEnabled=function(v){
       primsPop.classList.remove('open');
       primListBtn.classList.remove('on');
     }
+    // The status pill moves out from under the bar when it opens (computeLayout).
+    if(window._ctlRefresh) window._ctlRefresh();
   });
 
   // ── Obj button toggles sub-popup (object list) ──
@@ -20413,7 +20600,8 @@ window._setSnapEnabled=function(v){
     primsPop.classList.add('open');
     primListBtn.classList.add('on');
     var br = primListBtn.getBoundingClientRect();
-    primsPop.style.top = (br.bottom + 4) + 'px';
+    // Bottom: below the status pill, which now sits under the open bar.
+    primsPop.style.top = (window._stClearY ? window._stClearY(br.bottom + 4, 6) : br.bottom + 4) + 'px';
     primsPop.style.left = Math.max(4, Math.min(br.left, window.innerWidth - 170)) + 'px';
   }
   primListBtn.addEventListener('click', function(e){
@@ -20799,6 +20987,22 @@ window._setSnapEnabled=function(v){
     if(btn) btn.classList.remove('on');
     var lb = document.getElementById('prim-list-btn');
     if(lb) lb.classList.remove('on');
+    // Status pill returns under the topbar (it was below the open bar in Bottom).
+    if(window._ctlRefresh) window._ctlRefresh();
+  };
+
+  // Bottom only: the status pill sits under the open #prim-bar (computeLayout),
+  // and it is above everything there (z 500). A popup anchored under the bar
+  // or the topbar (#prims-pop, #precise-pop) is pushed below the pill instead
+  // of opening under it. Other arrangements keep the pill at the bottom, so y
+  // is returned unchanged.
+  window._stClearY = function(y, gap){
+    if(!document.body.classList.contains('narrow-mode')) return y;
+    var t = document.getElementById('toast');
+    if(!t || !t.classList.contains('show')) return y;
+    var r = t.getBoundingClientRect();
+    if(!r.height || r.bottom <= 0) return y;
+    return Math.max(y, Math.round(r.bottom + (gap || 6)));
   };
 
   // ── Initial state ──
@@ -20871,7 +21075,7 @@ window._setSnapEnabled=function(v){
       }
       cam.phi=targetPhi;cam.theta=targetTheta;
       updCam();
-      setOrtho(true); // preset views default to ortho
+      _snapOrtho(); // preset views default to ortho; orbiting away returns to the projection the snap found (151)
       toast(LABELS_MAP[ax.lbl]||ax.lbl);
     }
 
@@ -21389,6 +21593,9 @@ window._setSnapEnabled=function(v){
   }
 
   // Apply _fpsSurfMode: 0=NONE 1=FOLLOW 2=SCENE
+  // S3 trace-plane icons, indexed by _fpsSurfMode: NONE slashed square (drawn
+  // for the web), FOLLOW walker + upright plane, SCENE cube + pen tip.
+  var FPS_TRACE_ICO=['<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><defs><mask id="square-slash-cut1" maskUnits="userSpaceOnUse" x="-10" y="-10" width="64" height="64"><rect x="-10" y="-10" width="64" height="64" fill="white"/><path d="M8.6 8.6L35.4 35.4" stroke="black" stroke-width="6.25"/></mask></defs><g mask="url(#square-slash-cut1)"><path d="M33 22L33 28.2C33 29.58 33 30.27 32.76 31.02C32.47 31.83 31.83 32.47 31.02 32.76C30.27 33 29.58 33 28.2 33L15.8 33C14.42 33 13.73 33 12.98 32.76C12.17 32.47 11.53 31.83 11.24 31.02C11 30.27 11 29.58 11 28.2L11 15.8C11 14.42 11 13.73 11.24 12.98C11.53 12.17 12.17 11.53 12.98 11.24C13.73 11 14.42 11 15.8 11L28.2 11C29.58 11 30.27 11 31.02 11.24C31.83 11.53 32.47 12.17 32.76 12.98C33 13.73 33 14.42 33 15.8Z" stroke-width="3.12"/></g><path d="M8.6 8.6L35.4 35.4" stroke-width="3.12"/></svg>','<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M13.87 17.51L12.68 22.88M10.29 21.54L11.88 18.69L13.57 18.18L14.86 20.87L16.64 21.54M12.68 22.88L14.86 25.9L15.26 29.93M12.68 22.88L11.48 26.57L9.3 29.26M15.06 14.34C15.06 15 14.52 15.53 13.87 15.53C13.21 15.53 12.68 15 12.68 14.34C12.68 13.68 13.21 13.15 13.87 13.15C14.52 13.15 15.06 13.68 15.06 14.34Z" stroke-width="2.50"/><path d="M21.97 10.9L34.69 13.28L34.69 30.77L21.97 33.15Z" stroke-width="3.12"/></svg>','<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><defs><mask id="trace-scene-cut1" maskUnits="userSpaceOnUse" x="-10" y="-10" width="64" height="64"><rect x="-10" y="-10" width="64" height="64" fill="white"/><path d="M24.55 8.46L22.11 18.72L19.67 8.46M23.01 14.41L21.21 14.41" fill="black" stroke="black" stroke-width="6.25"/></mask></defs><g mask="url(#trace-scene-cut1)"><path d="M22 14.23L31.8 19.13L31.8 28.93L22 33.83L12.2 28.93L12.2 19.13ZM12.2 19.13L22 24.03L31.8 19.13M22 24.03L22 33.83" stroke-width="3.12"/></g><path d="M24.55 8.46L22.11 18.72L19.67 8.46M23.01 14.41L21.21 14.41" stroke-width="2.50"/></svg>'];
   function _applyFpsSurfMode(){
     // surfGroup visibility
     surfGroup.visible=(_fpsSurfMode===2);
@@ -21401,6 +21608,16 @@ window._setSnapEnabled=function(v){
     if(btn){
       btn.textContent=labels[_fpsSurfMode];
       btn.classList.toggle('on',_fpsSurfMode>0);
+    }
+    // S3: the pill's trace button (#fps-trace) wears the state's icon. Written
+    // here, by the one owner of _fpsSurfMode, on the HTML button (Rule #149);
+    // the state goes in the title. syncLive() only toggles .on, so nothing
+    // overwrites this (Rule #104). Static markup = SCENE, the entry state.
+    var tr=document.getElementById('fps-trace');
+    if(tr&&tr.getAttribute('data-tm')!==String(_fpsSurfMode)){
+      tr.innerHTML=FPS_TRACE_ICO[_fpsSurfMode]||FPS_TRACE_ICO[2];
+      tr.setAttribute('data-tm',String(_fpsSurfMode));
+      tr.title='Trace plane: '+['None','Follow','Scene'][_fpsSurfMode];
     }
     // dist slider: only relevant in FOLLOW mode
     var distWrap=document.getElementById('fps-plane-dist-wrap');
@@ -21435,8 +21652,11 @@ window._setSnapEnabled=function(v){
     // Remembered and restored on exit: forcing perspective is a consequence of
     // entering FPS, not a change to the projection you chose, and silently
     // keeping it after you leave would be a setting changed behind your back.
-    var _wasOrtho=useOrtho;
-    if(_wasOrtho&&typeof setOrtho==='function')setOrtho(false);
+    // Session 151: an AUTO ortho (preset snap) is not a projection the user
+    // chose — entering FPS orbits away from the snap anyway, so exit returns
+    // to perspective rather than restoring the snap's ortho.
+    var _wasOrtho=useOrtho&&!_autoOrtho&&!_orthoToPersp;
+    if(useOrtho&&typeof setOrtho==='function')setOrtho(false);
     // Save radius only for restore reference; we won't snap camera back
     _fpsSavedCam={radius:cam.radius,ortho:_wasOrtho};
     // Compute orbit eye position → set as FPS eye
@@ -22189,9 +22409,19 @@ window._setSnapEnabled=function(v){
 // Erase buttons: tap = setMode('erase'), long-press = toggle partial erase
 (function(){
   var LONG_MS=450;
+  // S3: the eraser TOOL button wears the erase mode — filled = Full line,
+  // outline = Partial (the same pair as #tc-pre and the status chip). Written
+  // on the HTML button (Rule #149); nothing else writes this button's content
+  // (Rule #104). Static markup carries the default, Full (Rule #15).
+  var ERASE_TOOL_ICO={whole:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12" fill="currentColor"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg>',part:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12"/><path d="M18.54 19.49L24.32 26.38" stroke-width="2.50"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg>'};
   function _syncEraseVisual(){
-    // 140: no legacy erase button is left to mark; the tool card and the
-    // status pill show whole / part. Kept as a hook (setPartialErase calls it).
+    // 140: the tool card and the status pill show whole / part too; this
+    // hook (setPartialErase calls it) owns only the tool button.
+    var b=document.querySelector('#tc-tools [data-tct="erase"]');if(!b)return;
+    var k=_partialErase?'part':'whole';
+    if(b.getAttribute('data-ev')===k)return;
+    b.innerHTML=ERASE_TOOL_ICO[k];b.setAttribute('data-ev',k);
+    b.title=_partialErase?'Eraser · Partial (E)':'Eraser · Full line (E)';
   }
   function wireEraseLongPress(id){
     var btn=document.getElementById(id);if(!btn)return;
@@ -22540,11 +22770,35 @@ function togglePersp(){
   if(_fpsMode){toast('Perspective only in FPS');return;}
   setOrtho(!useOrtho);
 }
+// Preset-view snap → ortho, remembering whether the snap is what turned it on
+// (session 151). Arms auto ortho when the camera was in perspective (or on its
+// way back to it), and keeps it armed across a chain of snaps (Front → Top);
+// an ortho the user chose themselves is left alone and never auto-reverted.
+// Call AFTER the camera has reached the snapped direction.
+function _snapOrtho(){
+  var arm=!useOrtho||_orthoToPersp||!!_autoOrtho;
+  setOrtho(true);
+  if(arm&&!_fpsMode)_autoOrtho={th:cam.theta,ph:cam.phi};
+}
 var _orthoLerp=null;
 function setOrtho(on){
+  // Every caller of setOrtho() is an explicit projection choice except
+  // _snapOrtho(), which re-arms _autoOrtho AFTER calling this.
+  _autoOrtho=null;
+  // Session 151: ortho requested while the ortho→persp lerp is still running.
+  // useOrtho is still true there, so the old early return let the lerp finish
+  // and flip to perspective anyway — a snap made mid-revert ended up in persp.
+  // Stop the lerp instead; the camera simply stays ortho.
+  if(on&&useOrtho&&_orthoToPersp){
+    if(_orthoLerp){cancelAnimationFrame(_orthoLerp);_orthoLerp=null;}
+    _orthoToPersp=false;syncOrtho();updCam();
+    if(window._syncPerspBtns)window._syncPerspBtns(true);
+    return;
+  }
   if(on===useOrtho){return;}
   // Cancel any in-progress ortho lerp
   if(_orthoLerp){cancelAnimationFrame(_orthoLerp);_orthoLerp=null;}
+  _orthoToPersp=false;
   var CAM_FOV_HALF_TAN=Math.tan(27.5*Math.PI/180);
   var dur=400;
   var startT=performance.now();
@@ -22566,6 +22820,7 @@ function setOrtho(on){
     _orthoLerp=requestAnimationFrame(stepToOrtho);
   } else {
     // Ortho → Persp: keep ortho, lerp zoom toward persp-matching, flip at end
+    _orthoToPersp=true;
     var startZoom2=orthoZoom;
     var endZoom2=cam.radius*CAM_FOV_HALF_TAN;
     function stepToPersp(){
@@ -22574,7 +22829,7 @@ function setOrtho(on){
       orthoZoom=startZoom2+(endZoom2-startZoom2)*e;
       syncOrtho();updCam();markDirty();
       if(t<1){_orthoLerp=requestAnimationFrame(stepToPersp);}
-      else{_orthoLerp=null;useOrtho=false;syncOrtho();updCam();}
+      else{_orthoLerp=null;_orthoToPersp=false;useOrtho=false;syncOrtho();updCam();}
     }
     _orthoLerp=requestAnimationFrame(stepToPersp);
   }
@@ -22597,7 +22852,7 @@ function setOrtho(on){
 // is literally the difference between the two projections, so the pair reads
 // without a legend.
 var PERSP_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 4.6H9.6V9.4H4.4Z"/><path d="M1.6 2.2H12.4V11.8H1.6Z"/><line x1="1.6" y1="2.2" x2="4.4" y2="4.6"/><line x1="12.4" y1="2.2" x2="9.6" y2="4.6"/><line x1="1.6" y1="11.8" x2="4.4" y2="9.4"/><line x1="12.4" y1="11.8" x2="9.6" y2="9.4"/></svg>';
-var ORTHO_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.6H9.4V12H2Z"/><path d="M4.6 2H12V9.4H4.6Z"/><line x1="2" y1="4.6" x2="4.6" y2="2"/><line x1="9.4" y1="4.6" x2="12" y2="2"/><line x1="9.4" y1="12" x2="12" y2="9.4"/></svg>';
+var ORTHO_ICO='<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M33.75 22L33.75 29.26C33.75 30.55 33.75 31.2 33.53 31.89C33.25 32.65 32.65 33.25 31.89 33.53C31.2 33.75 30.55 33.75 29.26 33.75L14.74 33.75C13.45 33.75 12.8 33.75 12.11 33.53C11.35 33.25 10.75 32.65 10.47 31.89C10.25 31.2 10.25 30.55 10.25 29.26L10.25 14.74C10.25 13.45 10.25 12.8 10.47 12.11C10.75 11.35 11.35 10.75 12.11 10.47C12.8 10.25 13.45 10.25 14.74 10.25L29.26 10.25C30.55 10.25 31.2 10.25 31.89 10.47C32.65 10.75 33.25 11.35 33.53 12.11C33.75 12.8 33.75 13.45 33.75 14.74ZM18.08 10.25L18.08 33.75M10.25 18.08L33.75 18.08M25.92 10.25L25.92 33.75M10.25 25.92L33.75 25.92" stroke-width="3.12"/></svg>';   // S3: parallel grid (orthographic)
 window._syncPerspBtns=function(on){
   var row=document.getElementById('bpersp');
   if(row){row.textContent=on?'ORTHO':'PERSP';row.classList.toggle('on',on);}
@@ -22617,7 +22872,7 @@ document.getElementById('nav-persp').addEventListener('click',togglePersp);
 // same 14x14 viewBox / stroke=currentColor convention as PERSP_ICO/ORTHO_ICO
 // above, so colour follows .btn's own mut→ink states for free.
 var MODE_ICO={
-  all:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2.6L9.6 7L7 11.4L4.4 7Z"/><path d="M4.9 1.6L7 0.6L9.1 1.6" stroke-width="1.15"/><path d="M4.9 12.4L7 13.4L9.1 12.4" stroke-width="1.15"/><path d="M2.2 5.5L1 7L2.2 8.5" stroke-width="1.15"/><path d="M11.8 5.5L13 7L11.8 8.5" stroke-width="1.15"/></svg>',
+  all:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M24.2 23.08L24.2 23.79C24.2 24.22 24.2 24.43 24.12 24.66C24.03 24.92 23.83 25.11 23.58 25.21C23.35 25.28 23.13 25.28 22.7 25.28L21.3 25.28C20.87 25.28 20.65 25.28 20.42 25.21C20.17 25.11 19.97 24.92 19.88 24.66C19.8 24.43 19.8 24.22 19.8 23.79L19.8 22.38C19.8 21.95 19.8 21.73 19.88 21.5C19.97 21.25 20.17 21.05 20.42 20.96C20.65 20.88 20.87 20.88 21.3 20.88L22.7 20.88C23.13 20.88 23.35 20.88 23.58 20.96C23.83 21.05 24.03 21.25 24.12 21.5C24.2 21.73 24.2 21.95 24.2 22.38ZM22 18.93L22 8.92M25.32 12.24L22 8.92L18.68 12.24M25.59 25.16L34.26 30.16M29.73 31.38L34.26 30.16L33.05 25.63M18.41 25.16L9.74 30.16M10.95 25.63L9.74 30.16L14.27 31.38M25.18 12.72L25.18 12.72C30.61 14.38 33.84 19.97 32.56 25.52M29.39 31.01L29.39 31.01C25.23 34.89 18.77 34.89 14.61 31.01M11.44 25.52L11.44 25.52C10.16 19.97 13.39 14.38 18.83 12.72" stroke-width="3.12"/></svg>',
   move:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="1.2" x2="7" y2="12.8"/><line x1="1.2" y1="7" x2="12.8" y2="7"/><path d="M4.8 3.4L7 1.2L9.2 3.4"/><path d="M4.8 10.6L7 12.8L9.2 10.6"/><path d="M3.4 4.8L1.2 7L3.4 9.2"/><path d="M10.6 4.8L12.8 7L10.6 9.2"/></svg>',
   rotate:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11.32 8.57A4.6 4.6 0 1 1 8.57 2.68"/><path d="M6.6 1.6L8.57 2.68L9.7 4.5"/></svg>',
   scale:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="6" height="6"/><path d="M9.7 9.7L13 13"/><path d="M9.9 13L13 13L13 9.9"/></svg>'
@@ -22631,6 +22886,8 @@ var PLANE_LABELS_G={xz:'Front',xy:'Top',yz:'Side'};
 // Surface type icons — eight distinct solids, so each is recognisable on its
 // own silhouette at 13px. 'none' is a slashed circle rather than a crossed-out
 // plane: at this size a dashed outline plus a slash turns to mud.
+// S3 icon import: none (ground + pen), cone, loft, extrude are the S3 set;
+// MODE_ICO.all too. Their own viewBox; .ctl-pb svg sizes them like the rest.
 var SURF_ICO={
   plane:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2.6" y="2.6" width="8.8" height="8.8" rx="0.6" fill="currentColor" fill-opacity="0.22"/></svg>',
   // Session 119c: side vertices moved 1.8/12.2 -> 2.3/11.7 so the hexagon is
@@ -22639,10 +22896,10 @@ var SURF_ICO={
   cube:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.6L11.7 4.3V9.7L7 12.4L2.3 9.7V4.3Z"/><path d="M2.3 4.3L7 7L11.7 4.3" stroke-width="1.1"/><path d="M7 7V12.4" stroke-width="1.1"/></svg>',
   cylinder:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="7" cy="3.4" rx="4.3" ry="1.7"/><path d="M2.7 3.4V10.6"/><path d="M11.3 3.4V10.6"/><path d="M2.7 10.6A4.3 1.7 0 0 0 11.3 10.6"/></svg>',
   sphere:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.2"/><ellipse cx="7" cy="7" rx="5.2" ry="2.1" stroke-width="1"/></svg>',
-  cone:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.6L11.3 10.2"/><path d="M7 1.6L2.7 10.2"/><ellipse cx="7" cy="10.2" rx="4.3" ry="1.7"/></svg>',
-  loft:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2.5Q1.3 7 3.5 11.5L10.5 11.5Q12.7 7 10.5 2.5Z" fill="currentColor" fill-opacity="0.28" stroke="none"/><path d="M3.5 2.5Q1.3 7 3.5 11.5"/><path d="M10.5 2.5Q12.7 7 10.5 11.5"/></svg>',
-  extrude:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11.2L5.4 8.6L12 8.6L8.6 11.2Z" fill="currentColor" fill-opacity="0.22"/><path d="M2 11.2V6.4L5.4 3.8" stroke-width="1.05"/><path d="M12 8.6V3.8L5.4 3.8" stroke-width="1.05"/><path d="M8.6 11.2V6.4L12 3.8" stroke-width="1.05"/><path d="M2 6.4L8.6 6.4" stroke-width="1.05"/></svg>',
-  none:'<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><line x1="3.5" y1="10.5" x2="10.5" y2="3.5"/></svg>'
+  cone:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M22 9.6L12.2 29.2M22 9.6L31.8 29.2" stroke-width="3.12"/><path d="M31.8 29.2L31.72 29.67L31.47 30.13L31.05 30.58L30.49 31L29.77 31.39L28.93 31.75L27.97 32.06L26.9 32.32L25.75 32.53L24.54 32.68L23.28 32.77L22 32.8L20.72 32.77L19.46 32.68L18.25 32.53L17.1 32.32L16.03 32.06L15.07 31.75L14.23 31.39L13.51 31L12.95 30.58L12.53 30.13L12.28 29.67L12.2 29.2L12.28 28.73L12.53 28.27L12.95 27.82L13.51 27.4L14.23 27.01L15.07 26.65L16.03 26.34L17.1 26.08L18.25 25.87L19.46 25.72L20.72 25.63L22 25.6L23.28 25.63L24.54 25.72L25.75 25.87L26.9 26.08L27.97 26.34L28.93 26.65L29.77 27.01L30.49 27.4L31.05 27.82L31.47 28.27L31.72 28.73L31.8 29.2Z" stroke-width="3.12"/></svg>',
+  loft:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M8.69 14.93C17.56 9.1 26.44 20.75 35.31 14.93L35.31 29.07C26.44 34.9 17.56 23.25 8.69 29.07Z" fill="currentColor" fill-opacity=".25" stroke="none"/><path d="M8.69 14.93L8.69 29.07M35.31 14.93L35.31 29.07" stroke-width="4.37"/><path d="M8.69 14.93C17.56 9.1 26.44 20.75 35.31 14.93M8.69 29.07C17.56 23.25 26.44 34.9 35.31 29.07M22 14.93L22 29.07" stroke-width="1.72"/></svg>',
+  extrude:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M9.86 22L34.14 22" stroke-width="4.37"/><path d="M17.47 13.91L16.74 13.91Q13.91 13.91 13.91 16.74L13.91 20.79M26.53 13.91L27.26 13.91Q30.09 13.91 30.09 16.74L30.09 20.79M17.47 30.09L16.74 30.09Q13.91 30.09 13.91 27.26L13.91 23.21M26.53 30.09L27.26 30.09Q30.09 30.09 30.09 27.26L30.09 23.21M22 18.28L22 9.05M19.57 11.48L22 9.05L24.43 11.48M22 25.72L22 34.95M19.57 32.52L22 34.95L24.43 32.52" stroke-width="2.50"/></svg>',
+  none:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><defs><mask id="ground-no-surface-cut1" maskUnits="userSpaceOnUse" x="-10" y="-10" width="64" height="64"><rect x="-10" y="-10" width="64" height="64" fill="white"/><path d="M25.01 11.87L22.47 22.52L19.93 11.87M23.4 18.04L21.53 18.04" fill="black" stroke="black" stroke-width="6.25"/></mask></defs><g mask="url(#ground-no-surface-cut1)"><path d="M23.46 16.96L35.25 22.85Q36.72 23.59 35.25 24.32L23.46 30.22Q21.98 30.96 20.51 30.22L8.72 24.32Q7.25 23.59 8.72 22.85L20.51 16.96Q21.98 16.22 23.46 16.96Z" stroke-width="3.12"/></g><path d="M25.01 11.87L22.47 22.52L19.93 11.87M23.4 18.04L21.53 18.04" stroke-width="2.50"/></svg>'
 };
 // Stylus-mode row icon (#bstylus in the view dropdown, #pb-stylus mirror).
 // Sits inline before the FINGER/STYLUS label, so it keeps a fixed size and
@@ -22654,7 +22911,7 @@ var HOME_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke
 // readable rather than baking rotated numbers into every point.
 var MAGNET_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(45 7 7)"><path d="M4 2H6.2V7.2A1.1 1.1 0 0 0 8.4 7.2V2H10.6V7.2A3.3 3.3 0 0 1 4 7.2Z"/><path d="M4 4.4H6.2" stroke-width="1.1"/><path d="M8.4 4.4H10.6" stroke-width="1.1"/></g></svg>';
 var WORLD_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5.2"/><ellipse cx="7" cy="7" rx="2.2" ry="5.2"/><line x1="1.8" y1="7" x2="12.2" y2="7"/><path d="M2.7 4.2Q7 5.8 11.3 4.2" stroke-width="1"/><path d="M2.7 9.8Q7 8.2 11.3 9.8" stroke-width="1"/></svg>';
-var LOCAL_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="6.1" y="8.6" width="1.8" height="1.8" fill="currentColor" stroke="none"/><path d="M7 8.6L3.6 3.4" stroke-width="1.2"/><path d="M3.6 3.4L3.9 5.1M3.6 3.4L5.2 3" stroke-width="1"/><path d="M7.9 8.6L11.2 4.2" stroke-width="1.2"/><path d="M11.2 4.2L9.5 4.3M11.2 4.2L11.4 5.9" stroke-width="1"/></svg>';
+var LOCAL_ICO='<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M33.9 22C33.9 28.57 28.57 33.9 22 33.9C15.43 33.9 10.1 28.57 10.1 22C10.1 15.43 15.43 10.1 22 10.1C28.57 10.1 33.9 15.43 33.9 22ZM22 22L24.67 14.66M25.83 17.14L24.67 14.66L22.19 15.82M22 22L27.02 27.98M24.3 27.74L27.02 27.98L27.26 25.26M22 22L14.31 23.36M15.88 21.12L14.31 23.36L16.55 24.92" stroke-width="3.12"/></svg>';   // S3: tilted axes in a circle (World keeps WORLD_ICO)
 var LCL_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 12.2L4.6 10.2L11.8 10.2L9.4 12.2Z" fill="currentColor" fill-opacity="0.20" stroke-width="0.95"/><circle cx="7" cy="11.2" r="0.85" fill="currentColor" stroke="none"/><path d="M7 11.2V2.2" stroke-width="1.2"/><path d="M5.6 3.6L7 2.0L8.4 3.6" stroke-width="1.2"/><path d="M7 11.2L12.4 8.4" stroke-width="1.05"/><path d="M10.7 8.2L12.7 8.2L12.2 10.0" stroke-width="1.05"/></svg>';
 var VIEW2PLANE_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0.5 7Q1.7 5.4 3 5.4Q4.3 5.4 5.5 7Q4.3 8.6 3 8.6Q1.7 8.6 0.5 7Z"/><circle cx="3" cy="7" r="0.85" fill="currentColor" stroke="none"/><line x1="11.5" y1="2" x2="11.5" y2="12" stroke-width="1.4"/><line x1="6.4" y1="7" x2="9.4" y2="7" stroke-width="1.1"/><path d="M8 5.7L9.4 7L8 8.3" stroke-width="1.1"/></svg>';
 var PLANE2VIEW_ICO='<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="2.5" y1="2" x2="2.5" y2="12" stroke-width="1.4"/><path d="M4.6 3.6Q7.2 5.2 7.2 7Q7.2 8.8 4.6 10.4" stroke-width="1.1"/><path d="M3.4 3.9L4.6 3.6L4.9 4.9" stroke-width="1.1"/><path d="M8.5 7Q9.7 5.4 11 5.4Q12.3 5.4 13.5 7Q12.3 8.6 11 8.6Q9.7 8.6 8.5 7Z"/><circle cx="11" cy="7" r="0.85" fill="currentColor" stroke="none"/></svg>';
@@ -23399,6 +23656,7 @@ function newScene(){
   if(_bscale){_bscale.textContent='Scale';_bscale.style.opacity='0.45';_bscale.classList.remove('on');}
   // ── Reset camera ──
   cam.theta=-Math.PI/2;cam.phi=Math.PI/2;cam.radius=10;cam.target.set(0,0,0);
+  _autoOrtho=null;_orthoToPersp=false;
   useOrtho=false;orthoZoom=8;
   if(window._syncPerspBtns)window._syncPerspBtns(false);
   updCam();
@@ -26874,6 +27132,10 @@ animate();
     // min(): #sbar animates when a strip opens, so it can be measured mid-move;
     // the raised floor (M.b) is the bound that is already final.
     var sy=(arr==='bottom')?(tb?tb.y+tb.h+8:M.t):(H-M.b-ST_H);
+    // Bottom: #prim-bar (ref objects / volumes) opens on the same row under the
+    // topbar, and #toast (z 500) sits above it (z 199), so the status pill was
+    // covering the volumes pill. Drop the status pill under the open bar.
+    if(arr==='bottom'){var pbOpen=lg(vis('prim-bar'));if(pbOpen)sy=Math.max(sy,pbOpen.y+pbOpen.h+8);}
     var stW=(arr==='bottom')?Math.min(ST_RESERVE_WIDE,W-24):((arr==='uw'||W<760)?ST_RESERVE:ST_RESERVE_WIDE);
     var sr={x:(W-stW)/2,y:sy,w:stW,h:ST_H};rects.push(sr);
     var cardS={rect:card,right:(card&&arr!=='bottom')?card.x+card.w:M.l-8*K,top:(card&&arr==='bottom')?card.y:H-M.b};
@@ -27631,10 +27893,12 @@ animate();
   };
 
   // ── icons for the preset pill ─────────────────────────────────────
+  // S3 icon import: whole/part/fit/loft/solid/extrude are the S3 set (own viewBox,
+  // complete <svg> strings), the rest still build on IC.
   var IC='<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">';
   var ICO={
-    whole:IC+'<path d="M3 11L8 4L11 7L6 12Z"/><line x1="1" y1="12.6" x2="13" y2="12.6"/></svg>',
-    part:IC+'<path d="M1.6 9.2Q4.4 4.6 7 6.6"/><path d="M8.6 7.6Q10.4 8.6 12.4 4.8" stroke-dasharray="1.4 1.6"/><path d="M7.6 4.4L8.4 9.6"/></svg>',
+    whole:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12" fill="currentColor"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg>',
+    part:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M12.41 24.63L27.73 11.77L33.52 18.67L18.2 31.52Z" stroke-width="3.12"/><path d="M18.54 19.49L24.32 26.38" stroke-width="2.50"/><path d="M10.5 33.2L33.5 33.2" stroke-width="2.50"/></svg>',
     lyrAct:IC+'<path d="M7 2L12.4 4.8L7 7.6L1.6 4.8Z" fill="currentColor" fill-opacity=".3"/><path d="M1.6 7.8L7 10.6L12.4 7.8" opacity=".45"/></svg>',
     lyrAll:IC+'<path d="M7 2L12.4 4.8L7 7.6L1.6 4.8Z" fill="currentColor" fill-opacity=".3"/><path d="M1.6 7.8L7 10.6L12.4 7.8" fill="currentColor" fill-opacity=".3"/><path d="M1.6 10.4L7 13.2L12.4 10.4"/></svg>',
     style:IC+'<circle cx="7" cy="7" r="5.2"/><circle cx="5" cy="5.4" r=".9" fill="currentColor" stroke="none"/><circle cx="8.8" cy="5" r=".9" fill="currentColor" stroke="none"/><circle cx="9.8" cy="8.4" r=".9" fill="currentColor" stroke="none"/><path d="M5.2 9.6Q6 8.4 7.2 9.8"/></svg>',
@@ -27643,10 +27907,10 @@ animate();
     fAll:IC+'<rect x="2" y="2" width="4" height="4" rx=".8"/><rect x="8" y="2" width="4" height="4" rx=".8"/><rect x="2" y="8" width="4" height="4" rx=".8"/><rect x="8" y="8" width="4" height="4" rx=".8"/></svg>',
     fStr:IC+'<path d="M1.8 9.6C3.4 4 5 4 5.6 7.2S8 11.4 9 7.4S11 3 12.4 5.4"/></svg>',
     fPrim:IC+'<path d="M7 1.8L12 4.4V9.6L7 12.2L2 9.6V4.4Z"/><path d="M2 4.4L7 7L12 4.4M7 7V12.2"/></svg>',
-    fit:IC+'<path d="M1.6 10.4L4.6 7.4H12.4L9.4 10.4Z"/><path d="M5.6 4.2L7 2.6L8.4 4.2M7 2.6V6.2"/></svg>',
-    loft:IC+'<path d="M2 4Q7 1.6 12 4"/><path d="M2 10Q7 12.4 12 10"/><path d="M2 4V10M12 4V10" opacity=".45"/></svg>',
-    solid:IC+'<path d="M2 4Q7 1.6 12 4V10Q7 12.4 2 10Z" fill="currentColor" fill-opacity=".25"/></svg>',
-    extrude:IC+'<rect x="2" y="7" width="7" height="5"/><path d="M2 7L5 4H12V9L9 12M9 7L12 4"/></svg>',
+    fit:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M17.21 25.33L16.84 25.33Q15.36 25.33 14.77 26.8L10.79 31.59Q10.2 33.07 12.05 33.07L31.95 33.07Q33.8 33.07 33.21 31.59L29.23 26.8Q28.64 25.33 27.16 25.33L26.79 25.33M22 9.48L22 24.96M14.26 17.22L29.74 17.22M19.64 11.84L22 9.48L24.36 11.84M19.64 22.6L22 24.96L24.36 22.6M16.62 14.86L14.26 17.22L16.62 19.58M27.38 14.86L29.74 17.22L27.38 19.58" stroke-width="3.12"/></svg>',
+    loft:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M8.69 14.93C17.56 9.1 26.44 20.75 35.31 14.93L35.31 29.07C26.44 34.9 17.56 23.25 8.69 29.07Z" fill="currentColor" fill-opacity=".25" stroke="none"/><path d="M8.69 14.93L8.69 29.07M35.31 14.93L35.31 29.07" stroke-width="4.37"/><path d="M8.69 14.93C17.56 9.1 26.44 20.75 35.31 14.93M8.69 29.07C17.56 23.25 26.44 34.9 35.31 29.07M22 14.93L22 29.07" stroke-width="1.72"/></svg>',
+    solid:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M8.69 14.93C17.56 9.1 26.44 20.75 35.31 14.93L35.31 29.07C26.44 34.9 17.56 23.25 8.69 29.07Z" fill="currentColor" fill-opacity=".25" stroke="none"/><path d="M8.69 14.93L8.69 29.07M35.31 14.93L35.31 29.07" stroke-width="4.37"/><path d="M8.69 14.93C17.56 9.1 26.44 20.75 35.31 14.93M8.69 29.07C17.56 23.25 26.44 34.9 35.31 29.07M22 14.93L22 29.07" stroke-width="1.72"/></svg>',
+    extrude:'<svg width="14" height="14" viewBox="4.82 4.82 34.36 34.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M9.86 22L34.14 22" stroke-width="4.37"/><path d="M17.47 13.91L16.74 13.91Q13.91 13.91 13.91 16.74L13.91 20.79M26.53 13.91L27.26 13.91Q30.09 13.91 30.09 16.74L30.09 20.79M17.47 30.09L16.74 30.09Q13.91 30.09 13.91 27.26L13.91 23.21M26.53 30.09L27.26 30.09Q30.09 30.09 30.09 27.26L30.09 23.21M22 18.28L22 9.05M19.57 11.48L22 9.05L24.43 11.48M22 25.72L22 34.95M19.57 32.52L22 34.95L24.43 32.52" stroke-width="2.50"/></svg>',
     dup:IC+'<rect x="4" y="4" width="8" height="8" rx="1"/><path d="M2 9.4V3Q2 2 3 2H9.4"/></svg>',
     del:IC+'<polyline points="2,4 12,4"/><path d="M5 4V2.4H9V4"/><path d="M3.4 4L4.2 12H9.8L10.6 4"/></svg>',
     object:IC+'<path d="M7 1.8L12 4.6V9.4L7 12.2L2 9.4V4.6Z"/><path d="M2 4.6L7 7.4L12 4.6M7 7.4V12.2"/></svg>',
