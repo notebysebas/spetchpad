@@ -25,7 +25,11 @@
 //
 // Bump VENDOR_CACHE only when the pinned Three.js revision actually changes.
 // The old key then fails both exclusions below and is reaped normally.
-const CACHE_NAME   = 'spetchbook-v151';
+//
+// Session 152: CACHE_NAME MUST EQUAL index.html's APP_BUILD. The settings
+// popover compares the two to tell whether a device is running the deployed
+// build ("Build v152 · cache v152 ✓"); bump both together, every time.
+const CACHE_NAME   = 'spetchbook-v161';
 const VENDOR_CACHE = 'spetchbook-vendor-r128';
 
 const VENDOR_URLS = [

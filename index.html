@@ -74,6 +74,13 @@ body[data-theme="light"]{
   --thumb-bdr:#fff;--toast-bg:rgba(26,26,46,.85);--toast-fg:#e8dcc8;
   --modal-bg:rgba(26,26,46,.35);--sgizmo-bg:rgba(230,230,235,0.78);
 }
+body[data-theme="paper"]{
+  --bg:#f1ead9;--bdr:#d3c8ac;--ink:#1a1a2e;--mut:#857a62;
+  --pan:rgba(246,240,226,.95);
+  --ink-r:26;--ink-g:26;--ink-b:46;
+  --thumb-bdr:#fff;--toast-bg:rgba(26,26,46,.85);--toast-fg:#f1ead9;
+  --modal-bg:rgba(26,26,46,.35);--sgizmo-bg:rgba(241,234,217,0.78);
+}
 body[data-theme="eink"]{
   --bg:#ffffff;--bdr:#222222;--ink:#000000;--mut:#333333;
   --pan:#ffffff;
@@ -1856,6 +1863,7 @@ body.uw-mode:not([hidden]) #bprims{display:none!important}
 :root{--surf:#d2b99b;--surf-press:#c2a988;--acc:#0A84FF;--elev:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08)}
 body[data-theme="dark"]{--surf:#37373c;--surf-press:#45454b}
 body[data-theme="light"]{--surf:#e6e6eb;--surf-press:#d6d6dc}
+body[data-theme="paper"]{--surf:#f7f2e3;--surf-press:#e8dfc8}
 body[data-theme="eink"]{--surf:#ffffff;--surf-press:#e4e4e4;--elev:none}
 /* Zoom jog and pan toggle are gone from the UI (elements kept: JS refs them).
    #nav-toggle stays reachable in FPS only, where the legacy card still uses
@@ -1906,6 +1914,22 @@ body.ctl-on:not(.narrow-mode):not(.views-open){--sc-bottom:calc(8px + env(safe-a
 #toast{background:var(--surf);color:var(--ink);border:1px solid var(--bdr);box-shadow:var(--elev);font-size:10.5px;letter-spacing:.02em;
   height:30px;line-height:28px;padding:0 14px;border-radius:15px;box-sizing:border-box;white-space:pre;max-width:calc(100vw - 24px);
   overflow:hidden;text-overflow:ellipsis}
+/* 155: menus open ABOVE the status pill. #toast is z 500 and these were 250-470,
+   so a menu opened under the pill's row was cut by it. 510 keeps them under the
+   modals and file-browser popovers (600+). */
+#expmenu,#view-pop,#ruler-pop,#sym-pop,#scale-pop,#precise-pop,#prims-pop,#layers-pop,#bgpop,#tc-vis-pop,#tc-sel-pop{z-index:510}
+/* 159: heavy-page notice — a small pill at the top, above the menus' row. */
+#heavy-pill{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%) translateY(-8px);
+  z-index:520;display:none;align-items:center;gap:8px;max-width:calc(100vw - 24px);box-sizing:border-box;
+  background:var(--surf);color:var(--ink);border:1px solid var(--bdr);box-shadow:var(--elev);border-radius:16px;
+  height:32px;padding:0 6px 0 14px;font:400 10.5px 'DM Mono',monospace;letter-spacing:.02em;opacity:0;transition:opacity .2s,transform .2s}
+#heavy-pill.on{display:flex}
+#heavy-pill.in{opacity:1;transform:translateX(-50%) translateY(0)}
+#heavy-pill .hp-t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#heavy-pill .hp-dot{width:7px;height:7px;border-radius:50%;background:#e0a030;flex-shrink:0}
+#heavy-pill button{width:24px;height:24px;border:none;border-radius:50%;background:transparent;color:var(--mut);font-size:13px;cursor:pointer;flex-shrink:0;padding:0}
+#heavy-pill.busy .hp-dot{background:var(--acc)}
+#heavy-pill.busy button{display:none}
 /* ══ Session 131 — Phase B: the tool card (#tc) ══
    Two capsule pills (presets, tools) plus undo/redo, 42px across. Vertical in
    Side/UW, horizontal in Bottom. Stage classes from _tcLayout():
@@ -1939,6 +1963,12 @@ body.tc-on #tc{display:flex}
 #tc.tc-h.tc-min{gap:2px}
 #tc.tc-h.tc-min .tc-pill{padding:3px 2px}
 #tc.tc-h.tc-min .tc-b{width:27px}
+/* 160 — the same last step, vertical (Side / Ultra-wide on short screens):
+   27px-tall buttons, 2px pill end padding, 2px between pills. A 340px-high
+   landscape phone measured 342px of card in 324 before (bottom clipped). */
+#tc.tc-v.tc-min{gap:2px}
+#tc.tc-v.tc-min .tc-pill{padding:2px 3px}
+#tc.tc-v.tc-min .tc-b{height:27px}
 /* Preset dots: 26px cells (the brief's touch-target exemption). */
 #tc .tc-dot{width:26px;height:26px;border-radius:50%;border:none;background:transparent;padding:0;margin:0;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -2043,6 +2073,7 @@ body.tc-on #ctl .ctl-selbar{display:none!important}
 #tc-vis-pop .tvp-r svg{width:16px;height:16px;flex-shrink:0}
 #tc-vis-pop .tvp-r:active{background:var(--surf-press)}
 #tc-vis-pop .tvp-r.dis{opacity:.35;pointer-events:none}
+#tc-vis-pop .tvp-r.on{background:var(--acc);color:#fff}
 #tc-vis-pop .tvp-sz{display:flex;gap:4px;padding:2px 0 2px}
 #tc-vis-pop .tvp-sz button{flex:1;min-height:34px;border:none;border-radius:17px;background:rgba(var(--ink-r),var(--ink-g),var(--ink-b),.07);
   color:var(--ink);font:400 10px 'DM Mono',monospace;cursor:pointer;padding:0 6px}
@@ -2060,6 +2091,32 @@ body.ctl-on.fps-active #fps-joy-look{display:none!important}
 #ctl-dbg button{font:inherit;margin:0 2px 4px 0;padding:3px 7px;background:#33333a;color:#eee;border:1px solid #555;border-radius:4px}
 #ctl-dbg button.on{background:#0A84FF;border-color:#0A84FF}
 #ctl-dbg pre{margin:0;white-space:pre-wrap}
+/* 152 — diagnostics rows in the view popover */
+#vp-build{font:400 7.5px 'DM Mono',monospace;color:var(--mut);letter-spacing:.03em;padding:4px 10px 2px;white-space:nowrap}
+#vp-build.stale{color:#b03020}
+/* 152 — first-launch theme pill. Under the top toolbar, centred, above the
+   chrome (z 470) but below Pages (480) and the modals. */
+#ftp{position:fixed;top:calc(56px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%) translateY(-6px);
+  z-index:510;display:none;align-items:center;gap:2px;padding:3px 3px 3px 14px;box-sizing:border-box;
+  background:var(--surf);color:var(--ink);border:1px solid var(--bdr);box-shadow:var(--elev);border-radius:21px;
+  max-width:calc(100vw - 16px);opacity:0;transition:opacity .2s,transform .2s}
+#ftp.on{display:flex}
+#ftp.in{opacity:1;transform:translateX(-50%) translateY(0)}
+#ftp .ftp-l{font:400 10px 'DM Mono',monospace;letter-spacing:.03em;white-space:nowrap;margin-right:6px}
+#ftp button{width:34px;height:34px;border-radius:50%;border:none;background:transparent;padding:0;margin:0;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+#ftp .ftp-b i{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;
+  box-sizing:border-box;border:1px solid rgba(var(--ink-r),var(--ink-g),var(--ink-b),.25)}
+#ftp .ftp-b b{display:block;width:6px;height:6px;border-radius:50%}
+#ftp .ftp-b.on i{box-shadow:0 0 0 2px var(--surf),0 0 0 4px var(--acc)}
+#ftp #ftp-ok{background:var(--acc);color:#fff;margin-left:4px}
+#ftp #ftp-ok:active{opacity:.8}
+/* Bottom (phone): the status pill sits at 52 under the toolbar (computeLayout),
+   and #bprims at 52-90 on the right edge; the pill goes under both. */
+body.narrow-mode #ftp{top:calc(98px + env(safe-area-inset-top,0px))}
+@media(max-width:340px){#ftp .ftp-l{display:none}#ftp{padding-left:3px}}
+body.uw-mode #ftp{top:calc(8px + env(safe-area-inset-top,0px))}
 
 
 /* ══ Session 136a — the rest of the chrome joins the tool-card look ══
@@ -2296,6 +2353,99 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   setTimeout(show,5000);
   window.addEventListener('error',function(){setTimeout(show,0);});
 })();
+// ── 152 — FIELD DIAGNOSTICS ───────────────────────────────────────────────
+// Lives in this first tiny script so boot-time failures are recorded too: by
+// the time the main script runs, a throw in it has already happened.
+//   APP_BUILD   — this index.html's build. Must equal sw.js CACHE_NAME; the
+//                 settings line compares the two (see _diagBuildLine).
+//   _diagPush   — last DIAG_MAX errors, kept in localStorage 'sk3d_diag'.
+//                 Consecutive repeats fold into one entry with a count (an
+//                 error inside animate() would otherwise fill the log in a
+//                 second), and writes are debounced: a throw every frame must
+//                 not turn into a localStorage write every frame.
+//   _trc        — input trace ring (pointer / touch events and the palm
+//                 decisions), memory only, OFF unless switched on in the view
+//                 popover. Callers check window._trcOn first.
+// ES5 only, and nothing here may throw: it is the code that reports throws.
+var APP_BUILD='spetchbook-v161';
+(function(){
+  var KEY='sk3d_diag',DIAG_MAX=50,log=[],tmr=null;
+  try{log=JSON.parse(localStorage.getItem(KEY)||'[]');if(!(log instanceof Array))log=[];}catch(ex){log=[];}
+  function flush(){tmr=null;try{localStorage.setItem(KEY,JSON.stringify(log));}catch(ex){}}
+  function push(k,m,x){
+    try{
+      m=String(m==null?'':m).slice(0,300);x=x?String(x).slice(0,400):'';
+      var last=log[log.length-1];
+      if(last&&last.k===k&&last.m===m&&last.x===x){last.n=(last.n||1)+1;last.t=Date.now();}
+      else{log.push({t:Date.now(),k:k,m:m,x:x,b:APP_BUILD});if(log.length>DIAG_MAX)log=log.slice(-DIAG_MAX);}
+      if(!tmr)tmr=setTimeout(flush,1000);
+    }catch(ex){}
+  }
+  window._diagPush=push;
+  window._diagLog=function(){return log;};
+  window._diagClear=function(){log=[];flush();};
+  window.addEventListener('error',function(e){
+    var t=e&&e.target;
+    // Capture phase also sees resource load failures (script, img), whose
+    // target is the element, not window.
+    if(t&&t!==window&&(t.src||t.href)){push('res','load failed',t.src||t.href);return;}
+    var st=(e&&e.error&&e.error.stack)?String(e.error.stack).split('\n').slice(0,4).join(' | '):'';
+    push('err',e&&e.message,((e&&e.filename)||'').split('/').pop()+':'+(e&&e.lineno)+':'+(e&&e.colno)+(st?' '+st:''));
+  },true);
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason;
+    push('rej',(r&&r.message)||r,(r&&r.stack)?String(r.stack).split('\n').slice(0,3).join(' | '):'');
+  });
+  function hidden(){if(document.visibilityState==='hidden'&&tmr){clearTimeout(tmr);flush();}}
+  document.addEventListener('visibilitychange',hidden);
+  window.addEventListener('pagehide',function(){if(tmr){clearTimeout(tmr);flush();}});
+
+  // Input trace. 600 entries, memory only.
+  var TR=[],TR_MAX=600,t0=0,hoverAt=0;
+  window._trcOn=false;
+  window._trc=function(tag,o){
+    if(!window._trcOn)return;
+    try{TR.push([Date.now()-t0,tag,o||'']);if(TR.length>TR_MAX)TR.shift();}catch(ex){}
+  };
+  window._trcDump=function(){return TR;};
+  function flags(){
+    var f='';
+    try{
+      f+=(window._scPenDown?'D':'-')+(window._penActive?'A':'-')+(window._scPalmGesture?'G':'-');
+      f+=(typeof window._scPalmStart==='function'&&window._scPalmStart())?'W':'-';
+    }catch(ex){}
+    return f; // D pen down · A pen active on scene · G palm gesture · W palm window open
+  }
+  function tgt(t){if(!t)return '?';return (t.id?'#'+t.id:(t.tagName||'?').toLowerCase());}
+  function onPtr(e){
+    if(e.type==='pointermove'){
+      // Pen hover only, at most every 100ms; moves under contact are noise here.
+      if(e.pointerType!=='pen'||e.buttons!==0)return;
+      var n=Date.now();if(n-hoverAt<100)return;hoverAt=n;
+    }
+    window._trc(e.type.replace('pointer','p'),e.pointerType+' id'+e.pointerId+' '+Math.round(e.clientX)+','+Math.round(e.clientY)+
+      ' pr'+(Math.round((e.pressure||0)*100)/100)+' wh'+Math.round(e.width||0)+'x'+Math.round(e.height||0)+' b'+e.buttons+' '+tgt(e.target)+' '+flags());
+  }
+  function onTch(e){
+    var ct=e.changedTouches,s='';
+    for(var i=0;ct&&i<ct.length;i++){var c=ct[i];
+      s+='['+c.identifier+' '+Math.round(c.clientX)+','+Math.round(c.clientY)+' r'+Math.round(c.radiusX||0)+'x'+Math.round(c.radiusY||0)+
+        ' f'+(Math.round((c.force||0)*100)/100)+(c.touchType?' '+c.touchType:'')+' '+tgt(c.target)+']';}
+    window._trc(e.type.replace('touch','t'),'n'+(e.touches?e.touches.length:0)+' '+s+' '+flags());
+  }
+  var EV=['pointerdown','pointerup','pointercancel','pointermove'],TE=['touchstart','touchend','touchcancel'];
+  window._trcSet=function(on){
+    on=!!on;if(on===window._trcOn)return;
+    window._trcOn=on;var i;
+    if(on){TR=[];t0=Date.now();
+      for(i=0;i<EV.length;i++)window.addEventListener(EV[i],onPtr,true);
+      for(i=0;i<TE.length;i++)window.addEventListener(TE[i],onTch,true);
+    }else{
+      for(i=0;i<EV.length;i++)window.removeEventListener(EV[i],onPtr,true);
+      for(i=0;i<TE.length;i++)window.removeEventListener(TE[i],onTch,true);
+    }
+  };
+})();
 </script>
 <div id="cc"></div>
 <div id="new-scene-modal">
@@ -2464,6 +2614,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   <div class="vp-sep"></div>
   <div id="vp-bg-row">
     <span style="font-size:7.5px;color:var(--mut);letter-spacing:.06em;flex-shrink:0">BG</span>
+    <div class="bgpop-swatch" id="vp-bg-paper" title="Paper" style="background:#f1ead9;border-color:var(--bdr)"></div>
     <div class="bgpop-swatch on" id="vp-bg-beige" title="Tan" style="background:#cdb899"></div>
     <div class="bgpop-swatch" id="vp-bg-white" title="White" style="background:#ffffff;border-color:var(--bdr)"></div>
     <div class="bgpop-swatch" id="vp-bg-black" title="Black" style="background:#2a2a2e"></div>
@@ -2471,11 +2622,34 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   </div>
   <div id="vp-theme-row" style="display:flex;align-items:center;gap:4px;padding:2px 8px 4px">
     <span style="font-size:7.5px;color:var(--mut);letter-spacing:.06em;flex-shrink:0">UI</span>
-    <button class="btn-lbl btn theme-btn on" data-theme="default" title="Default theme" style="font-size:6px;height:22px;padding:0 5px">DEF</button>
+    <button class="btn-lbl btn theme-btn on" data-theme="paper" title="Paper theme" style="font-size:6px;height:22px;padding:0 5px">PPR</button>
+    <button class="btn-lbl btn theme-btn" data-theme="default" title="Kraft theme" style="font-size:6px;height:22px;padding:0 5px">KFT</button>
     <button class="btn-lbl btn theme-btn" data-theme="dark" title="Dark theme" style="font-size:6px;height:22px;padding:0 5px">DRK</button>
     <button class="btn-lbl btn theme-btn" data-theme="light" title="Light theme" style="font-size:6px;height:22px;padding:0 5px">LGT</button>
     <button class="btn-lbl btn theme-btn" data-theme="eink" title="E-ink theme" style="font-size:6px;height:22px;padding:0 5px">INK</button>
   </div>
+  <!-- 152: field diagnostics. Trace = record pen / touch events and the palm
+       decisions (memory only); Copy = build, device, last errors and the trace
+       to the clipboard, for pasting into a report. -->
+  <div class="vp-sep"></div>
+  <button class="vp-row" id="bdiagtrace" title="Record pen and touch events for a bug report (not saved)"><span class="vp-dot"></span>Input trace</button>
+  <button class="vp-row" id="bdiagcopy" title="Copy build, device info, recent errors and the input trace">Copy diagnostics</button>
+  <div id="vp-build" title="This page's build · the build the offline cache holds"></div>
+</div>
+
+<!-- 152: first-launch theme pill. Shown once, on a device with no saved
+     preferences (window._themePick==='pending'). The swatches are ordinary
+     .theme-btn buttons, so they apply and save exactly as the settings row
+     does; the check only marks the choice made and closes the pill. -->
+<div id="heavy-pill" role="status"><i class="hp-dot"></i><span class="hp-t"></span><button title="Dismiss">&#10005;</button></div>
+<div id="ftp" role="dialog" aria-label="Pick your theme">
+  <span class="ftp-l">Pick your theme</span>
+  <button class="theme-btn ftp-b" data-theme="paper" title="Paper"><i style="background:#f1ead9"><b style="background:#1a1a2e"></b></i></button>
+  <button class="theme-btn ftp-b" data-theme="default" title="Kraft"><i style="background:#cdb899"><b style="background:#1a1a2e"></b></i></button>
+  <button class="theme-btn ftp-b" data-theme="dark" title="Dark"><i style="background:#2a2a2e"><b style="background:#e0e0e4"></b></i></button>
+  <button class="theme-btn ftp-b" data-theme="light" title="Light"><i style="background:#e8e8ec"><b style="background:#1a1a2e"></b></i></button>
+  <button class="theme-btn ftp-b" data-theme="eink" title="E-ink"><i style="background:#ffffff"><b style="background:#000000"></b></i></button>
+  <button id="ftp-ok" title="Done"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 7.4L5.6 10.2L11.4 3.8"/></svg></button>
 </div>
 
 <!-- Ruler mode popover — opened by #bruler-arrow -->
@@ -2626,12 +2800,14 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
 
 <!-- Background color popover -->
 <div id="bgpop">
+  <div class="bgpop-swatch" id="bgpop-paper" title="Paper" style="background:#f1ead9;border-color:var(--bdr)"></div>
   <div class="bgpop-swatch on" id="bgpop-beige" title="Tan" style="background:#cdb899"></div>
   <div class="bgpop-swatch" id="bgpop-white" title="White" style="background:#ffffff;border-color:var(--bdr)"></div>
   <div class="bgpop-swatch" id="bgpop-black" title="Black" style="background:#2a2a2e"></div>
   <div id="bgpop-pick" title="Custom color"><input type="color" id="bgpop-custom" value="#cdb899"></div>
   <div style="width:1px;height:18px;background:var(--bdr);margin:0 1px;flex-shrink:0"></div>
-  <button class="btn-lbl btn theme-btn on" data-theme="default" title="Default theme" style="font-size:6px;height:22px;padding:0 5px">DEF</button>
+  <button class="btn-lbl btn theme-btn on" data-theme="paper" title="Paper theme" style="font-size:6px;height:22px;padding:0 5px">PPR</button>
+  <button class="btn-lbl btn theme-btn" data-theme="default" title="Kraft theme" style="font-size:6px;height:22px;padding:0 5px">KFT</button>
   <button class="btn-lbl btn theme-btn" data-theme="dark" title="Dark theme" style="font-size:6px;height:22px;padding:0 5px">DRK</button>
   <button class="btn-lbl btn theme-btn" data-theme="light" title="Light theme" style="font-size:6px;height:22px;padding:0 5px">LGT</button>
   <button class="btn-lbl btn theme-btn" data-theme="eink" title="E-ink theme" style="font-size:6px;height:22px;padding:0 5px">INK</button>
@@ -2919,6 +3095,12 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
   <button class="prim-tb-btn" id="prim-add-plane" title="Add plane">
     <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 10L5 4L13 4L9 10Z"/></svg>
   </button>
+  <!-- 154: reference image. Picture glyph (frame, sun, hill line). The file input is
+       hidden; the button opens it. The image becomes a ref object of type 'image'. -->
+  <button class="prim-tb-btn" id="prim-add-image" title="Add reference image">
+    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="2.5" width="11" height="9" rx="1"/><circle cx="5" cy="5.6" r="1"/><path d="M2 10.4L5.6 7.2L8 9.2L10 7.6L12 9.8"/></svg>
+  </button>
+  <input type="file" id="prim-img-in" accept="image/*" style="display:none">
   <div class="prim-tb-sep"></div>
   <button class="prim-tb-btn" id="prim-list-btn" title="Objects list">
     <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><line x1="1" y1="3" x2="13" y2="3"/><line x1="1" y1="7" x2="13" y2="7"/><line x1="1" y1="11" x2="13" y2="11"/><circle cx="3" cy="3" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="11" r="1" fill="currentColor" stroke="none"/></svg>
@@ -3722,14 +3904,63 @@ var _surfGridLabels=['OFF','GRD','DOT'];
 var _depthOpSteps=[0.50,0.75,0.90];
 var _depthOpLabels=['50%','75%','90%'];
 var _depthOpIdx=0;
+function _surfGridCol(){
+  if(_uiTheme==='eink')return new THREE.Color(80/255,80/255,80/255);
+  if(_surfGridHSL)return new THREE.Color().setHSL(_surfGridHSL.h,_surfGridHSL.s,Math.max(_surfGridHSL.l-0.05,0.15));
+  return new THREE.Color(100/255,68/255,38/255);
+}
 function _surfGridRGBA(alpha){
-  if(_uiTheme==='eink')return 'rgba(80,80,80,'+alpha+')';
-  if(_surfGridHSL){
-    // Convert HSL to RGB for canvas
-    var tc=new THREE.Color().setHSL(_surfGridHSL.h,_surfGridHSL.s,Math.max(_surfGridHSL.l-0.05,0.15));
-    return 'rgba('+Math.round(tc.r*255)+','+Math.round(tc.g*255)+','+Math.round(tc.b*255)+','+alpha+')';
-  }
-  return 'rgba(100,68,38,'+alpha+')';
+  var tc=_surfGridCol();
+  return 'rgba('+Math.round(tc.r*255)+','+Math.round(tc.g*255)+','+Math.round(tc.b*255)+','+alpha+')';
+}
+// 158: the PLANE's grid is analytic (fwidth), not a 128px texture repeated 40x.
+// The texture's mipmaps turned the far dots into a haze and shimmered at grazing
+// angles; here every dot / line is anti-aliased per pixel, never thinner than a
+// pixel, and fades out as the cells get too small to read (< ~5px) — so the grid
+// reads as a clean receding plane, which is the depth cue. Same spacing and
+// placement as the texture (a point at every integer of uv*rep+off, one per
+// world unit, locked to the plane centre). Other surface types keep the texture.
+var _SG_VS='varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}';
+var _SG_FS=[
+  'uniform vec3 uCol;uniform float uA;uniform float uMode;uniform vec2 uRep;uniform vec2 uOff;',
+  'varying vec2 vUv;',
+  'void main(){',
+  '  vec2 g=vUv*uRep+uOff;',
+  '  vec2 w=max(fwidth(g),vec2(1e-6));',            // cells per pixel
+  '  vec2 f=abs(fract(g+0.5)-0.5);',                 // distance to the nearest grid point / line, in cells
+  '  float mw=max(w.x,w.y);',
+  '  float fade=1.0-smoothstep(0.15,0.33,mw);',      // cells under ~3-7px: fade out
+  '  float a;',
+  '  if(uMode<1.5){',
+  '    vec2 l=1.0-clamp(f/w-0.5,0.0,1.0);',          // ~1px line, anti-aliased
+  '    a=max(l.x,l.y);',
+  '  } else {',
+  '    float r=3.0/128.0;',                            // the texture dot: 3px of a 128px cell
+  '    float re=max(r,0.75*mw);',                      // never thinner than a pixel...
+  '    float aa=0.5*mw;',
+  '    a=(1.0-smoothstep(re-aa,re+aa,length(f)))*min(1.0,(r*r)/(re*re));',  // ...but no brighter than its real size
+  '  }',
+  '  a*=fade*uA;',
+  '  if(a<0.004)discard;',
+  '  gl_FragColor=vec4(uCol,a);',
+  '}'].join('\n');
+function _makeSurfGridShader(){
+  return new THREE.ShaderMaterial({
+    uniforms:{uCol:{value:new THREE.Color()},uA:{value:0.85},uMode:{value:2},uRep:{value:new THREE.Vector2(40,40)},uOff:{value:new THREE.Vector2(0,0)}},
+    vertexShader:_SG_VS,fragmentShader:_SG_FS,
+    transparent:true,side:THREE.DoubleSide,depthWrite:false,depthTest:true,
+    extensions:{derivatives:true}
+  });
+}
+function _surfGridShaderSync(){
+  var m=_frostedGridMat;if(!m||!m.isShaderMaterial)return;
+  m.uniforms.uCol.value.copy(_surfGridCol());
+  m.uniforms.uMode.value=_surfGridMode;
+  m.uniforms.uA.value=_surfGridMode===1?0.7:0.85;
+  var sx=surfScale*(surfScaleAxes?surfScaleAxes.x:1)||1,sy=surfScale*(surfScaleAxes?surfScaleAxes.y:1)||1;
+  var repX=40*sx,repY=40*sy;
+  m.uniforms.uRep.value.set(repX,repY);
+  m.uniforms.uOff.value.set(-(0.5*repX%1),-(0.5*repY%1));
 }
 function buildSurfGridTex(){
   var sz=128;
@@ -3765,6 +3996,9 @@ function applyFrostedGridTex(){
   if(!_frostedGridMat||!_frostedGridMesh)return;
   if(_surfGridMode===0){
     _frostedGridMesh.visible=false;
+  } else if(_frostedGridMat.isShaderMaterial){
+    _surfGridShaderSync();
+    _frostedGridMesh.visible=depthCuesOn;
   } else {
     if(_frostedGridMat.map)_frostedGridMat.map.dispose();
     _frostedGridMat.map=buildSurfGridTex();
@@ -3819,11 +4053,14 @@ function buildSurf(){
   else if(surfType==='cylinder')fgeo2=new THREE.CylinderGeometry(1.52,1.52,3.04,48);
   else if(surfType==='cone')fgeo2=new THREE.ConeGeometry(1.52,3.04,48);
   else fgeo2=new THREE.SphereGeometry(1.82,48,32);
+  if(surfType==='plane'){_frostedGridMat=_makeSurfGridShader();_surfGridShaderSync();}
+  else{
   _frostedGridMat=new THREE.MeshBasicMaterial({
     color:0xffffff,transparent:true,
     side:THREE.DoubleSide,depthWrite:false,depthTest:true
   });
   if(_surfGridMode>0){_frostedGridMat.map=buildSurfGridTex();}
+  }
   _frostedGridMesh=new THREE.Mesh(fgeo2,_frostedGridMat);
   _frostedGridMesh.renderOrder=6;
   _frostedGridMesh.visible=depthCuesOn&&_surfGridMode>0;
@@ -3840,6 +4077,7 @@ function syncSurf(){
   surfGroup.scale.set(surfScale*surfScaleAxes.x,surfScale*surfScaleAxes.y,surfScale*surfScaleAxes.z);
   // Scale-compensate grid texture on plane only — keeps 1-unit spacing constant
   // Dots must stay locked to plane center regardless of surfScale
+  if(_frostedGridMat&&_frostedGridMat.isShaderMaterial)_surfGridShaderSync();
   if(surfType==='plane'&&_frostedGridMat&&_frostedGridMat.map){
     var sx=surfScale*surfScaleAxes.x||1;
     var sy=surfScale*surfScaleAxes.y||1;
@@ -4448,6 +4686,9 @@ buildSurf();
     var pm=isPrim?_lgPrim():null;
     if(isPrim&&!pm){ _lgTarget='surface'; isPrim=false; } // object was deselected under us
     _lgLastPrec=null;
+    // 153: a surface-target drag is ONE undo step ('surf_set', the same record Move Plane to
+    // Selection uses). Selection / ref-object targets already had theirs; the surface had none.
+    var _lgSurfBefore=(!isSel&&!isPrim)?_surfGet():null;
     if(hit.type==='center'){
       _lgDrag={ax:null, type:'center', isSel:isSel, isPrim:isPrim, prim:pm,
         startClient:{x:clientX,y:clientY}, moved:false,
@@ -4457,6 +4698,7 @@ buildSurf();
         frozenLayout:_lgLayout?JSON.parse(JSON.stringify(_lgLayout)):null};
       if(isSel){var base0=_lgSelDragBase();_lgDrag.oMatrices=base0.oMatrices;_lgDrag.oScales=base0.oScales;_lgDrag.centroid=base0.centroid;}
       if(isPrim){var pb0=_lgPrimDragBase(pm);_lgDrag.oPrimPos=pb0.oPrimPos;_lgDrag.oPrimQuat=pb0.oPrimQuat;_lgDrag.oPrimScale=pb0.oPrimScale;}
+      _lgDrag.surfBefore=_lgSurfBefore;
       return;
     }
     _lgDrag={
@@ -4482,6 +4724,7 @@ buildSurf();
     };
     if(isSel){var base=_lgSelDragBase();_lgDrag.oMatrices=base.oMatrices;_lgDrag.oScales=base.oScales;_lgDrag.centroid=base.centroid;}
     if(isPrim){var pb=_lgPrimDragBase(pm);_lgDrag.oPrimPos=pb.oPrimPos;_lgDrag.oPrimQuat=pb.oPrimQuat;_lgDrag.oPrimScale=pb.oPrimScale;}
+    _lgDrag.surfBefore=_lgSurfBefore;
     _lgDraw();
   }
 
@@ -4720,7 +4963,11 @@ buildSurf();
       if(window._positionPrimGizmo)window._positionPrimGizmo();
     }
     else if(snap.isSel){ updateSelHighlights(); _lgComputeLayout(); }
-    else { syncSurf(); }
+    else {
+      syncSurf();
+      // 153: the drag's undo step must redo to the typed value, not the dragged one
+      if(snap.surfRec&&_undoStack[_undoStack.length-1]===snap.surfRec)snap.surfRec.after=_surfGet();
+    }
     _lgDraw();
     markDirty();
   }
@@ -4859,6 +5106,13 @@ buildSurf();
         _lgScale = !_lgScale;
         _lgComputeLayout();
         _lgDraw();
+      }
+    }
+    if(_lgSnap&&_lgSnap.surfBefore){
+      var _lgSa=_surfGet(),_lgSb=_lgSnap.surfBefore;
+      if(!_lgSb.p.equals(_lgSa.p)||!_lgSb.e.equals(_lgSa.e)||_lgSb.s!==_lgSa.s||!_lgSb.a.equals(_lgSa.a)){
+        _lgSnap.surfRec={type:'surf_set',before:_lgSb,after:_lgSa};
+        pushUndo(_lgSnap.surfRec);
       }
     }
     _lgDrag=null;
@@ -5301,7 +5555,7 @@ function s2w(px,py){
 const BG_COL=new THREE.Color(0xcdb899);
 
 // ── UI Theme System ─────────────────────────────────────────────
-// _uiTheme: 'default' | 'dark' | 'light'
+// _uiTheme: 'default' (Kraft) | 'paper' | 'dark' | 'light' | 'eink'
 var _uiTheme='default';
 // JS-side ink RGB for canvas drawing — updated by setUITheme
 var _inkRGB={r:26,g:26,b:46};
@@ -5414,6 +5668,10 @@ function setUITheme(theme){
     _inkRGB={r:26,g:26,b:46};
     _themeHilight='#fff';
     document.body.setAttribute('data-theme','light');
+  } else if(_uiTheme==='paper'){
+    _inkRGB={r:26,g:26,b:46};
+    _themeHilight='#fff';
+    document.body.setAttribute('data-theme','paper');
   } else if(_uiTheme==='eink'){
     _inkRGB={r:0,g:0,b:0};
     _themeHilight='#ccc';
@@ -6091,14 +6349,123 @@ function _fillMesh(pts){
     stack.push(A);stack.push(B);
   }
   // ── ear-clip each simple loop ──
-  var out=[];
-  for(var si=0;si<simple.length;si++)_fillEarClip(simple[si],X,Y,EPS,out);
+  // 160: a loop that winds round the same area twice (a spiral, a loop
+  // drawn on past its start) splits into loops that lie inside, or across,
+  // each other — and each one filled painted the shared area twice: darker
+  // under a translucent fill. Detected by sampling each loop's triangle
+  // centroids against the other loops; when found, the WHOLE outline is
+  // filled by _fillSlabs (nonzero rule, every point once) instead. Loops
+  // that only touch (a figure-8) and simple loops keep the ear-clip, so
+  // their triangles are unchanged.
+  var out=[],tris=[],si,sj,ov=false;
+  for(si=0;si<simple.length;si++){var tr=[];_fillEarClip(simple[si],X,Y,EPS,tr);tris.push(tr);}
+  if(simple.length>1){
+    for(si=0;si<simple.length&&!ov;si++){
+      var T=tris[si],stp=Math.max(3,Math.floor(T.length/3/24)*3);
+      for(i=0;i<T.length&&!ov;i+=stp){
+        var cx=(X[T[i]]+X[T[i+1]]+X[T[i+2]])/3,cy=(Y[T[i]]+Y[T[i+1]]+Y[T[i+2]])/3;
+        for(sj=0;sj<simple.length&&!ov;sj++)if(sj!==si&&_fillInLoop(simple[sj],X,Y,cx,cy))ov=true;
+      }
+    }
+  }
+  if(ov){V.length=n;X.length=n;Y.length=n;_fillSlabs(n,V,X,Y,ext,out);}
+  else for(si=0;si<simple.length;si++)for(i=0;i<tris[si].length;i++)out.push(tris[si][i]);
   // Wind every triangle with the Newell normal so computed normals agree.
   for(i=0;i<out.length;i+=3){
     var t0=out[i],t1=out[i+1],t2=out[i+2];
     if((X[t1]-X[t0])*(Y[t2]-Y[t0])-(Y[t1]-Y[t0])*(X[t2]-X[t0])<0){out[i+1]=t2;out[i+2]=t1;}
   }
   return {v:V,t:out};
+}
+// 160: point (px,py) inside the closed loop ids (even-odd crossing test).
+function _fillInLoop(ids,X,Y,px,py){
+  var m=ids.length,inside=false,i,j,xi,yi,xj,yj;
+  for(i=0,j=m-1;i<m;j=i++){
+    xi=X[ids[i]];yi=Y[ids[i]];xj=X[ids[j]];yj=Y[ids[j]];
+    if((yi>py)!==(yj>py)&&px<(xj-xi)*(py-yi)/(yj-yi)+xi)inside=!inside;
+  }
+  return inside;
+}
+// 160: fill the outline 0..n-1 by the NONZERO rule, each point once. The
+// plane is cut into horizontal slabs at every vertex and every crossing, so
+// inside a slab no edges cross: walking the edges left to right with a
+// winding count gives the filled spans, each a trapezoid. Each trapezoid's
+// bottom / top edge takes every slab-boundary point that lies on it (from the
+// slabs on either side), so neighbouring pieces share vertices — no
+// T-junction cracks. New points are appended to V/X/Y (V in 3D: back on the
+// fill's plane through _flU/_flV/_flN, set by _fillMesh).
+function _fillSlabs(n,V,X,Y,ext,out){
+  var N=_flN,U=_flU,W=_flV,dn=0,i,j,a,b,c,d;
+  for(i=0;i<n;i++)dn+=V[i].x*N.x+V[i].y*N.y+V[i].z*N.z;
+  dn/=n;
+  var tol=ext*1e-9,E=[];
+  for(i=0;i<n;i++){j=(i+1)%n;if(Math.abs(Y[i]-Y[j])>tol)E.push(i);}
+  var ys=[];for(i=0;i<n;i++)ys.push(Y[i]);
+  for(a=0;a<E.length;a++){
+    var a0=E[a],a1=(a0+1)%n,ax0=Math.min(X[a0],X[a1]),ax1=Math.max(X[a0],X[a1]),ay0=Math.min(Y[a0],Y[a1]),ay1=Math.max(Y[a0],Y[a1]);
+    for(b=a+1;b<E.length;b++){
+      var b0=E[b],b1=(b0+1)%n;
+      if(b0===a1||b1===a0)continue;
+      if(Math.max(X[b0],X[b1])<ax0||Math.min(X[b0],X[b1])>ax1||Math.max(Y[b0],Y[b1])<ay0||Math.min(Y[b0],Y[b1])>ay1)continue;
+      var rx=X[a1]-X[a0],ry=Y[a1]-Y[a0],sx=X[b1]-X[b0],sy=Y[b1]-Y[b0],den=rx*sy-ry*sx;
+      if(Math.abs(den)<1e-30)continue;
+      var qx=X[b0]-X[a0],qy=Y[b0]-Y[a0],t=(qx*sy-qy*sx)/den,u=(qx*ry-qy*rx)/den;
+      if(t>0&&t<1&&u>0&&u<1)ys.push(Y[a0]+ry*t);
+    }
+  }
+  ys.sort(function(p,q){return p-q;});
+  var Ys=[];for(i=0;i<ys.length;i++)if(!Ys.length||ys[i]-Ys[Ys.length-1]>tol)Ys.push(ys[i]);
+  // Pass 1: trapezoids {k, L:[x0,x1], R:[x0,x1]} and the x's on each boundary.
+  var traps=[],onY=[];for(i=0;i<Ys.length;i++)onY.push([]);
+  for(var k=0;k+1<Ys.length;k++){
+    var y0=Ys[k],y1=Ys[k+1],ym=(y0+y1)/2,act=[];
+    for(i=0;i<E.length;i++){
+      a=E[i];b=(a+1)%n;var ya=Y[a],yb=Y[b];
+      if(!((ya<ym&&yb>ym)||(yb<ym&&ya>ym)))continue;
+      var sl=(X[b]-X[a])/(yb-ya);
+      act.push({x0:X[a]+sl*(y0-ya),x1:X[a]+sl*(y1-ya),xm:X[a]+sl*(ym-ya),d:yb>ya?1:-1});
+    }
+    act.sort(function(p,q){return p.xm-q.xm;});
+    var w=0,st=null;
+    for(i=0;i<act.length;i++){
+      var pw=w;w+=act[i].d;
+      if(pw===0&&w!==0)st=act[i];
+      else if(pw!==0&&w===0&&st){
+        traps.push({k:k,l0:st.x0,l1:st.x1,r0:act[i].x0,r1:act[i].x1});
+        onY[k].push(st.x0,act[i].x0);onY[k+1].push(st.x1,act[i].x1);
+      }
+    }
+  }
+  // Vertex ids: one per (boundary, x), original outline points reused.
+  var q=ext*1e-7,keys={};
+  function key(x,y){return Math.round(x/q)+','+Math.round(y/q);}
+  for(i=0;i<n;i++){var k0=key(X[i],Y[i]);if(keys[k0]==null)keys[k0]=i;}
+  function vid(x,y){
+    var kk=key(x,y);if(keys[kk]!=null)return keys[kk];
+    var id=V.length;keys[kk]=id;X.push(x);Y.push(y);
+    V.push(new THREE.Vector3(U.x*x+W.x*y+N.x*dn,U.y*x+W.y*y+N.y*dn,U.z*x+W.z*y+N.z*dn));
+    return id;
+  }
+  for(i=0;i<onY.length;i++)onY[i].sort(function(p,r){return p-r;});
+  function chain(row,x0,x1,y){
+    var c=[x0],L=onY[row],m;
+    for(m=0;m<L.length;m++)if(L[m]>x0+q&&L[m]<x1-q)c.push(L[m]);
+    if(x1-x0>q)c.push(x1);
+    var ids=[];for(m=0;m<c.length;m++){var id=vid(c[m],y);if(!ids.length||ids[ids.length-1]!==id)ids.push(id);}
+    return ids;
+  }
+  // Pass 2: zip each trapezoid's bottom chain to its top chain.
+  for(i=0;i<traps.length;i++){
+    var tz=traps[i],B=chain(tz.k,tz.l0,tz.r0,Ys[tz.k]),T=chain(tz.k+1,tz.l1,tz.r1,Ys[tz.k+1]);
+    var bi=0,ti=0,bw=(X[B[B.length-1]]-X[B[0]])||1,tw=(X[T[T.length-1]]-X[T[0]])||1;
+    while(bi<B.length-1||ti<T.length-1){
+      var adv;
+      if(bi>=B.length-1)adv=1;else if(ti>=T.length-1)adv=0;
+      else adv=((X[B[bi+1]]-X[B[0]])/bw<=(X[T[ti+1]]-X[T[0]])/tw)?0:1;
+      if(adv===0){c=B[bi+1];if(c!==T[ti]&&B[bi]!==T[ti])out.push(B[bi],c,T[ti]);bi++;}
+      else{d=T[ti+1];if(d!==B[bi]&&T[ti]!==B[bi])out.push(B[bi],d,T[ti]);ti++;}
+    }
+  }
 }
 // Ear-clip one loop (ids into X/Y), appending triangles to out. A loop with
 // no true ear (only possible past the split cap) clips its most convex corner.
@@ -6274,10 +6641,19 @@ var TUBE_SIDES=8,TUBE_RING_MAX=0.03;
 // The bend is read off the polyline, averaged over 3 vertices when there are
 // enough of them, so one odd sample cannot drive the whole stroke fine.
 var TUBE_BEND_ANG=8*Math.PI/180,TUBE_SPARSE_CAP=6;
+// 159 — GENTLE DENSE STROKES: ONE RING PER POINT. A dense stroke used 2 rings
+// per point whatever its shape. Rings are uniform along the length, so the
+// tightest bend sets what is needed: when even that bend turns less than
+// TUBE_BEND_ANG per ring at 1 ring per point, the second ring adds nothing you
+// can see. Measured (headless, 15 arcs / 15 straight lines / 15 tight
+// scribbles, 60 points each): triangles -46% / -46% / 0, pixels that differ
+// 0.95% / 0.81% / 0 of the ink (edge anti-aliasing). Never fewer than one ring
+// per point, never more than before.
 function _tubeSegs(curve,N){
   var L=curve.getLength(),byLen=Math.ceil(L/TUBE_RING_MAX);
   var base=Math.max(12,N*2,Math.min(N*3,byLen));
-  if(byLen<=N*3||N<3)return base;
+  if(N<3)return base;
+  var dense=byLen<=N*3;
   var f=curve.points,i,ax,ay,az,bx,by,bz,la,lb,d,k,k1=0,k2=0,ka,kmax=0;
   for(i=1;i<N-1;i++){
     ax=f[i].x-f[i-1].x;ay=f[i].y-f[i-1].y;az=f[i].z-f[i-1].z;
@@ -6290,6 +6666,7 @@ function _tubeSegs(curve,N){
     k2=k1;k1=k;
   }
   var byBend=Math.ceil(L*kmax/TUBE_BEND_ANG);
+  if(dense)return Math.max(12,N,Math.min(base,byBend));
   return Math.max(base,Math.min(byBend,byLen,N*TUBE_SPARSE_CAP));
 }
 function buildTube(pts,vels,color,sz,op,flat,fn,vt,fill,pr){
@@ -6400,7 +6777,7 @@ function buildTube(pts,vels,color,sz,op,flat,fn,vt,fill,pr){
     const m=new THREE.Mesh(geo,mat);m.renderOrder=3;m.userData.radSeg=4;return m;
   }
   try{
-    const curve=new THREE.CatmullRomCurve3(f),segs=_tubeSegs(curve,N),radSeg=Math.min(TUBE_SIDES,Math.max(5,segs>>2));
+    const curve=new THREE.CatmullRomCurve3(f),segs=_tubeSegs(curve,N),radSeg=Math.min(TUBE_SIDES,Math.max(5,Math.max(segs,N*2)>>2));   // 159: sides from the pre-159 ring count, so fewer rings never means fewer sides
     const geo=new THREE.TubeGeometry(curve,segs,baseR,radSeg,false);
     const pa=geo.attributes.position,rc2=segs+1;
     for(let ring=0;ring<rc2;ring++){
@@ -6742,6 +7119,7 @@ function _redo1(){
   // No-op when _redoStack is empty. Legacy redoStack fallback was removed (see undo()).
 }
 function clearAll(){
+  _lazyQ.length=0;   // 159: builds for strokes about to be removed
   clearSelection();
   while(strokes.length){const s=strokes.pop();scene.remove(s.mesh);_disposeStrokeMesh(s.mesh);}
   redoStack.length=0;_undoStack.length=0;_redoStack.length=0;showMergeLayerRow(false);markDirty();
@@ -6933,6 +7311,34 @@ function _pvAffine(variant){
   }
   _pvA[9]=ox;_pvA[10]=oy;_pvA[11]=oz;
 }
+// 160: rings per span for the preview. Dense strokes keep PV_SUB (3). A
+// sparse one — polyline longer than N*3 ring-lengths, _tubeSegs's test —
+// follows _tubeSegs's sparse branch: enough rings that no ring-to-ring step
+// turns more than TUBE_BEND_ANG at the tightest bend, capped at
+// TUBE_SPARSE_CAP per point and at the by-length count. Bend read off the
+// kept points (chords: the curve's own length is not known here). The
+// buffer holds (MAX_PREV_PTS-1)*PV_SUB+1 rings, so a long stroke falls back.
+function _pvSub(FP,N){
+  if(N<3)return PV_SUB;
+  var L=0,i,ax,ay,az,bx,by,bz,la,lb,dd,kk,k1=0,k2=0,ka,kmax=0;
+  for(i=1;i<N;i++){ax=FP[i*3]-FP[i*3-3];ay=FP[i*3+1]-FP[i*3-2];az=FP[i*3+2]-FP[i*3-1];L+=Math.sqrt(ax*ax+ay*ay+az*az);}
+  var byLen=Math.ceil(L/TUBE_RING_MAX);
+  if(byLen<=N*3)return PV_SUB;
+  for(i=1;i<N-1;i++){
+    ax=FP[i*3]-FP[i*3-3];ay=FP[i*3+1]-FP[i*3-2];az=FP[i*3+2]-FP[i*3-1];
+    bx=FP[i*3+3]-FP[i*3];by=FP[i*3+4]-FP[i*3+1];bz=FP[i*3+5]-FP[i*3+2];
+    la=Math.sqrt(ax*ax+ay*ay+az*az);lb=Math.sqrt(bx*bx+by*by+bz*bz);
+    if(la<1e-9||lb<1e-9)kk=0;
+    else{dd=(ax*bx+ay*by+az*bz)/(la*lb);kk=Math.acos(dd>1?1:dd<-1?-1:dd)/((la+lb)*0.5);}
+    ka=(N>=8&&i>=3)?(kk+k1+k2)/3:kk;
+    if(ka>kmax)kmax=ka;
+    k2=k1;k1=kk;
+  }
+  var segs=Math.max(N*3,Math.min(Math.ceil(L*kmax/TUBE_BEND_ANG),byLen,N*TUBE_SPARSE_CAP));
+  var sub=Math.min(TUBE_SPARSE_CAP,Math.max(PV_SUB,Math.ceil(segs/(N-1))));
+  while(sub>PV_SUB&&(N-1)*sub+1>PV_RINGS)sub--;
+  return sub;
+}
 // One ribbon. `mir`: apply _pvA. E = camera matrixWorld elements.
 function _pvFill(rb,pts,n,mir,flat,fade,hasPr,taper,mat,E,isOrtho){
   var FP=_pvFP,FV=_pvFV,FPr=_pvFPr,FN=_pvFN,A=_pvA;
@@ -6978,7 +7384,10 @@ function _pvFill(rb,pts,n,mir,flat,fade,hasPr,taper,mat,E,isOrtho){
   for(i=0;i<N;i++){if(FV[i]>maxV)maxV=FV[i];if(FV[i]<minV)minV=FV[i];}
   if(maxV===0)maxV=1;
   var range=(maxV-minV)||1;
-  var segs=(N-1)*PV_SUB,zw=flat?.08:.12,ring=0,j,jn,w,t,u;
+  // 160: a fast stroke (points far apart) gets more rings per span, as
+  // _tubeSegs gives the committed tube (136g) — before, the preview drew a
+  // quick curve with 3 rings per span and it rounded only on release.
+  var SUB=_pvSub(FP,N),segs=(N-1)*SUB,zw=flat?.08:.12,ring=0,j,jn,w,t,u;
   // Pen + velocity taper: buildTube's end zones (first/last 12%) are shares
   // of the stroke's LENGTH, not of its point count. Chord length to each kept
   // point (reusing _pvVr — _pvVels' raw steps are already consumed). The
@@ -7010,14 +7419,14 @@ function _pvFill(rb,pts,n,mir,flat,fade,hasPr,taper,mat,E,isOrtho){
     ay1=t1;ay2=-3*p1y+3*p2y-2*t1-t2;ay3=2*p1y-2*p2y+t1+t2;
     t1=((p1z-p0z)/d0-(p2z-p0z)/(d0+d1)+(p2z-p1z)/d1)*d1;t2=((p2z-p1z)/d1-(p3z-p1z)/(d1+d2)+(p3z-p2z)/d2)*d1;
     az1=t1;az2=-3*p1z+3*p2z-2*t1-t2;az3=2*p1z-2*p2z+t1+t2;
-    jn=(k===N-2)?PV_SUB:PV_SUB-1;      // the last span also writes its end ring
+    jn=(k===N-2)?SUB:SUB-1;            // the last span also writes its end ring
     for(j=0;j<=jn;j++,ring++){
-      w=j/PV_SUB;t=ring/segs;
+      w=j/SUB;t=ring/segs;
       px=p1x+w*(ax1+w*(ax2+w*ax3));py=p1y+w*(ay1+w*(ay2+w*ay3));pz=p1z+w*(az1+w*(az2+w*az3));
       tx=ax1+w*(2*ax2+3*w*ax3);ty=ay1+w*(2*ay2+3*w*ay3);tz=az1+w*(2*az2+3*w*az3);
       tl=Math.sqrt(tx*tx+ty*ty+tz*tz)||1;tx/=tl;ty/=tl;tz/=tl;
       // 3. buildTube's width / alpha at this ring.
-      i=(j===PV_SUB)?k+1:k;            // = min(floor(t*(N-1)),N-1)
+      i=(j===SUB)?k+1:k;               // = min(floor(t*(N-1)),N-1)
       if(arc)t=(arc[k]+(arc[k+1]-arc[k])*w)/arcTot;
       vn=taper?(FV[i]-minV)/range*.75:0;
       zone=t<zw?t/zw:t>1-zw?(1-t)/zw:1;
@@ -7819,6 +8228,7 @@ function clearSelection(){
 
 // ── selectStroke (on click/tap) ───────────────────────────────────
 function selectStroke(px,py,addToSelection,precise){
+  if(_lazyQ.length)_lazyFlush();   // 159: editing needs every mesh built
   if(!addToSelection)clearSelection();
   var bestStroke=findNearestStroke(px,py,precise,_selLayerOk);
   if(bestStroke){
@@ -8091,6 +8501,7 @@ function showMergeLayerRow(show){
 
 // ── Merge layer ────────────────────────────────────────────────────
 function mergeLayer(srcLayer){
+  _lazyFlush();   // 159: bakes meshes
   var toMerge=strokes.filter(function(s){return(s.layer!=null?s.layer:1)===srcLayer;});
   if(!toMerge.length){toast('Nothing on layer');return;}
 
@@ -8427,6 +8838,18 @@ function _savePrefs(){
       // The one state behind the visibility button, the UW control toggle
       // and (one way) the old cardHidden flag above.
       ctlVis:(typeof window._ctlVis==='string')?window._ctlVis:'both',
+      // 152: the last SHOWN state ('both' | 'nav' | 'giz') — where a tap
+      // returns to after Hide. Never 'none'.
+      ctlVisLast:(typeof window._ctlVisLast==='string')?window._ctlVisLast:'both',
+      // 160: when both pucks do not fit, ONE is shown — which one ('giz'
+      // default, Swap flips it) — unless Both was picked from the menu
+      // while space was short (ctlBothForced: then both, at the smallest fit).
+      ctlAutoPick:(window._ctlAutoPick==='nav')?'nav':'giz',
+      ctlBothForced:!!window._ctlBothForced,
+      // 152: first-launch theme pill — 'pending' until its check is tapped,
+      // then 'done'. Absent in every blob written before 152, which reads as
+      // done: existing installs never see the pill.
+      themePick:(window._themePick==='pending')?'pending':'done',
       // Session 134: Lock Orbit, and the snap steps (move units, angle
       // degrees, scale fraction). Snap ON/OFF itself stays session-only.
       lockOrbit:!!window._lockOrbit,
@@ -8441,8 +8864,10 @@ function _savePrefs(){
 function _loadPrefs(){
   try{
     var raw=localStorage.getItem('sk3d_prefs');
-    if(!raw)return;
+    // 152: no preferences at all = this device's first launch.
+    if(!raw){window._themePick='pending';window._prefsWasEmpty=true;setBgColor(BG_PAPER,'paper');return;}   // 157: Paper is the starting theme
     var p=JSON.parse(raw);
+    if(p.themePick==='pending')window._themePick='pending';
     if(typeof p.stylusOnly==='boolean')stylusOnly=p.stylusOnly;
     if(p.penAuto===true)_penAutoDone=true;
     if(p.twoFingerMode==='orbit'||p.twoFingerMode==='pan')twoFingerMode=p.twoFingerMode;
@@ -8497,6 +8922,12 @@ function _loadPrefs(){
     // hidden too. Once ctlVis exists it is the only authority.
     if(p.ctlVis==='both'||p.ctlVis==='nav'||p.ctlVis==='giz'||p.ctlVis==='none')window._ctlVis=p.ctlVis;
     else if(p.cardHidden===true)window._ctlVis='none';
+    // 152: absent (pre-152) = the shown state if it is one, else Both.
+    if(p.ctlVisLast==='both'||p.ctlVisLast==='nav'||p.ctlVisLast==='giz')window._ctlVisLast=p.ctlVisLast;
+    else if(window._ctlVis==='nav'||window._ctlVis==='giz')window._ctlVisLast=window._ctlVis;
+    // 160: absent = Gizmo, not forced.
+    if(p.ctlAutoPick==='nav'||p.ctlAutoPick==='giz')window._ctlAutoPick=p.ctlAutoPick;
+    if(typeof p.ctlBothForced==='boolean')window._ctlBothForced=p.ctlBothForced;
     // 131: read by the tool card at its own init (it is defined later in the
     // file than this init line runs). Validated there, field by field.
     if(p.tools&&typeof p.tools==='object')window._tcPrefsRaw=p.tools;
@@ -8510,7 +8941,12 @@ function _loadPrefs(){
       if(typeof ss_.sc==='number'&&ss_.sc>=0.01&&ss_.sc<=0.5)window._snapSc=ss_.sc;
       if(window._snapStepsApply)window._snapStepsApply();}
     if(p.selFilter==='all'||p.selFilter==='strokes'||p.selFilter==='prims')window._selFilter=p.selFilter;
-    if(p.uiTheme)setUITheme(p.uiTheme);
+    if(p.uiTheme){
+      setUITheme(p.uiTheme);
+      // 157: the desk colour is not saved; Paper and E-ink bring theirs back (Kraft is the boot colour).
+      if(p.uiTheme==='paper')setBgColor(BG_PAPER,'paper');
+      else if(p.uiTheme==='eink')setBgColor('#ffffff','eink');
+    }
   }catch(ex){}
 }
 // ── Symmetry (mirror) tool — session-only. Always mirrors across the CURRENT
@@ -9590,6 +10026,24 @@ function _scRestoreCam(s){
   updCam();
 }
 function _scNoTouches(e){return !e.touches||e.touches.length===0;}
+// 160 — a palm REJECTED on a puck (_scUiPalmT, the CONTROL canvas guard) is
+// still a contact the browser lists in the scene's e.touches. A one-finger
+// orbit on the scene with that palm resting on a puck read as two fingers
+// (pan/zoom), and the scene's last lift never saw "no touches". The scene
+// handlers get the event with those contacts left out. Same event when there
+// are none (the common case allocates nothing). Only touches/changedTouches/
+// targetTouches differ; everything the scene code reads is carried over.
+function _scSceneEv(e){
+  var t=e.touches,i,any=false;
+  if(!t||!t.length)return e;
+  for(i=0;i<t.length;i++){if(_scUiPalmT[t[i].identifier]){any=true;break;}}
+  if(!any)return e;
+  function f(L){var o=[],k;if(L)for(k=0;k<L.length;k++)if(!_scUiPalmT[L[k].identifier])o.push(L[k]);return o;}
+  return {type:e.type,target:e.target,currentTarget:e.currentTarget,timeStamp:e.timeStamp,
+    cancelable:e.cancelable,shiftKey:e.shiftKey,ctrlKey:e.ctrlKey,altKey:e.altKey,metaKey:e.metaKey,
+    touches:f(t),changedTouches:f(e.changedTouches),targetTouches:f(e.targetTouches),_orig:e,
+    preventDefault:function(){if(e.cancelable)e.preventDefault();},stopPropagation:function(){e.stopPropagation();}};
+}
 
 // ── Pen state, app-wide (session 151) ──
 // 149 tracked the pen only on the scene canvas, so a pen that lifted or
@@ -9652,6 +10106,7 @@ window.addEventListener('touchstart',function(e){
   var ct=e.changedTouches;if(!ct||!ct.length)return;
   for(var i=0;i<ct.length;i++){if(!_scUiPalmTarget(ct[i].target)||_scIsPenTouch(ct[i]))return;}
   for(var j=0;j<ct.length;j++)_scUiPalmT[ct[j].identifier]=1;
+  if(window._trcOn)window._trc('PALM','ui canvas touch rejected');
   e.stopPropagation();if(e.cancelable)e.preventDefault();
 },{capture:true,passive:false});
 window.addEventListener('touchmove',function(e){
@@ -9695,6 +10150,7 @@ renderer.domElement.addEventListener('pointerdown',function(e){
     _mtMax=0;_mtLastN=0;_mtSnap=null;_mtMoved=false;
     if(_scCamSnap){_scRestoreCam(_scCamSnap);_scCamSnap=null;}
     _scPalmGesture=true;
+    if(window._trcOn)window._trc('PALM','L3 pen wins: touch gesture dropped, camera restored');
   }
   _penActive=true;
   try{renderer.domElement.setPointerCapture(e.pointerId);}catch(ex){}
@@ -9806,10 +10262,28 @@ function _runHover(){
 //    report pointerType='pen'). Suppressed while a pen pointer is active
 //    to avoid double-firing on devices that send both.
 renderer.domElement.addEventListener('touchstart',function(e){
-  if(_penActive)return; // pen is handled via pointer events (layer 2)
+  e=_scSceneEv(e);   // 160: palms rejected on a puck are not scene fingers
+  // Layer 2: pen down, touches ignored.
+  // 152 — and the touch is MARKED as palm (_scPalmGesture), not just ignored.
+  // Before 152 a palm that landed while the pen was down was dropped only for
+  // as long as the pen stayed down. A palm stays on the glass across the lift;
+  // once the 800ms window closed, the next contact it put down (palms come and
+  // go in patches) started onDown() with e.touches still holding the old palm
+  // contact — a two-finger gesture, so the view orbited / panned / zoomed under
+  // a resting hand. Marked, the whole palm stays rejected until its last
+  // contact lifts, as layers 5/6 already do. touchend / touchcancel clear the
+  // flag on the last lift (unchanged). Apple devices excluded (_scPalmOS).
+  if(_penActive){
+    if(_scPalmOS){
+      if(!_scPalmGesture&&window._trcOn)window._trc('PALM','L2 touch while pen down -> palm until all lift');
+      _scPalmGesture=true;lastTouchTime=Date.now();if(e.cancelable)e.preventDefault();
+    }
+    return;
+  }
   // Palm layers 5/6: a gesture that STARTS while the pen hovers or just lifted
   // is a palm, and so is every contact added to it until all have lifted.
   if(_scPalmGesture||_scPalmStart()){
+    if(!_scPalmGesture&&window._trcOn)window._trc('PALM','L5/6 touch in palm window rejected');
     _scPalmGesture=true;lastTouchTime=Date.now();e.preventDefault();return;
   }
   // Layer 4: camera as this gesture found it (first contact only).
@@ -9817,11 +10291,13 @@ renderer.domElement.addEventListener('touchstart',function(e){
   lastTouchTime=Date.now();onDown(e);
 },{passive:false});
 renderer.domElement.addEventListener('touchmove',function(e){
+  e=_scSceneEv(e);
   if(_penActive)return;
   if(_scPalmGesture){lastTouchTime=Date.now();e.preventDefault();return;}
   lastTouchTime=Date.now();onMove(e);
 },{passive:false});
 renderer.domElement.addEventListener('touchend',function(e){
+  e=_scSceneEv(e);
   if(_penActive){
     // A palm that lifts while the pen is down never reaches onUp, so its
     // contact count and palm flag would otherwise survive into the next
@@ -9837,6 +10313,7 @@ renderer.domElement.addEventListener('touchend',function(e){
   if(_scNoTouches(e))_scCamSnap=null;
 });
 renderer.domElement.addEventListener('touchcancel',function(e){
+  e=_scSceneEv(e);
   // Tap state is cleared HERE and not inside resetGesture(): onUp calls
   // resetGesture() before _mtEnd(), so clearing it there would zero _mtMax and
   // the tap would never be classified.
@@ -9856,7 +10333,7 @@ renderer.domElement.addEventListener('touchcancel',function(e){
   cancelDraw();resetGesture();
   // Gated on _scPenSeen like layers 3/5/6, so finger-only phones are unchanged.
   // _penAutoDone: a pen was seen on this device in an earlier session.
-  if(_scPalmOS&&(_scPenSeen||_penAutoDone)&&_scCamSnap){_scRestoreCam(_scCamSnap);}
+  if(_scPalmOS&&(_scPenSeen||_penAutoDone)&&_scCamSnap){_scRestoreCam(_scCamSnap);if(window._trcOn)window._trc('PALM','L4 OS cancel: camera restored');}
   if(_scNoTouches(e))_scCamSnap=null;
 });
 
@@ -10153,6 +10630,32 @@ function _fbTaperMean(s){
   }
   return sum/N;
 }
+// 158 — the taper PER POINT, for snapshots (the mean above is all a reference
+// canvas can draw). One factor per s.pts index, mirroring buildTube like
+// _fbTaperMean does: pen -> width (pressure, else velocity); marker with an
+// opacity taper (vt 2, or pressure) -> opacity; an old width-taper marker ->
+// width. {w:[...]|null, a:[...]|null}; null when the stroke has no taper.
+function _fbTaperPts(s){
+  var p=s.pts,n=p?p.length:0,i,out=new Array(n);
+  if(s.fill||n<2)return {w:null,a:null};
+  var pr=(s.pr&&s.pr.length===n)?s.pr:null;
+  if(pr){for(i=0;i<n;i++)out[i]=_prW(pr[i]);return s.flat?{w:null,a:out}:{w:out,a:null};}
+  if(s.vt===false)return {w:null,a:null};
+  var v=computeVels(p),fv=[v[0]],map=[0],lx=p[0].x,ly=p[0].y,lz=p[0].z,dx,dy,dz;
+  for(i=1;i<n;i++){
+    dx=p[i].x-lx;dy=p[i].y-ly;dz=p[i].z-lz;
+    if(Math.sqrt(dx*dx+dy*dy+dz*dz)>.003){fv.push(v[i]);lx=p[i].x;ly=p[i].y;lz=p[i].z;}
+    map.push(fv.length-1);
+  }
+  var N=fv.length;if(N<2)return {w:null,a:null};
+  var mx=0,mn=Infinity;
+  for(i=0;i<N;i++){if(fv[i]>mx)mx=fv[i];if(fv[i]<mn)mn=fv[i];}
+  if(mx===0)mx=1;
+  var range=mx-mn||1,flat=!!s.flat,fade=flat&&s.vt===2,zw=flat?.08:.12,k=fade?MK_FADE:(flat?.65:.6),f=new Array(N),t,z,vn;
+  for(i=0;i<N;i++){t=i/(N-1);z=t<zw?t/zw:t>1-zw?(1-t)/zw:1;vn=(fv[i]-mn)/range*0.75;f[i]=1-vn*z*k;}
+  for(i=0;i<n;i++)out[i]=f[map[i]];
+  return fade?{w:null,a:out}:{w:out,a:null};
+}
 function _fbStrokeWorldW(s){return (+s.sz||1)*(s.flat?FB_MARKER_WORLD:FB_TUBE_WORLD);}
 // Mean column length of the upper 3x3: the uniform scale a gizmo gave the
 // stroke. Non-uniform scale is averaged, which is the best one width can do.
@@ -10208,7 +10711,7 @@ function _fbProjWalk(pgStrokes,cam,W,H,begin,pt,end){
       // averaged (sum of 1/d), not the depths.
       if(ortho){acc+=1;cnt++;}
       else if(d>1e-6){acc+=1/d;cnt++;}
-      pt((_fbProjV.x*0.5+0.5)*W,(-_fbProjV.y*0.5+0.5)*H,!started);
+      pt((_fbProjV.x*0.5+0.5)*W,(-_fbProjV.y*0.5+0.5)*H,!started,j);   // 158: j = source point (snapshot taper)
       started=true;
     }
     // Projected width in the caller's units (canvas px or note units). 0 when
@@ -11258,9 +11761,24 @@ function _fbEraseHits(ink,u,v,tol){
       if(_fbSegD2(u,v,p[0],p[1],p[0],p[1])<=r2)out.push(i);
       continue;
     }
+    var hit=false;
     for(j=0;j+3<p.length;j+=2){
-      if(_fbSegD2(u,v,p[j],p[j+1],p[j+2],p[j+3])<=r2){out.push(i);break;}
+      if(_fbSegD2(u,v,p[j],p[j+1],p[j+2],p[j+3])<=r2){hit=true;break;}
     }
+    // 160: a lasso fill is hit anywhere INSIDE it too, not only on its
+    // outline (and its closing edge) — the SVG draws it nonzero, so the
+    // same rule decides "inside".
+    if(!hit&&st.k==='l'&&p.length>=6){
+      var n2=p.length,wn=0,x0,y0,x1,y1;
+      if(_fbSegD2(u,v,p[n2-2],p[n2-1],p[0],p[1])<=r2)hit=true;
+      for(j=0;j<n2&&!hit;j+=2){
+        x0=p[j];y0=p[j+1];x1=p[(j+2)%n2];y1=p[(j+3)%n2];
+        if(y0<=v){if(y1>v&&(x1-x0)*(v-y0)-(u-x0)*(y1-y0)>0)wn++;}
+        else if(y1<=v&&(x1-x0)*(v-y0)-(u-x0)*(y1-y0)<0)wn--;
+      }
+      if(wn!==0)hit=true;
+    }
+    if(hit)out.push(i);
   }
   return out.reverse();
 }
@@ -11601,7 +12119,7 @@ function _fbInkPath(pts){
 //
 // String size: about 1.5x the 127d outline (measured on random scribbles). The
 // untapered and dot forms are unchanged.
-function _fbInkRibbon(pts,w,spIn,prIn){
+function _fbInkRibbon(pts,w,spIn,prIn,twIn){
   var n=pts.length/2;
   if(n<2)return '';
   var i,j,k,dx,dy;
@@ -11623,6 +12141,10 @@ function _fbInkRibbon(pts,w,spIn,prIn){
   // mapping. Guarded on length like spIn — a series that lost step with the
   // points is ignored rather than read off by one.
   var usePr=!!(prIn&&prIn.length===n);
+  if(twIn&&twIn.length===n){
+    // 158: a snapshot line's own width taper, one factor per point.
+    for(i=0;i<n;i++){t=+twIn[i];if(!(t>0))t=0.05;if(t>1)t=1;hs.push(full*t);}
+  }else
   if(usePr){
     for(i=0;i<n;i++){t=+prIn[i];if(!(t>=0))t=0;if(t>1)t=1;hs.push(full*(FB_PR_MIN+FB_PR_SPAN*t));}
   }else
@@ -11807,14 +12329,18 @@ function _fbInkApply(pa,st){
     pa.setAttribute('d',_fbInkPath(st.p)+'Z');
     pa.setAttribute('fill',st.c);pa.setAttribute('stroke',st.c);
     pa.setAttribute('stroke-width','0.5');
+    // 160: a snapshot's fill keeps the scene fill's opacity (o). The hairline
+    // edge stays off then — at 0.5 it would double the opacity at the rim.
+    if(st.o>0&&st.o<1){pa.setAttribute('fill-opacity',st.o);pa.setAttribute('stroke','none');}
     return;
   }
   // st.f (128, format 5.3): a FLAT stroke — a snapshot line. It has no speed,
   // so the taper has nothing to read, and spacing-as-speed would invent one
   // out of how densely the projection happened to sample the line.
   var hasPr=!!(st.pr&&st.pr.length===st.p.length/2);
-  if((_fbTaper||hasPr)&&!st.f){
-    var d=_fbInkRibbon(st.p,st.w,st.sp,hasPr?st.pr:null);
+  var hasTw=!!(st.f&&st.tw&&st.tw.length===st.p.length/2);
+  if(((_fbTaper||hasPr)&&!st.f)||hasTw){
+    var d=_fbInkRibbon(st.p,st.w,st.sp,hasPr?st.pr:null,hasTw?st.tw:null);
     pa.setAttribute('d',d);
     pa.setAttribute('fill',st.c);
     // 128: no hairline stroke. It closed a sub-pixel gap in the single-loop
@@ -11826,6 +12352,8 @@ function _fbInkApply(pa,st){
     pa.setAttribute('fill','none');
     pa.setAttribute('stroke',st.c);
     pa.setAttribute('stroke-width',st.w);
+    // 158: one piece of a snapshot marker's opacity taper (see _fbSnapLines).
+    if(st.f&&st.o>0&&st.o<1){pa.setAttribute('stroke-opacity',st.o);pa.style.strokeLinecap='butt';}
   }
 }
 
@@ -12152,6 +12680,20 @@ function _fbClipSeg(x0,y0,x1,y1,W,H){
 // Ramer-Douglas-Peucker on a flat [x,y,...] array. Iterative (an explicit
 // stack), because a projected long stroke can be thousands of points and a
 // recursive form is one deep recursion per level on an old WebView.
+// 158: the indices RDP keeps, so a per-point series can be cut in step.
+function _fbRdpIdx(p,eps){
+  var n=p.length/2,i,out=[];
+  if(n<3){for(i=0;i<n;i++)out.push(i);return out;}
+  var keep=new Array(n),st=[0,n-1],a,b,md,mi,dd,e2=eps*eps;
+  keep[0]=true;keep[n-1]=true;
+  while(st.length){
+    b=st.pop();a=st.pop();md=-1;mi=-1;
+    for(i=a+1;i<b;i++){dd=_fbSegD2(p[i*2],p[i*2+1],p[a*2],p[a*2+1],p[b*2],p[b*2+1]);if(dd>md){md=dd;mi=i;}}
+    if(md>e2){keep[mi]=true;st.push(a,mi,mi,b);}
+  }
+  for(i=0;i<n;i++)if(keep[i])out.push(i);
+  return out;
+}
 function _fbRdp(p,eps){
   var n=p.length/2;
   if(n<3)return p.slice();
@@ -12172,40 +12714,70 @@ function _fbRdp(p,eps){
 }
 // Strokes -> ink strokes in note-local units (0..W, 0..H). Returns
 // {lines, pts}. Pure apart from the shared projection scratch objects.
+// 158 — THE TAPER. Each point carries its stroke's taper factor (_fbTaperPts),
+// cut through clipping (lerped at the note edge) and simplification (kept in
+// step). A width taper (pen; old markers) becomes `tw`, one factor per point,
+// and the line's `w` its FULL width (the stroke's width over its mean factor,
+// so the average is what the reference canvas shows). An opacity taper (vt 2 /
+// pressure markers) becomes PIECES — consecutive runs at one opacity `o`
+// (steps of FB_SNAP_OSTEP), each an ordinary flat stroke drawn butt-ended so
+// the pieces meet without beading. Opaque runs carry no `o`.
+var FB_SNAP_OSTEP=0.1;
 function _fbSnapLines(strokes,cam,W,H,eps){
-  var lines=[],total=0,run=null,cur=null,lx=0,ly=0,have=false,first=0;
+  var fills=[],lines=[],total=0,run=null,runF=null,cur=null,lx=0,ly=0,lf=1,have=false,first=0,tp=null;
   var mul=Math.pow(10,FB_INK_DP);
-  function add(x,y){
-    if(!run)run=[];
+  function add(x,y,f){
+    if(!run){run=[];runF=[];}
     var m=run.length;
     if(m>=2&&run[m-2]===x&&run[m-1]===y)return;
-    run.push(x,y);
+    run.push(x,y);runF.push(f);
+  }
+  function emit(o,fs,kind){
+    var ln={p:o,c:cur.c,w:0,f:1};
+    if(kind==='w'){var wf=[],i,any=false;for(i=0;i<fs.length;i++){wf.push(Math.round(fs[i]*100)/100);if(wf[i]<0.99)any=true;}if(any)ln.tw=wf;}
+    lines.push(ln);total+=o.length/2;
   }
   function flush(){
     if(run&&run.length>=2){
-      var q=_fbRdp(run,eps),o=[],i,x,y,m;
+      var ix=_fbRdpIdx(run,eps),o=[],fs=[],i,x,y,m,j;
       // Rounded AFTER simplifying, to the same precision pen capture stores
       // (FB_INK_DP), with repeats dropped. A run that collapses to one point
       // is kept: _fbInkApply draws it as a dot, which is what a very short
       // stroke looks like from far away.
-      for(i=0;i<q.length;i+=2){
-        x=Math.round(q[i]*mul)/mul;y=Math.round(q[i+1]*mul)/mul;m=o.length;
+      for(j=0;j<ix.length;j++){i=ix[j];
+        x=Math.round(run[i*2]*mul)/mul;y=Math.round(run[i*2+1]*mul)/mul;m=o.length;
         if(m>=2&&o[m-2]===x&&o[m-1]===y)continue;
-        o.push(x,y);
+        o.push(x,y);fs.push(runF[i]);
       }
-      // w is filled in by end(): the width is measured over the whole stroke.
-      lines.push({p:o,c:cur.c,w:0,f:1});
-      total+=o.length/2;
+      if(tp&&tp.a&&o.length>=4){
+        // opacity pieces: a piece ends where the next segment's step differs
+        var q=function(k){return Math.max(FB_SNAP_OSTEP,Math.min(1,Math.round(((fs[k]+fs[k+1])/2)/FB_SNAP_OSTEP)*FB_SNAP_OSTEP));};
+        var a0=0,lev=q(0),k2,lv;
+        for(k2=1;k2<=fs.length-1;k2++){
+          lv=k2<fs.length-1?q(k2):-1;
+          if(lv!==lev){
+            var pc=o.slice(a0*2,k2*2+2),ln={p:pc,c:cur.c,w:0,f:1};
+            if(lev<0.999)ln.o=Math.round(lev*100)/100;
+            lines.push(ln);total+=pc.length/2;
+            a0=k2;lev=lv;
+          }
+        }
+      }else emit(o,fs,tp&&tp.w?'w':'');
     }
-    run=null;
+    run=null;runF=null;
   }
   _fbProjWalk(strokes,cam,W,H,
     function(s){
       cur={c:(typeof s.color==='string'&&s.color)?s.color:'#000000'};
-      have=false;run=null;first=lines.length;
+      have=false;run=null;runF=null;first=lines.length;
+      // 160: a lasso fill becomes a FILLED note shape (k:'l'), not its outline.
+      if(s.fill){cur.fill=[];cur.op=(s.op==null)?1:+s.op;tp=null;return;}
+      tp=_fbTaperPts(s);if(!tp.w&&!tp.a)tp=null;
     },
-    function(px,py,start){
-      if(start||!have){flush();lx=px;ly=py;have=true;return;}
+    function(px,py,start,j){
+      if(cur.fill){cur.fill.push(px,py);return;}
+      var f=(tp&&j!=null)?(tp.w||tp.a)[j]:1;if(!(f>=0))f=1;
+      if(start||!have){flush();lx=px;ly=py;lf=f;have=true;return;}
       var c=_fbClipSeg(lx,ly,px,py,W,H);
       if(!c){flush();}
       else{
@@ -12213,23 +12785,67 @@ function _fbSnapLines(strokes,cam,W,H,eps){
         // t exactly 0/1 means the endpoint itself, so a run that stays
         // inside joins point to point by equality in add().
         if(c[0]>0)flush();
-        add(c[0]>0?lx+(px-lx)*c[0]:lx, c[0]>0?ly+(py-ly)*c[0]:ly);
-        add(c[1]<1?lx+(px-lx)*c[1]:px, c[1]<1?ly+(py-ly)*c[1]:py);
+        add(c[0]>0?lx+(px-lx)*c[0]:lx, c[0]>0?ly+(py-ly)*c[0]:ly, c[0]>0?lf+(f-lf)*c[0]:lf);
+        add(c[1]<1?lx+(px-lx)*c[1]:px, c[1]<1?ly+(py-ly)*c[1]:py, c[1]<1?lf+(f-lf)*c[1]:f);
         if(c[1]<1)flush();
       }
-      lx=px;ly=py;
+      lx=px;ly=py;lf=f;
     },
     function(s,w){
+      if(cur.fill){_fbSnapFill(cur,W,H,eps,mul,fills);total+=0;return;}
       flush();
       // Every run of this stroke gets the stroke's projected width, in note
       // units — the same number the reference canvas strokes it with, so a
       // frozen line is exactly as wide as the reference showed it. No upper
       // clamp at the pen's maximum: a near marker is legitimately wider than
       // anything the note pen draws.
-      var ww=Math.max(FB_SNAP_WMIN,Math.min(FB_SNAP_WMAX,Math.round(w*10)/10)),k;
-      for(k=first;k<lines.length;k++)lines[k].w=ww;
+      // 158: w carries the stroke's MEAN taper; a line with its own taper
+      // (tw) is written at full width and narrows per point instead.
+      var mean=tp&&tp.w?_fbTaperMean(s):1;
+      var k;
+      for(k=first;k<lines.length;k++){
+        var wk=(lines[k].tw&&mean>0)?w/mean:w;
+        lines[k].w=Math.max(FB_SNAP_WMIN,Math.min(FB_SNAP_WMAX,Math.round(wk*10)/10));
+      }
     });
-  return {lines:lines,pts:total};
+  // Fills under lines, as in the scene (Rule #196).
+  for(var fi=0;fi<fills.length;fi++)total+=fills[fi].p.length/2;
+  return {lines:fills.concat(lines),pts:total};
+}
+// 160: one lasso fill of a snapshot. The projected outline (closed) is
+// clipped to the note (Sutherland-Hodgman against the four edges), simplified
+// like the lines, rounded, and kept as a filled note shape k:'l' — drawn
+// nonzero, as the scene's fill is. o = the fill's opacity when under 1.
+function _fbSnapFill(cur,W,H,eps,mul,out){
+  var P=cur.fill,i,n;
+  if(!P||P.length<6)return;
+  function clip(A,inside,cut){
+    var R=[],m=A.length/2,k,ax,ay,bx,by,ia,ib,t;
+    for(k=0;k<m;k++){
+      ax=A[k*2];ay=A[k*2+1];bx=A[((k+1)%m)*2];by=A[((k+1)%m)*2+1];
+      ia=inside(ax,ay);ib=inside(bx,by);
+      if(ia)R.push(ax,ay);
+      if(ia!==ib){t=cut(ax,ay,bx,by);R.push(ax+(bx-ax)*t,ay+(by-ay)*t);}
+    }
+    return R;
+  }
+  P=clip(P,function(x){return x>=0;},function(ax,ay,bx){return ax/(ax-bx);});
+  if(P.length>=6)P=clip(P,function(x){return x<=W;},function(ax,ay,bx){return (W-ax)/(bx-ax);});
+  if(P.length>=6)P=clip(P,function(x,y){return y>=0;},function(ax,ay,bx,by){return ay/(ay-by);});
+  if(P.length>=6)P=clip(P,function(x,y){return y<=H;},function(ax,ay,bx,by){return (H-ay)/(by-ay);});
+  if(P.length<6)return;
+  var ix=_fbRdpIdx(P,eps),o=[],x,y,m2;
+  for(i=0;i<ix.length;i++){
+    x=Math.round(P[ix[i]*2]*mul)/mul;y=Math.round(P[ix[i]*2+1]*mul)/mul;m2=o.length;
+    if(m2>=2&&o[m2-2]===x&&o[m2-1]===y)continue;
+    o.push(x,y);
+  }
+  n=o.length;if(n>=4&&o[0]===o[n-2]&&o[1]===o[n-1])o.length=n-2;
+  if(o.length<6)return;
+  var ln={p:o,c:cur.c,w:0,f:1,k:'l'};
+  var op=Math.max(0.05,Math.min(1,cur.op));
+  if(op<0.995)ln.o=Math.round(op*100)/100;
+  out.push(ln);
 }
 // With the point budget applied. Never returns more than FB_SNAP_MAXPTS
 // unless four doublings of the tolerance still could not get there, in which
@@ -12818,7 +13434,8 @@ function _fbNoteWire(d,n,svg,grip,rsz){
       // stroke is known to have survived the dot test. abortInk() removes
       // one that never got here, so there is nothing to undo for it.
       // 136i: smoothing settles on release, like the scene's strength.
-      if(_fbSmooth>0&&!cur.f){_fbSmoothPts(cur.p,_fbSmoothPasses());if(live)_fbInkApply(live,cur);}
+      // 158: already smoothed point by point while drawing (pushPt); only the raw copy goes.
+      if(cur._raw){delete cur._raw;}
       _fbUndoPush({t:'ink',n:n,st:cur,i:n.ink.indexOf(cur)});
     }
     cur=null;live=null;
@@ -12926,6 +13543,16 @@ function _fbNoteWire(d,n,svg,grip,rsz){
       }
     }
     cur.p.push(u,v);
+    // 158: smoothing WHILE drawing. The raw pen path is kept aside (_raw, never
+    // saved) and the whole stroke is re-smoothed from it on every new point, so
+    // what you see during the stroke is exactly what stays on release (the same
+    // [1,2,1] passes the release used to apply once). The pen end stays where
+    // the pen is; only the trail behind it settles.
+    if(_fbSmooth>0&&!cur.f){
+      if(!cur._raw)cur._raw=cur.p.slice();else cur._raw.push(u,v);
+      var _q=cur._raw.slice();_fbSmoothPts(_q,_fbSmoothPasses());
+      for(var _i=0;_i<_q.length;_i++)cur.p[_i]=_q[_i];
+    }
     if(!cur.sp)cur.sp=[];
     cur.sp.push(Number(sp.toFixed(1)));
     // 136d: one reading per recorded point (Rule #205). A 0 from a coalesced
@@ -14197,6 +14824,17 @@ function togglePages(){if(_fbOpen)closeFlipbook();else openFlipbook();}
     var top=_fbEl('fb-top');if(!top||_fbEl('fb-tb'))return;
     var tb=document.createElement('div');tb.id='fb-tb';
     ['fb-fit','fb-notes-edit','fb-live'].forEach(function(id){var b=_fbEl(id);if(b)tb.appendChild(b);});
+    // 158: the other two framing commands as buttons, right after Fit page
+    // (they were only in the Select menu). Same _fbFrame() as the menu rows.
+    var _fr=[['fb-frsel','Frame selected notes','sel','<rect x="3.5" y="3.5" width="11" height="11" rx="1.5" stroke-dasharray="2 1.6"/><rect x="6.5" y="6.5" width="5" height="5" rx=".8"/>'],
+             ['fb-frall','Frame all (page + notes)','all','<rect x="2.5" y="4.5" width="9" height="11" rx="1"/><rect x="9.5" y="2.5" width="6" height="6" rx="1"/><path d="M1 1h3M1 1v3M17 1h-3M17 1v3M1 17h3M1 17v-3M17 17h-3M17 17v-3"/>']];
+    var _fitAfter=tb.querySelector('#fb-fit');   // tb is not in the document yet: getElementById cannot see it
+    _fr.forEach(function(r){
+      var b=document.createElement('button');b.id=r[0];b.title=r[1];
+      b.innerHTML='<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none">'+r[3]+'</svg>';
+      b.addEventListener('click',function(){var m=_fbFrame(r[2]);if(m)toast(m);});
+      if(_fitAfter&&_fitAfter.parentNode===tb){tb.insertBefore(b,_fitAfter.nextSibling);_fitAfter=b;}else tb.appendChild(b);
+    });
     // 146: desk colour. A swatch button; its popover has Dark (default),
     // Scene (the 3D background), White and a free picker.
     var dk=document.createElement('button');dk.id='fb-desk';dk.title='Desk colour';dk.innerHTML='<i></i>';tb.appendChild(dk);
@@ -15434,7 +16072,7 @@ function _vvSettled(cb){
     setTimeout(tick,25);
   })();
 }
-function expPNG(expName){_vvSettled(function(){_expPNGNow(expName);});}
+function expPNG(expName){_lazyFlush();_vvSettled(function(){_expPNGNow(expName);});}
 function _expPNGNow(expName){
   var _st=_fbHideChrome();
   // render() synchronously immediately before the readback. THIS, not
@@ -15446,7 +16084,7 @@ function _expPNGNow(expName){
   markDirty();toast('PNG saved');
 }
 
-function expSVG(expName){
+function expSVG(expName){_lazyFlush();
   if(!strokes.length){toast('Nothing to export');return;}
   _refreshRect();
   var r=_cachedRect;
@@ -15581,10 +16219,45 @@ function sceneData(){
   // Additive; a 5.2 build ignores it and draws the line tapered from spacing.
   // 5.4 (132): strokes[i].fill, optional, 1 = lasso fill (pts = closed outline).
   // Additive; a 5.3 build draws the outline as a thin open line.
-  return{version:5.5,layers:_layerStateOut(),curPage:curPage,notes:bookNotes,pages:allPages,strokes:curStrokes,primitives:curPrims,surf:{type:(surfType==='loft'||surfType==='extrude'||surfType==='none')?'plane':surfType,plane:curPlane,px:surfPos.x,py:surfPos.y,pz:surfPos.z,rx:surfEuler.x,ry:surfEuler.y,rz:surfEuler.z,sc:surfScale,sax:surfScaleAxes.x,say:surfScaleAxes.y,saz:surfScaleAxes.z}};
+  // 5.6 (154): primitives[i].type 'image' with primitives[i].image = {data,pw,ph}, a reference
+  // picture as a WebP data URL. A 5.5 build has no 'image' type and shows a plain box in its place.
+  return{version:5.7,layers:_layerStateOut(),curPage:curPage,notes:bookNotes,pages:allPages,strokes:curStrokes,primitives:curPrims,surf:{type:(surfType==='loft'||surfType==='extrude'||surfType==='none')?'plane':surfType,plane:curPlane,px:surfPos.x,py:surfPos.y,pz:surfPos.z,rx:surfEuler.x,ry:surfEuler.y,rz:surfEuler.z,sc:surfScale,sax:surfScaleAxes.x,say:surfScaleAxes.y,saz:surfScaleAxes.z}};
 }
+// ── 159: SLICED REBUILD FOR BIG PAGES ─────────────────────────────
+// A page with more than LAZY_MIN strokes no longer builds every mesh before the
+// app answers. The stroke RECORDS (points, colour, layer, matrix) are all made
+// at once, exactly as before — so save, undo, page switch, erase and selection
+// all see the whole page immediately — but each record's Group starts empty
+// and its tube is built in ~LAZY_MS slices per frame, the page filling in on
+// screen. Anything that needs every mesh (exports, merge) calls _lazyFlush()
+// first. clearAll() drops the queue. A job only fills a Group that is still in
+// the scene and still empty, so a stroke rebuilt or removed meanwhile is left
+// alone. Small pages build synchronously, unchanged.
+var LAZY_MIN=300,LAZY_MS=12,_lazyQ=[],_lazyRaf=0,_lazyTotal=0;
+function _lazyBuildOne(j){
+  if(!j.g.parent||j.g.children.length)return;
+  var t=buildTube.apply(null,j.a);if(t)j.g.add(t);
+}
+function _lazyRun(){
+  _lazyRaf=0;
+  var end=performance.now()+LAZY_MS;
+  while(_lazyQ.length&&performance.now()<end)_lazyBuildOne(_lazyQ.shift());
+  markDirty();
+  if(window._heavyProgress)window._heavyProgress(_lazyTotal-_lazyQ.length,_lazyTotal);
+  if(_lazyQ.length)_lazyRaf=requestAnimationFrame(_lazyRun);
+  else{_lazyTotal=0;if(window._heavyProgress)window._heavyProgress(0,0);}
+}
+function _lazyFlush(){
+  if(_lazyRaf){cancelAnimationFrame(_lazyRaf);_lazyRaf=0;}
+  while(_lazyQ.length)_lazyBuildOne(_lazyQ.shift());
+  _lazyTotal=0;if(window._heavyProgress)window._heavyProgress(0,0);
+  markDirty();
+}
+window._lazyPending=function(){return _lazyQ.length;};
+window._lazyFlush=_lazyFlush;
 function loadData(data){
   clearAll();
+  var lazy=!!(data.strokes&&data.strokes.length>LAZY_MIN);
   if(data.surf){
     var ds=data.surf;
     _applySurfSnapshot({type:ds.type||'plane',plane:ds.plane||'xz',px:ds.px,py:ds.py,pz:ds.pz,
@@ -15614,7 +16287,8 @@ function loadData(data){
       var fn=undefined;
       if(flat){fn=_fnDecode(s.fn,pts.length);if(!fn&&s.fn==null)fn=_fnRecoverLegacy(pts,s.mx);}
       var lpr=fill?undefined:_prDecode(s.pr,pts.length);   // 5.5 (135)
-      const tube=buildTube(pts,vels,s.color,s.sz,s.op,flat,fn,vt,fill,lpr);if(tube)g.add(tube);
+      if(lazy)_lazyQ.push({g:g,a:[pts,vels,s.color,s.sz,s.op,flat,fn,vt,fill,lpr]});
+      else{const tube=buildTube(pts,vels,s.color,s.sz,s.op,flat,fn,vt,fill,lpr);if(tube)g.add(tube);}
       if(s.mx){g.matrix.fromArray(s.mx);g.matrix.decompose(g.position,g.quaternion,g.scale);g.matrixAutoUpdate=false;}
       scene.add(g);
       var _ls={pts,vels,color:s.color,sz:s.sz,op:s.op,flat:flat,fn:fn,vt:vt,layer:s.layer!=null?s.layer:1,mesh:g,_depthKey:''};
@@ -15628,6 +16302,7 @@ function loadData(data){
   showMergeLayerRow(strokes.some(function(s){return s.layer===MERGE_LAYER;}));
   // Load primitives
   if(data.primitives && window._deserializePrimitives) window._deserializePrimitives(data.primitives);
+  if(lazy&&_lazyQ.length){_lazyTotal=_lazyQ.length;if(!_lazyRaf)_lazyRaf=requestAnimationFrame(_lazyRun);}
 }
 // ── Merged layer, rebuilt from source strokes (session 127) ──────────
 // mergeLayer() bakes every source stroke's geometry into one group and keeps
@@ -15897,10 +16572,12 @@ setInterval(function(){if(!_sceneDirtyForSave)return;_sceneDirtyForSave=false;tr
     }catch(ex){return false;}
   }
   renderer.domElement.addEventListener('webglcontextlost',function(e){
+    try{if(window._diagPush)window._diagPush('gl','context lost');}catch(ex){}
     try{if(window._flushAutosave)window._flushAutosave();}catch(ex){}
     try{toast('Graphics reset — reconnecting…',4000);}catch(ex){}
   },false);
   renderer.domElement.addEventListener('webglcontextrestored',function(){
+    try{if(window._diagPush)window._diagPush('gl','context restored');}catch(ex){}
     if(_recentCtxReload()){
       // Already reloaded once for this within the last 15s and it lost context
       // again — reloading on repeat would loop forever, so stop and say so.
@@ -15931,7 +16608,7 @@ function _strokeExportGeo(s,wpts,sc){
   }
   return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(wpts),Math.max(wpts.length*3,8),s.sz*.011*sc,6,false);
 }
-function expGLTF(expName){
+function expGLTF(expName){_lazyFlush();
   const meshes=[];
   const sc=exportScaleMult();
   strokes.forEach(s=>{if(s.pts.length<2)return;try{
@@ -15947,7 +16624,7 @@ function expGLTF(expName){
   const jb=new TextEncoder().encode(JSON.stringify(gltf)),jl=jb.length,jp=(4-jl%4)%4;const bin=new Uint8Array(bo);let off=0;cks.forEach(c=>{bin.set(c,off);off+=c.byteLength;});const bl=bin.length,bp=(4-bl%4)%4,tot=12+8+(jl+jp)+8+(bl+bp);const out=new ArrayBuffer(tot);const dv=new DataView(out);let p=0;dv.setUint32(p,0x46546C67,true);p+=4;dv.setUint32(p,2,true);p+=4;dv.setUint32(p,tot,true);p+=4;dv.setUint32(p,jl+jp,true);p+=4;dv.setUint32(p,0x4E4F534A,true);p+=4;new Uint8Array(out,p).set(jb);for(let i=0;i<jp;i++)new Uint8Array(out)[p+jl+i]=0x20;p+=jl+jp;dv.setUint32(p,bl+bp,true);p+=4;dv.setUint32(p,0x004E4942,true);p+=4;new Uint8Array(out,p).set(bin);
   const blob=new Blob([out],{type:'model/gltf-binary'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(expName||'spetchbook')+'.glb';a.click();URL.revokeObjectURL(url);toast('GLB exported');
 }
-function expOBJ(expName){if(!strokes.length){toast('Nothing to export');return;}
+function expOBJ(expName){_lazyFlush();if(!strokes.length){toast('Nothing to export');return;}
   const sc=exportScaleMult();
   const lines=['# Spetchbook v5','# Export scale: '+SCALE_LABELS[exportScaleIdx],''];let vo=1;
   strokes.forEach((s,si)=>{if(s.pts.length<2)return;
@@ -15958,7 +16635,10 @@ function expOBJ(expName){if(!strokes.length){toast('Nothing to export');return;}
     for(let i=0;i<pa.count;i++)lines.push('v '+pa.getX(i).toFixed(5)+' '+pa.getY(i).toFixed(5)+' '+pa.getZ(i).toFixed(5));
     if(ix)for(let i=0;i<ix.count;i+=3)lines.push('f '+(ix.getX(i)+vo)+' '+(ix.getX(i+1)+vo)+' '+(ix.getX(i+2)+vo));
     vo+=pa.count;lines.push('');geo.dispose();});
-  const blob=new Blob([lines.join('\n')],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(expName||'spetchbook')+'.obj';a.click();URL.revokeObjectURL(url);toast('OBJ exported ('+SCALE_LABELS[exportScaleIdx]+')');}
+  /* 152: octet-stream, not text/plain — Android Chrome / iPad Safari renamed
+     the download to .obj.txt from the text type (same class as 151a's .spgp,
+     Gotchas #232). Bytes unchanged. */
+  const blob=new Blob([lines.join('\n')],{type:'application/octet-stream'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(expName||'spetchbook')+'.obj';a.click();URL.revokeObjectURL(url);toast('OBJ exported ('+SCALE_LABELS[exportScaleIdx]+')');}
 function buildUSDA(){
   const sc=exportScaleMult();
   const lines=['#usda 1.0','(','    defaultPrim = "Spetchbook"','    upAxis = "Z"','    metersPerUnit = '+sc.toFixed(2),')','','def Xform "Spetchbook" {'];
@@ -15984,8 +16664,8 @@ function buildUSDA(){
     lines.push('    }');geo.dispose();});
   lines.push('}');return lines.join('\n');
 }
-function expUSD(expName){if(!strokes.length){toast('Nothing to export');return;}const b=new Blob([buildUSDA()],{type:'model/vnd.usda'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=(expName||'spetchbook')+'.usda';a.click();URL.revokeObjectURL(u);toast('USDA exported');}
-function expUSDZ(expName){if(!strokes.length){toast('Nothing to export');return;}
+function expUSD(expName){_lazyFlush();if(!strokes.length){toast('Nothing to export');return;}/* 152: octet-stream — browsers that do not know model/vnd.usda pick their own extension (see expOBJ). */const b=new Blob([buildUSDA()],{type:'application/octet-stream'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=(expName||'spetchbook')+'.usda';a.click();URL.revokeObjectURL(u);toast('USDA exported');}
+function expUSDZ(expName){_lazyFlush();if(!strokes.length){toast('Nothing to export');return;}
   const usda=buildUSDA(),enc=new TextEncoder(),data=enc.encode(usda),name=enc.encode('spetchbook.usda');
   function u16(n){const b=new Uint8Array(2);new DataView(b.buffer).setUint16(0,n,true);return b;}
   function u32(n){const b=new Uint8Array(4);new DataView(b.buffer).setUint32(0,n,true);return b;}
@@ -16236,7 +16916,13 @@ function expGP(expName){
   var d;
   try{d=gpExportData();}catch(ex){toast('Grease Pencil export failed');return;}
   if(!d.pages.length){toast('This page is empty — nothing to export');return;}
-  var b=new Blob([JSON.stringify(d)],{type:'application/json'});var u=URL.createObjectURL(b);
+  // 151a: octet-stream, NOT application/json. The file is JSON inside, but a
+  // download whose MIME the browser knows (json) and whose extension it does
+  // not (.spgp) gets renamed to the MIME's extension — Chrome on Android and
+  // Safari on iPad saved "name.json" and the add-on's browser hid it. A
+  // generic binary type carries no extension of its own, so a.download's
+  // name is kept as given. Add-on 1.6.2 also opens .json. Gotchas #232.
+  var b=new Blob([JSON.stringify(d)],{type:'application/octet-stream'});var u=URL.createObjectURL(b);
   var a=document.createElement('a');a.href=u;a.download=(expName||'spetchbook')+'.spgp';a.click();URL.revokeObjectURL(u);
   toast('Grease Pencil exported · '+d.strokeCount+' lines');
 }
@@ -17241,18 +17927,29 @@ window._setSnapEnabled=function(v){
   // Called at drag-end (all 4 end points: gc mouse/touch, pb-gc mouse/touch)
   // with the about-to-be-discarded drag snapshot. No-ops unless a real,
   // non-trivial edit happened this drag (_cgLastPrec set + handle matches).
+  // 158: a card-gizmo drag of the surface is ONE undo step ('surf_set', as LCL does
+  // since 153, Rule #238). No step when nothing changed. A typed precise value
+  // rewrites the step's 'after' so redo returns the typed value.
+  function _cgCommitUndo(snap){
+    if(!snap||!snap.oPos)return null;
+    var b={p:snap.oPos.clone(),e:snap.oEuler.clone(),s:snap.oSc,a:snap.oSA.clone()},a=_surfGet();
+    if(b.p.equals(a.p)&&b.e.equals(a.e)&&b.s===a.s&&b.a.equals(a.a))return null;
+    var rec={type:'surf_set',before:b,after:a};pushUndo(rec);return rec;
+  }
+  function _cgFixUndo(rec){if(rec&&_undoStack[_undoStack.length-1]===rec)rec.after=_surfGet();}
   function _cgTryOpenPrecisionPopup(snap){
+    var rec=_cgCommitUndo(snap);
     if(!_cgLastPrec||!snap||_cgLastPrec.h!==snap.h){_cgLastPrec=null;return;}
     var lp=_cgLastPrec,label,applyFn;
     if(lp.kind==='dist'){
       label=lp.ax.toUpperCase()+' move';
-      applyFn=function(newRaw){_cgReapplyMove(lp.ax,snap,newRaw);};
+      applyFn=function(newRaw){_cgReapplyMove(lp.ax,snap,newRaw);_cgFixUndo(rec);};
     }else if(lp.kind==='deg'){
       label=lp.ax.toUpperCase()+' rotate';
-      applyFn=function(newRaw){_cgReapplyRotate(lp.ax,snap,lp.isLocal,newRaw);};
+      applyFn=function(newRaw){_cgReapplyRotate(lp.ax,snap,lp.isLocal,newRaw);_cgFixUndo(rec);};
     }else if(lp.kind==='scale'){
-      if(lp.ax){label=lp.ax.toUpperCase()+' scale';applyFn=function(newRaw){_cgReapplyScaleAxis(lp.ax,snap,newRaw);};}
-      else{label='Uniform scale';applyFn=function(newRaw){_cgReapplyScaleUniform(newRaw);};}
+      if(lp.ax){label=lp.ax.toUpperCase()+' scale';applyFn=function(newRaw){_cgReapplyScaleAxis(lp.ax,snap,newRaw);_cgFixUndo(rec);};}
+      else{label='Uniform scale';applyFn=function(newRaw){_cgReapplyScaleUniform(newRaw);_cgFixUndo(rec);};}
     }
     if(applyFn&&window._pipOpen) window._pipOpen(label,lp.raw,lp.kind,applyFn);
     _cgLastPrec=null;
@@ -17267,6 +17964,18 @@ window._setSnapEnabled=function(v){
     return{x:(gcX-ox)/fitSz*sgW, y:(gcY-oy)/fitSz*sgW};
   }
   window._gcToSgPos=_gcToSgPos;
+  // 155: a MOUSE drag on a gizmo canvas stopped the moment the pointer left the
+  // canvas (mousemove / mouseup only reach the element under the pointer), while a
+  // touch drag keeps going. Capture the mouse pointer to the canvas for the length
+  // of a drag so the compat mousemove / mouseup keep arriving. The LCL overlay
+  // already does this with setPointerCapture.
+  window._gizmoMouseCapture=function(cv,isDragging){
+    var pid=null;
+    cv.addEventListener('pointerdown',function(e){pid=e.pointerType==='mouse'?e.pointerId:null;},true);
+    cv.addEventListener('mousedown',function(){
+      if(pid!==null&&isDragging()){try{cv.setPointerCapture(pid);}catch(ex){}}
+    });
+  };
   var _gcSelDrag=false; // track if gc is currently routing a drag to sgizmo
   var _gcPrimDrag=false; // track if gc is currently routing a drag to pgizmo
 
@@ -17315,6 +18024,7 @@ window._setSnapEnabled=function(v){
     if(drag)_cgTryOpenPrecisionPopup(drag);
     drag=null;hov=null;snapFlash=null;draw();
   });gc.addEventListener('mouseleave',()=>{if(!drag){hov=null;draw();}});
+  window._gizmoMouseCapture(gc,()=>!!(drag||_gcSelDrag||_gcPrimDrag));
   gc.addEventListener('touchstart',e=>{
     e.preventDefault();e.stopPropagation();
     if(selectedStrokes.length>0 && window._sgHitTest){
@@ -17351,8 +18061,16 @@ window._setSnapEnabled=function(v){
     if(drag)_cgTryOpenPrecisionPopup(drag);
     drag=null;hov=null;snapFlash=null;draw();
   });
-  gc.addEventListener('wheel',e=>{e.preventDefault();e.stopPropagation();surfScale=Math.max(.05,Math.min(10,surfScale-e.deltaY*.0025));syncSurf();draw();},{passive:false});
-  document.getElementById('greset').addEventListener('click',()=>{surfPos.set(0,0,0);surfEuler.set(0,0,0);surfScale=1;surfScaleAxes.set(1,1,1);syncSurf();draw();});
+  // 158: a run of wheel ticks on the card is one undo step (closed 400ms after the last tick).
+  var _cgWheel=null;
+  gc.addEventListener('wheel',e=>{e.preventDefault();e.stopPropagation();
+    if(!_cgWheel)_cgWheel={b:_surfGet(),t:0};
+    surfScale=Math.max(.05,Math.min(10,surfScale-e.deltaY*.0025));syncSurf();draw();
+    clearTimeout(_cgWheel.t);_cgWheel.t=setTimeout(function(){var w=_cgWheel;_cgWheel=null;
+      if(w.b.s!==surfScale)pushUndo({type:'surf_set',before:w.b,after:_surfGet()});},400);
+  },{passive:false});
+  document.getElementById('greset').addEventListener('click',()=>{var b=_surfGet();surfPos.set(0,0,0);surfEuler.set(0,0,0);surfScale=1;surfScaleAxes.set(1,1,1);syncSurf();draw();
+    var a=_surfGet();if(!(b.p.equals(a.p)&&b.e.equals(a.e)&&b.s===a.s&&b.a.equals(a.a)))pushUndo({type:'surf_set',before:b,after:a});});   // 158: undoable
   document.getElementById('gsnap').addEventListener('click',function(){window._setSnapEnabled(!snapEnabled);toast(snapEnabled?'Snap on':'Snap off',1200);draw();});
 
   // ── Align camera to face ─────────────────────────────────────────
@@ -18412,6 +19130,7 @@ window._setSnapEnabled=function(v){
     if(window._setSelPrecision)window._setSelPrecision(null);
   });
   sgc.addEventListener('mouseleave',()=>{if(!sgDrag){sgHov=null;sgDraw();}});
+  window._gizmoMouseCapture(sgc,function(){return !!sgDrag;});
   sgc.addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation();const p=sgGetPos(e),h=sgHitTest(p.x,p.y,true);var tc=e.touches[0];sgStartDrag(p,h,tc?tc.clientX:0,tc?tc.clientY:0);},{passive:false});
   sgc.addEventListener('touchmove',e=>{e.preventDefault();e.stopPropagation();if(sgDrag)sgApplyDrag(sgGetPos(e));},{passive:false});
   sgc.addEventListener('touchend',e=>{
@@ -19167,7 +19886,7 @@ window._setSnapEnabled=function(v){
   var _primHover = null, _primHoverOutline = null;
 
   // ── Shape icons for strip rows ──
-  var SHAPE_ICONS = {box:'◻',sphere:'○',cylinder:'◎',cone:'△',plane:'▭',loft:'~',merged:'⊕'};
+  var SHAPE_ICONS = {box:'◻',sphere:'○',cylinder:'◎',cone:'△',plane:'▭',loft:'~',merged:'⊕',image:'▣'};
 
   // ── Geometry factories ──
   function makeGeometry(type){
@@ -19180,7 +19899,8 @@ window._setSnapEnabled=function(v){
   }
 
   // Base dimensions (unscaled) for each prim type
-  function _getPrimBaseSize(type){
+  function _getPrimBaseSize(type, prim){
+    if(type==='image' && prim && prim.img){ var _is=_imgWorldSize(prim.img.pw, prim.img.ph); return {x:_is.w,y:_is.h,z:0}; }
     if(type==='box') return {x:2,y:2,z:2};
     if(type==='sphere') return {x:2.4,y:2.4,z:2.4};
     if(type==='cylinder') return {x:2,y:2.5,z:2};
@@ -19216,6 +19936,139 @@ window._setSnapEnabled=function(v){
     grp.add(mesh);
     grp.add(edges);
     return grp;
+  }
+
+  // ── Reference image (154) ───────────────────────────────────────────
+  // A ref object of type 'image': a flat textured plane on the Ref layer. It is selected, moved,
+  // turned, scaled, hidden, duplicated and deleted like any other ref object, but it is REFERENCE
+  // ONLY — never a drawing surface (see _primRaycast / togglePrimsAsPlane) and never merged.
+  //   entry.img = { data:'data:image/webp;base64,…', pw, ph }   the stored, downscaled picture
+  // A picture is downscaled to IMG_MAX_PX on its long edge and re-encoded as WebP (PNG/JPEG where the
+  // browser has no WebP encoder), so a 12 MP photo costs about 100–250 KB in a save and ~4 MB of GPU
+  // memory. Unlit material: the picture's own colours, whatever the scene lighting does.
+  var IMG_MAX_PX = 1080;      // long-edge cap; 720 is the lighter setting
+  var IMG_QUALITY = 0.85;
+  var IMG_LONG_UNITS = 6;     // world length of the long edge (the plane ref object is 4)
+  function _imgWorldSize(pw, ph){ var k = IMG_LONG_UNITS / Math.max(pw, ph, 1); return {w: pw * k, h: ph * k}; }
+
+  function makeImagePrimGroup(pw, ph, opacity){
+    var s = _imgWorldSize(pw, ph);
+    // Always transparent (its alpha channel must work at 100%). Like every ref object it writes depth
+    // at full opacity and not below it, so things behind a solid picture are hidden and a faded one
+    // can be seen through; alphaTest drops fully clear pixels so they never write depth.
+    // polygonOffset pushes it back so ink drawn ON its plane always wins.
+    var op = opacity != null ? opacity : 1;
+    var mat = new THREE.MeshBasicMaterial({
+      color: 0xffffff, transparent: true, opacity: op, alphaTest: 0.01,
+      depthWrite: op >= 1, side: THREE.DoubleSide,
+      polygonOffset: true, polygonOffsetFactor: 2, polygonOffsetUnits: 2
+    });
+    var mesh = new THREE.Mesh(new THREE.PlaneGeometry(s.w, s.h), mat);
+    mesh.renderOrder = 1;
+    var grp = new THREE.Group();
+    grp.add(mesh);
+    return grp;
+  }
+
+  // Put a decoded picture (Image or canvas) on the group's plane.
+  function _imgSetTexture(grp, source){
+    var mesh = grp.children[0];
+    if(!mesh || !mesh.material) return;
+    var tex = new THREE.Texture(source);
+    try{ tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy()); }catch(ex){}
+    tex.needsUpdate = true;
+    if(mesh.material.map) mesh.material.map.dispose();
+    mesh.material.map = tex;
+    mesh.material.visible = true;
+    mesh.material.needsUpdate = true;
+  }
+
+  function _imgFromData(data, cb){
+    var im = new Image();
+    im.onload = function(){ cb(im); };
+    im.onerror = function(){ cb(null); };
+    im.src = data;
+  }
+
+  // Downscale to IMG_MAX_PX, halving while more than 2x too big (one big jump aliases).
+  function _imgDownscale(im){
+    var w = im.naturalWidth || im.width, h = im.naturalHeight || im.height;
+    var k = Math.min(1, IMG_MAX_PX / Math.max(w, h));
+    var tw = Math.max(1, Math.round(w * k)), th = Math.max(1, Math.round(h * k));
+    var cur = im, cw = w, ch = h;
+    while(cw / 2 >= tw && ch / 2 >= th){
+      var c2 = document.createElement('canvas');
+      c2.width = Math.round(cw / 2); c2.height = Math.round(ch / 2);
+      var x2 = c2.getContext('2d'); x2.imageSmoothingQuality = 'high';
+      x2.drawImage(cur, 0, 0, c2.width, c2.height);
+      cur = c2; cw = c2.width; ch = c2.height;
+    }
+    var out = document.createElement('canvas');
+    out.width = tw; out.height = th;
+    var ox = out.getContext('2d'); ox.imageSmoothingQuality = 'high';
+    ox.drawImage(cur, 0, 0, tw, th);
+    return out;
+  }
+
+  function _imgEncode(canvas, srcType, cb){
+    function done(blob){
+      if(!blob){ cb(null); return; }
+      var fr = new FileReader();
+      fr.onload = function(){ cb(fr.result); };
+      fr.onerror = function(){ cb(null); };
+      fr.readAsDataURL(blob);
+    }
+    canvas.toBlob(function(b){
+      if(b && b.type === 'image/webp'){ done(b); return; }
+      // No WebP encoder (older Safari hands back a PNG). Keep the PNG for sources that may carry
+      // transparency; otherwise JPEG — a PNG of a photograph is ten times the size.
+      if(!b || /png|gif|webp|svg/.test(srcType)){ done(b); return; }
+      canvas.toBlob(function(j){ done(j || b); }, 'image/jpeg', IMG_QUALITY);
+    }, 'image/webp', IMG_QUALITY);
+  }
+
+  function importImageFile(file){
+    if(!file) return;
+    var url = URL.createObjectURL(file);
+    var im = new Image();
+    im.onload = function(){
+      URL.revokeObjectURL(url);
+      if(!(im.naturalWidth > 0 && im.naturalHeight > 0)){ toast('Could not read that image'); return; }
+      var canvas = _imgDownscale(im);
+      _imgEncode(canvas, (file.type || '').toLowerCase(), function(data){
+        if(!data){ toast('Could not read that image'); return; }
+        addImagePrimitive({data: data, pw: canvas.width, ph: canvas.height}, canvas);
+      });
+    };
+    im.onerror = function(){ URL.revokeObjectURL(url); toast('Could not read that image'); };
+    im.src = url;
+  }
+
+  function addImagePrimitive(img, source){
+    var grp = makeImagePrimGroup(img.pw, img.ph, 1);
+    _imgSetTexture(grp, source);
+    // Lies on the drawing surface, facing the way it faces (a plane's local Z is its normal).
+    grp.position.copy(surfGroup.position);
+    grp.quaternion.copy(surfGroup.quaternion);
+    scene.add(grp);
+    var entry = {
+      id: _primIdCounter++,
+      type: 'image',
+      mesh: grp,
+      color: '#ffffff',
+      opacity: 1,
+      visible: true,
+      img: img,
+      _rowEl: null
+    };
+    primitives.push(entry);
+    addPrimRow(entry);
+    updatePrimCount();
+    showRefLayerRow();
+    _primCheckWarn();
+    pushUndo({type:'prim_add', prim: entry});
+    selectPrimitive(entry);
+    markDirty();
   }
 
   // ── Soft perf warning (non-blocking) — fires once when crossing PRIM_WARN ──
@@ -19262,7 +20115,7 @@ window._setSnapEnabled=function(v){
     if(_selectedPrim && _selectedPrim.id === id) deselectPrimitive();
     if(_primHover && _primHover.id === id) _setHoverPrim(null);
     scene.remove(entry.mesh);
-    entry.mesh.traverse(function(c){if(c.geometry)c.geometry.dispose();if(c.material)c.material.dispose();});
+    entry.mesh.traverse(function(c){if(c.geometry)c.geometry.dispose();if(c.material){if(c.material.map)c.material.map.dispose();c.material.dispose();}});
     primitives.splice(idx,1);
     if(entry._rowEl && entry._rowEl.parentNode) entry._rowEl.parentNode.removeChild(entry._rowEl);
     updatePrimCount();
@@ -19317,6 +20170,16 @@ window._setSnapEnabled=function(v){
         pmesh.renderOrder = 2;
         grp.add(pmesh);
       });
+    } else if(prim.type === 'image' && prim.img){
+      // 154: same picture, its own texture. Reuse the decoded image; re-decode from the stored data
+      // only if the first one is not available.
+      grp = makeImagePrimGroup(prim.img.pw, prim.img.ph, prim.opacity != null ? prim.opacity : 1);
+      var _srcMap = prim.mesh.children[0] && prim.mesh.children[0].material && prim.mesh.children[0].material.map;
+      if(_srcMap && _srcMap.image) _imgSetTexture(grp, _srcMap.image);
+      else{
+        grp.children[0].material.visible = false;
+        (function(g, d){ _imgFromData(d, function(im){ if(im) _imgSetTexture(g, im); }); })(grp, prim.img.data);
+      }
     } else {
       geo = makeGeometry(prim.type);
       grp = makePrimGroup(geo, prim.color, prim.opacity);
@@ -19339,6 +20202,7 @@ window._setSnapEnabled=function(v){
     };
     if(prim.type === 'loft' && prim.profilePts) entry.profilePts = prim.profilePts;
     if(prim.type === 'merged' && prim.parts) entry.parts = prim.parts;
+    if(prim.type === 'image' && prim.img) entry.img = {data: prim.img.data, pw: prim.img.pw, ph: prim.img.ph};
     primitives.push(entry);
     addPrimRow(entry);
     updatePrimCount();
@@ -19400,6 +20264,8 @@ window._setSnapEnabled=function(v){
     // Click row to select primitive — or, in merge mode, toggle merge selection
     row.addEventListener('click', function(){
       if(_primMergeMode){
+        // 154: merging bakes geometry and colour only; it would throw the picture away.
+        if(entry.type === 'image'){ toast('Images cannot be merged'); return; }
         entry._mergeSel = !entry._mergeSel;
         row.classList.toggle('msel', entry._mergeSel);
         check.textContent = entry._mergeSel ? '●' : '○';
@@ -19580,6 +20446,10 @@ window._setSnapEnabled=function(v){
     document.getElementById('pgizmo').classList.add('vis');document.getElementById('pgizmo').classList.add('gc-hosted');
     // Sync color swatches
     syncPgColors(prim.color);
+    // 154: a reference image has no colour and is never a drawing plane — hide both controls.
+    var _isImgSel = prim.type === 'image';
+    var _pgCol = document.getElementById('pg-colors'); if(_pgCol) _pgCol.style.display = _isImgSel ? 'none' : '';
+    var _pgUp = document.getElementById('pg-useplane'); if(_pgUp) _pgUp.style.display = _isImgSel ? 'none' : '';
     // Sync opacity slider
     syncPgOpacity(prim.opacity != null ? prim.opacity : 1);
     // Sync plane button (global toggle state)
@@ -19641,6 +20511,7 @@ window._setSnapEnabled=function(v){
 
   // ── Color ──
   function setPrimColor(prim, hex){
+    if(prim.type === 'image') return;   // 154: a colour would tint the picture; images have none
     var ec = new THREE.Color(hex);
     ec.r = Math.max(0, ec.r * 0.55);
     ec.g = Math.max(0, ec.g * 0.55);
@@ -19669,9 +20540,13 @@ window._setSnapEnabled=function(v){
   function setPrimOpacity(prim, op){
     prim.opacity = op;
     var isTransparent = op < 1;
+    var isImg = prim.type === 'image';
     prim.mesh.traverse(function(c){
+      // The selection tint / outline hang off the same group and carry their own fixed opacity.
+      if(c.userData && c.userData._selOutline) return;
       if(c.isMesh && c.material){
-        c.material.transparent = isTransparent;
+        // 154: an image stays transparent even at 100% (its alpha channel must keep working).
+        c.material.transparent = isImg || isTransparent;
         c.material.opacity = op;
         c.material.depthWrite = !isTransparent;
         c.material.needsUpdate = true;
@@ -19694,6 +20569,13 @@ window._setSnapEnabled=function(v){
   var _savedSurfState = null;
 
   function togglePrimsAsPlane(on){
+    // 154: reference images are never a drawing surface. With only images in the scene there is
+    // nothing to draw on, so the mode stays off (every entry point — toolbar, gizmo panel, the
+    // external toggle — comes through here).
+    if(on && !primitives.some(function(p){ return p.type !== 'image'; })){
+      toast('Images are reference only — add a shape to draw on');
+      return;
+    }
     _primsAsPlane = on;
     window._primsAsPlane = on;
     var ppb = document.getElementById('pg-useplane');
@@ -19742,6 +20624,7 @@ window._setSnapEnabled=function(v){
     for(var i = 0; i < primitives.length; i++){
       var p = primitives[i];
       if(!p.mesh.visible) continue;
+      if(p.type === 'image') continue;   // 154: reference only, never a drawing surface
       p.mesh.traverse(function(c){
         if(!c.isMesh) return;
         var prev = c.material.side;
@@ -20360,7 +21243,7 @@ window._setSnapEnabled=function(v){
       if(ax==='y') mesh.scale.y = pgDrag.oScale.y * proj;
       if(ax==='z') mesh.scale.z = pgDrag.oScale.z * proj;
       if(window._precisionMode){
-        var _bs = _getPrimBaseSize(_selectedPrim.type);
+        var _bs = _getPrimBaseSize(_selectedPrim.type, _selectedPrim);
         var sx = mesh.scale.x * _bs.x, sy = mesh.scale.y * _bs.y, sz = mesh.scale.z * _bs.z;
         _precVal = ax.toUpperCase()+': ×'+proj.toFixed(2)+' · '+formatSize(sx,sy,sz);
       }
@@ -20369,7 +21252,7 @@ window._setSnapEnabled=function(v){
       var sc = snapScale(Math.max(0.05, 1 - dy * 0.012));
       mesh.scale.copy(pgDrag.oScale).multiplyScalar(sc);
       if(window._precisionMode){
-        var _bs = _getPrimBaseSize(_selectedPrim.type);
+        var _bs = _getPrimBaseSize(_selectedPrim.type, _selectedPrim);
         var sx = mesh.scale.x * _bs.x, sy = mesh.scale.y * _bs.y, sz = mesh.scale.z * _bs.z;
         _precVal = '×'+sc.toFixed(2)+' · '+formatSize(sx,sy,sz);
       }
@@ -20481,6 +21364,7 @@ window._setSnapEnabled=function(v){
     if(window._setSelPrecision)window._setSelPrecision(null);
   });
   pgc.addEventListener('mouseleave', function(){ if(!pgDrag){ pgHov = null; pgDraw(); } });
+  window._gizmoMouseCapture(pgc,function(){return !!pgDrag;});
   pgc.addEventListener('touchstart', function(e){
     e.preventDefault(); e.stopPropagation();
     var p = pgGetPos(e), h = pgHitTest(p.x, p.y, true);
@@ -20570,7 +21454,7 @@ window._setSnapEnabled=function(v){
   window._primPickAt = function(px, py){
     var hit = findNearestPrimitive(px, py);
     if(hit){ if(typeof clearSelection==='function'&&selectedStrokes.length) clearSelection(); selectPrimitive(hit); return true; }
-    deselectPrimitive(); return false;
+    _primMiss(); return false;
   };
   window._duplicatePrimExt = function(){ if(_selectedPrim) duplicatePrimitive(_selectedPrim); };
   window._removePrimExt = function(){ if(_selectedPrim) removePrimitive(_selectedPrim.id); };
@@ -20623,6 +21507,42 @@ window._setSnapEnabled=function(v){
       addPrimitive(type);
     });
   });
+  // 154: reference image — the button opens the hidden file input; the file is downscaled,
+  // WebP-encoded and added as a ref object of type 'image'.
+  var primImgBtn = document.getElementById('prim-add-image'), primImgIn = document.getElementById('prim-img-in');
+  primImgBtn.addEventListener('click', function(){ primImgIn.click(); });
+  primImgIn.addEventListener('change', function(){
+    var f = this.files && this.files[0];
+    this.value = '';
+    if(f) importImageFile(f);
+  });
+
+  // 155: a press that misses every ref object used to deselect at once, so the
+  // first finger of a pan / orbit / pinch dropped the selection before the gesture
+  // began. Now a miss deselects only on release of a clean tap: one contact, no
+  // second finger, no drag. Navigating (or drawing) keeps the selection, as it
+  // does for selected lines.
+  var _missPend = null, _ptrN = 0, _ptrX = 0, _ptrY = 0;
+  function _primMiss(){
+    if(_ptrN === 0){ deselectPrimitive(); return; }   // no live contact (synthetic call): nothing to wait for
+    _missPend = { x: _ptrX, y: _ptrY, cancel: _ptrN > 1 };
+  }
+  window.addEventListener('pointerdown', function(e){
+    _ptrN++; _ptrX = e.clientX; _ptrY = e.clientY;
+    if(_missPend && _ptrN > 1) _missPend.cancel = true;
+  }, true);
+  window.addEventListener('pointermove', function(e){
+    if(_missPend && Math.hypot(e.clientX - _missPend.x, e.clientY - _missPend.y) > 10) _missPend.cancel = true;
+  }, true);
+  function _ptrEnd(){
+    _ptrN = Math.max(0, _ptrN - 1);
+    if(_ptrN === 0 && _missPend){
+      var m = _missPend; _missPend = null;
+      if(!m.cancel) deselectPrimitive();
+    }
+  }
+  window.addEventListener('pointerup', _ptrEnd, true);
+  window.addEventListener('pointercancel', _ptrEnd, true);
 
   // ── SEL button (toggle prim-select mode) ──
   var primSelBtn = document.getElementById('prim-sel-btn');
@@ -20699,7 +21619,7 @@ window._setSnapEnabled=function(v){
       selectPrimitive(hit);
       return true;
     }
-    deselectPrimitive();
+    _primMiss();
     return false; // let tap fall through to normal draw/erase/select
   };
 
@@ -20813,6 +21733,8 @@ window._setSnapEnabled=function(v){
       };
       if(p.type === 'loft' && p.profilePts) obj.profilePts = p.profilePts;
       if(p.type === 'merged' && p.parts) obj.parts = p.parts;
+      // 154 (format 5.6): the picture travels inside the save, as the stored WebP data URL.
+      if(p.type === 'image' && p.img) obj.image = {data: p.img.data, pw: p.img.pw, ph: p.img.ph};
       return obj;
     });
   };
@@ -20824,6 +21746,8 @@ window._setSnapEnabled=function(v){
     for(var i = 0; i < arr.length; i++){
       var d = arr[i];
       var grp;
+      // 154: an image entry with no picture in it is unusable — skip it rather than show a box.
+      if(d.type === 'image' && !(d.image && d.image.data)) continue;
       if(d.type === 'loft' && d.profilePts){
         // Reconstruct loft geometry from profile points
         var N = d.profilePts[0] ? d.profilePts[0].length : 48;
@@ -20867,6 +21791,10 @@ window._setSnapEnabled=function(v){
           pmesh.renderOrder = 2;
           grp.add(pmesh);
         });
+      } else if(d.type === 'image'){
+        grp = makeImagePrimGroup(d.image.pw, d.image.ph, d.opacity != null ? d.opacity : 1);
+        grp.children[0].material.visible = false;   // until the picture has decoded (no white flash)
+        (function(g, data){ _imgFromData(data, function(im){ if(im) _imgSetTexture(g, im); }); })(grp, d.image.data);
       } else {
         var geo = makeGeometry(d.type);
         grp = makePrimGroup(geo, d.color || '#ffffff', d.opacity != null ? d.opacity : 1);
@@ -20892,6 +21820,7 @@ window._setSnapEnabled=function(v){
       };
       if(d.type === 'loft' && d.profilePts) entry.profilePts = d.profilePts;
       if(d.type === 'merged' && d.parts) entry.parts = d.parts;
+      if(d.type === 'image') entry.img = {data: d.image.data, pw: d.image.pw, ph: d.image.ph};
       if(d.id >= _primIdCounter) _primIdCounter = d.id + 1;
       primitives.push(entry);
     }
@@ -20908,7 +21837,7 @@ window._setSnapEnabled=function(v){
     while(primitives.length){
       var p = primitives.pop();
       scene.remove(p.mesh);
-      p.mesh.traverse(function(c){if(c.geometry)c.geometry.dispose();if(c.material)c.material.dispose();});
+      p.mesh.traverse(function(c){if(c.geometry)c.geometry.dispose();if(c.material){if(c.material.map)c.material.map.dispose();c.material.dispose();}});
     }
     var stack = document.getElementById('prim-stack');
     while(stack.firstChild) stack.removeChild(stack.firstChild);
@@ -23003,7 +23932,8 @@ window._syncTbHideBtn=function(){
 
 
 // ── Background color ──────────────────────────────────────────────
-var BG_PRESETS={beige:'#cdb899',white:'#ffffff',black:'#2a2a2e'};
+var BG_PAPER='#f1ead9';
+var BG_PRESETS={paper:BG_PAPER,beige:'#cdb899',white:'#ffffff',black:'#2a2a2e'};
 var _curBgKey='beige';
 function setBgColor(hex,key){
   var c=new THREE.Color(hex);
@@ -23030,7 +23960,8 @@ function setBgColor(hex,key){
   // Auto-select UI theme based on BG luminance (skip if user chose eink)
   if(_uiTheme!=='eink'){
     var lum=0.299*c.r+0.587*c.g+0.114*c.b;
-    if(lum<0.25) setUITheme('dark');
+    if(key==='paper') setUITheme('paper');   // ivory is light by luminance, but it has its own theme
+    else if(lum<0.25) setUITheme('dark');
     else if(lum>0.82) setUITheme('light');
     else setUITheme('default');
     // Adapt grid/plane colors to match bg hue
@@ -23055,6 +23986,7 @@ function setBgColor(hex,key){
       pop.style.top=top+'px';pop.style.left=left+'px';
     }
   });
+  document.getElementById('bgpop-paper').addEventListener('click',function(){setBgColor(BG_PAPER,'paper');});
   document.getElementById('bgpop-beige').addEventListener('click',function(){setBgColor('#cdb899','beige');});
   document.getElementById('bgpop-white').addEventListener('click',function(){setBgColor('#ffffff','white');});
   document.getElementById('bgpop-black').addEventListener('click',function(){setBgColor('#2a2a2e','black');});
@@ -23078,11 +24010,12 @@ document.querySelectorAll('.theme-btn').forEach(function(b){
     e.stopPropagation();
     var th=b.getAttribute('data-theme');
     setUITheme(th);
+    // 157: Kraft, Paper and E-ink bring their own desk colour (Dark / Light leave it as it is).
+    if(th==='eink') setBgColor('#ffffff','eink');
+    else if(th==='paper') setBgColor(BG_PAPER,'paper');
+    else if(th==='default') setBgColor('#cdb899','beige');
     _syncThemeBtns();
     _savePrefs();
-    if(th==='eink'){
-      setBgColor('#ffffff','eink');
-    }
   });
 });
 
@@ -23347,6 +24280,7 @@ document.querySelectorAll('.theme-btn').forEach(function(b){
     openScalePicker(this);
   });
   // View-pop BG swatches
+  document.getElementById('vp-bg-paper').addEventListener('click',function(e){e.stopPropagation();setBgColor(BG_PAPER,'paper');});
   document.getElementById('vp-bg-beige').addEventListener('click',function(e){e.stopPropagation();setBgColor('#cdb899','beige');});
   document.getElementById('vp-bg-white').addEventListener('click',function(e){e.stopPropagation();setBgColor('#ffffff','white');});
   document.getElementById('vp-bg-black').addEventListener('click',function(e){e.stopPropagation();setBgColor('#2a2a2e','black');});
@@ -24146,6 +25080,8 @@ applySidecol();
   if(!btn)return;
   btn.addEventListener('click',function(e){
     e.stopPropagation();
+    // 160: with one puck shown for lack of room, Swap shows the other one.
+    if(window._ctlAutoOne&&window._ctlAutoOne()){window._ctlAutoSwap();return;}
     _scState.gizmoFirst=!_scState.gizmoFirst;_saveScState();
     if(window._ctlRefresh)window._ctlRefresh();
   });
@@ -24540,6 +25476,7 @@ window.addEventListener('keydown',e=>{
     return;}
   if((e.ctrlKey||e.metaKey)&&e.key==='n'){e.preventDefault();document.getElementById('bnew').click();return;}
   if(e.key==='Delete'||e.key==='Backspace'){if(selectedStrokes.length){e.preventDefault();deleteSelected();return;}}
+  if(window._kbMoveKey&&window._kbMoveKey(e))return;   // 158: X/Y/Z + arrows move what the gizmo holds
   if(e.ctrlKey||e.metaKey||e.altKey)return;
   // In FPS mode, WASD/QE/arrows are handled by FPS tick — suppress normal shortcuts
   if(_fpsMode){
@@ -24554,7 +25491,7 @@ window.addEventListener('keydown',e=>{
     case 'o':if(window._tcTool)window._tcTool('lasso');break;
     case 'g':setMode('pan');break;case 'r':setMode('orbit');break;
     case 'f':if(window._tcTool)window._tcTool('marker');else toggleFlatTool();break;
-    case 'v':togglePersp();break;case 'x':document.getElementById('bdepth').click();break;
+    case 'v':togglePersp();break;case 'h':document.getElementById('bdepth').click();break;   // 158: was X (X/Y/Z now pick the move axis)
     case 'a':toggleAxis(!axisLinesOn);break;case 's':toggleSmoothing();break;
     case 'w':toggleVelTaper();break;
     case 'l':if(window._rulerToggle) window._rulerToggle();break;
@@ -24586,6 +25523,229 @@ window.addEventListener('keydown',e=>{
   }
 });
 
+// ── 159: HEAVY PAGE NOTICE ─────────────────────────────────────────
+// A small pill at the top when this page's stroke count crosses a level where
+// orbiting may start to slow on a tablet (one draw call per stroke; see the
+// perf numbers in handoff 158). Once per level per page; it comes back if the
+// page drops below the level and climbs again. Tap x or wait 7s. The same pill
+// shows "Building strokes nn%" while a big page fills in (sliced rebuild).
+var HEAVY_LEVELS=[1500,3000,5000];
+(function(){
+  var el=document.getElementById('heavy-pill');if(!el)return;
+  var tx=el.querySelector('.hp-t'),x=el.querySelector('button'),hideT=0,shownAt={},busy=false;
+  function show(msg,isBusy){
+    clearTimeout(hideT);busy=!!isBusy;
+    tx.textContent=msg;el.classList.toggle('busy',busy);
+    el.classList.add('on');requestAnimationFrame(function(){el.classList.add('in');});
+    if(!busy)hideT=setTimeout(hide,7000);
+  }
+  function hide(){clearTimeout(hideT);el.classList.remove('in');setTimeout(function(){if(!el.classList.contains('in'))el.classList.remove('on');},220);}
+  x.addEventListener('click',function(e){e.stopPropagation();hide();});
+  function level(n){var L=0;for(var i=0;i<HEAVY_LEVELS.length;i++)if(n>=HEAVY_LEVELS[i])L=i+1;return L;}
+  function check(){
+    if(busy||(window._lazyPending&&window._lazyPending()))return;   // count once the page is built
+    var n=strokes.length,L=level(n),k='p'+curPage,was=shownAt[k]||0;
+    if(L>was){
+      shownAt[k]=L;
+      show('Heavy page: '+n.toLocaleString()+' strokes · orbit may slow');
+    }else if(L<was)shownAt[k]=L;
+  }
+  window._heavyCheck=check;
+  window._heavyProgress=function(done,total){
+    if(total>0)show('Building strokes '+Math.round(100*done/total)+'%',true);
+    else if(busy){busy=false;hide();setTimeout(check,250);}
+  };
+  setInterval(check,1500);
+})();
+
+// ── 158: KEYBOARD MOVE ───────────────────────────────────────────
+// Moves what the gizmo is holding — the selected strokes, else the selected
+// ref object, else the drawing surface — from the keyboard.
+//   X / Y / Z          move along that axis only (the gizmo shows only it)
+//   Shift+X / Y / Z    move in the plane across that axis (Blender's habit)
+//   (nothing picked)   the plane facing you: arrows follow the screen
+//   arrows             HOLD to move smoothly; the direction follows the screen
+//                      (Right / Up move the object right / up as you see it)
+//   PageUp / PageDown  the remaining direction (away from / toward you)
+//   Shift (held)       snap: whole move steps (the Snap setting, default 0.25)
+//   Alt (held)         4x faster        Ctrl (held)  4x slower
+//   Esc                back to "nothing picked" (and the usual Esc)
+// World axes, or the object's own when the gizmo is on Local. One undo step
+// per hold (all keys up). Not in FPS (it owns the arrows) nor in Pages.
+(function(){
+  var KB_SPEED=0.15;          // fraction of the view distance per second
+  var pick=null;              // null | {ax:'x'|'y'|'z', plane:bool}
+  var held={},sess=null,raf=0,lastT=0,mods={shift:false,alt:false,ctrl:false};
+  var AX={x:new THREE.Vector3(1,0,0),y:new THREE.Vector3(0,1,0),z:new THREE.Vector3(0,0,1)};
+  function target(){
+    if(selectedStrokes.length)return {kind:'sel'};
+    var pm=window._selectedPrim_get?window._selectedPrim_get():null;
+    if(pm)return {kind:'prim',pm:pm};
+    return {kind:'surf'};
+  }
+  function frameQ(t){
+    if(!(window._gcIsLocal&&window._gcIsLocal()))return null;
+    if(t.kind==='prim')return t.pm.mesh.quaternion;
+    if(t.kind==='surf')return surfGroup.quaternion;
+    return null;
+  }
+  function axDir(a,q){var v=AX[a].clone();if(q)v.applyQuaternion(q);return v.normalize();}
+  // screen direction of a world vector at the target (x right, y UP)
+  function scr(v,at){
+    var c=activeCam(),p0=at.clone().project(c),p1=at.clone().add(v).project(c);
+    return new THREE.Vector2(p1.x-p0.x,p1.y-p0.y);
+  }
+  function anchor(t){
+    if(t.kind==='surf')return surfPos.clone();
+    if(t.kind==='prim')return t.pm.mesh.position.clone();
+    return window._selectionCentroid?window._selectionCentroid():new THREE.Vector3();
+  }
+  // The three directions the keys drive: h (Left/Right), v (Up/Down), d (PgUp/PgDn).
+  // Each is a world vector already signed so its key's + moves right / up / away.
+  function dirs(t){
+    var q=frameQ(t),at=anchor(t),c=activeCam();
+    var view=new THREE.Vector3();c.getWorldDirection(view);
+    var all=['x','y','z'].map(function(a){return {a:a,v:axDir(a,q)};});
+    var H=null,V=null,D=null;
+    function signH(o){var s2=scr(o.v,at);if(s2.x<0)o.v.negate();return o;}
+    function signV(o){var s2=scr(o.v,at);if(s2.y<0)o.v.negate();return o;}
+    function signD(o){if(o.v.dot(view)<0)o.v.negate();return o;}
+    if(pick&&!pick.plane){
+      var o=all.filter(function(k){return k.a===pick.ax;})[0],s2=scr(o.v,at);
+      // one axis: every arrow drives it; Right/Up = the way it points on screen,
+      // or, end-on to you, Up = away.
+      var lenS=s2.length(),u0=o.v.clone();
+      if(lenS<1e-4){signD(o);return {h:o.v,v:o.v,d:o.v,axis:o.a,u:u0};}
+      var hv=o.v.clone();if(s2.x<0)hv.negate();
+      var vv=o.v.clone();if(s2.y<0)vv.negate();
+      if(Math.abs(s2.x)<lenS*0.2)hv.copy(vv);
+      if(Math.abs(s2.y)<lenS*0.2)vv.copy(hv);
+      var dv=o.v.clone();if(dv.dot(view)<0)dv.negate();
+      return {h:hv,v:vv,d:dv,axis:o.a,u:u0};
+    }
+    var nAx;
+    if(pick&&pick.plane)nAx=pick.ax;
+    else{var best=-1;all.forEach(function(k){var d2=Math.abs(k.v.dot(view));if(d2>best){best=d2;nAx=k.a;}});}
+    var rest=all.filter(function(k){return k.a!==nAx;});
+    var s0=scr(rest[0].v,at),s1=scr(rest[1].v,at);
+    var r0=Math.abs(s0.x)/(s0.length()||1),r1=Math.abs(s1.x)/(s1.length()||1);
+    if(r0>=r1){H=rest[0];V=rest[1];}else{H=rest[1];V=rest[0];}
+    signH(H);signV(V);D=signD(all.filter(function(k){return k.a===nAx;})[0]);
+    return {h:H.v,v:V.v,d:D.v,axis:null};
+  }
+  function begin(){
+    var t=target(),b={t:t,T:{h:0,v:0,d:0},D:dirs(t)};
+    if(t.kind==='surf')b.before=_surfGet();
+    else if(t.kind==='prim'){
+      b.p0=t.pm.mesh.position.clone();
+      b.rec={type:'prim_transform',prim:t.pm,oldPos:b.p0.clone(),oldQuat:t.pm.mesh.quaternion.clone(),oldScale:t.pm.mesh.scale.clone()};
+      pushUndo(b.rec);
+    }else{
+      b.oM=selectedStrokes.map(function(s2){return s2.mesh.matrix.clone();});
+      b.strokes=selectedStrokes.slice();
+      b.c0=window._selectionCentroid?window._selectionCentroid():null;
+      b.rec={type:'stroke_transform_multi',strokes:b.strokes,oldMatrices:b.oM.map(function(m){return m.clone();})};
+      pushUndo(b.rec);
+    }
+    return b;
+  }
+  function stepOf(){return (typeof SNAP_MV==='number'&&SNAP_MV>0)?SNAP_MV:0.25;}
+  function applied(x){if(!mods.shift)return x;var st=stepOf();return Math.round(x/st)*st;}
+  function place(b){
+    var D=new THREE.Vector3().addScaledVector(b.D.h,applied(b.T.h)).addScaledVector(b.D.v,applied(b.T.v)).addScaledVector(b.D.d,applied(b.T.d));
+    // one-axis pick: h and v drive the same axis — count it once
+    if(b.D.axis){var u=b.D.u;
+      D.copy(u).multiplyScalar(applied(b.T.h*b.D.h.dot(u)+b.T.v*b.D.v.dot(u)+b.T.d*b.D.d.dot(u)));}
+    var t=b.t;
+    if(t.kind==='surf'){surfPos.copy(b.before.p).add(D);syncSurf();}
+    else if(t.kind==='prim'){
+      t.pm.mesh.position.copy(b.p0).add(D);t.pm.mesh.updateMatrix();t.pm.mesh.matrixAutoUpdate=false;
+      if(window._positionPrimGizmo)window._positionPrimGizmo();
+      if(window._pgGcDraw)window._pgGcDraw();
+      if(window._syncLocalGizmo)window._syncLocalGizmo();
+    }else{
+      b.strokes.forEach(function(s2,i){
+        s2.mesh.matrix.copy(b.oM[i]);s2.mesh.matrix.decompose(s2.mesh.position,s2.mesh.quaternion,s2.mesh.scale);
+        s2.mesh.position.add(D);s2.mesh.updateMatrix();s2.mesh.matrixAutoUpdate=false;
+      });
+      if(typeof updateSelHighlights==='function')updateSelHighlights();
+      if(window._sgGcDraw)window._sgGcDraw();
+      if(window._syncLocalGizmo)window._syncLocalGizmo();
+    }
+    b.moved=D.lengthSq()>0;
+    markDirty();
+  }
+  function speed(){
+    var c=activeCam(),dist=(typeof useOrtho!=='undefined'&&useOrtho)?(typeof orthoZoom==='number'?orthoZoom:10):(c.position.distanceTo(anchor(sess.t))||10);
+    var v=Math.max(0.05,dist*KB_SPEED);
+    if(mods.alt)v*=4;if(mods.ctrl)v*=0.25;
+    return v;
+  }
+  function tick(now){
+    raf=0;if(!sess)return;
+    var dt=Math.min(0.05,Math.max(0,(now-lastT)/1000));lastT=now;
+    var v=speed()*dt;
+    if(held.ArrowRight)sess.T.h+=v;if(held.ArrowLeft)sess.T.h-=v;
+    if(held.ArrowUp)sess.T.v+=v;if(held.ArrowDown)sess.T.v-=v;
+    if(held.PageUp)sess.T.d+=v;if(held.PageDown)sess.T.d-=v;
+    place(sess);
+    if(anyHeld())raf=requestAnimationFrame(tick);
+  }
+  function anyHeld(){for(var k in held)if(held[k])return true;return false;}
+  function end(){
+    if(raf){cancelAnimationFrame(raf);raf=0;}
+    var b=sess;sess=null;held={};
+    if(!b)return;
+    if(b.t.kind==='surf'){
+      var a=_surfGet(),bf=b.before;
+      if(!(bf.p.equals(a.p)&&bf.e.equals(a.e)&&bf.s===a.s&&bf.a.equals(a.a)))pushUndo({type:'surf_set',before:bf,after:a});
+    }else if(!b.moved&&_undoStack[_undoStack.length-1]===b.rec){_undoStack.pop();}
+  }
+  var MOVE_KEYS={ArrowLeft:1,ArrowRight:1,ArrowUp:1,ArrowDown:1,PageUp:1,PageDown:1};
+  function blocked(){return !!(window._fpsMode||_fpsMode||(typeof _fbOpen!=='undefined'&&_fbOpen));}
+  function label(){
+    if(!pick)return 'Keys: plane facing you';
+    return pick.plane?('Keys: plane across '+pick.ax.toUpperCase()):('Keys: '+pick.ax.toUpperCase()+' axis');
+  }
+  window._kbMoveKey=function(e){
+    mods.shift=e.shiftKey;mods.alt=e.altKey;mods.ctrl=e.ctrlKey;
+    if(blocked()||e.metaKey)return false;
+    var k=e.key;
+    if(MOVE_KEYS[k]){
+      e.preventDefault();
+      if(e.repeat)return true;
+      if(!sess){sess=begin();lastT=performance.now();}
+      held[k]=true;
+      // Shift: a tap moves one whole step at once (no waiting for the hold to cover half a step)
+      if(mods.shift){var st=stepOf()*0.5+1e-6;
+        if(k==='ArrowRight')sess.T.h+=st;if(k==='ArrowLeft')sess.T.h-=st;
+        if(k==='ArrowUp')sess.T.v+=st;if(k==='ArrowDown')sess.T.v-=st;
+        if(k==='PageUp')sess.T.d+=st;if(k==='PageDown')sess.T.d-=st;
+        place(sess);}
+      if(!raf)raf=requestAnimationFrame(tick);
+      return true;
+    }
+    if(e.ctrlKey||e.altKey)return false;
+    var lk=k.toLowerCase();
+    if(lk==='x'||lk==='y'||lk==='z'){
+      if(sess)end();
+      var pl=!!e.shiftKey,same=pick&&pick.ax===lk&&pick.plane===pl;
+      pick=same?null:{ax:lk,plane:pl};      // the same key again: back to the free plane
+      if(window._setAxisFilter)window._setAxisFilter(pick&&!pick.plane?pick.ax:'all');
+      toast(label());
+      return true;
+    }
+    if(k==='Escape'&&pick){pick=null;if(window._setAxisFilter)window._setAxisFilter('all');}
+    return false;
+  };
+  window.addEventListener('keyup',function(e){
+    mods.shift=e.shiftKey;mods.alt=e.altKey;mods.ctrl=e.ctrlKey;
+    if(MOVE_KEYS[e.key]){held[e.key]=false;if(sess&&!anyHeld())end();}
+  });
+  window.addEventListener('blur',function(){if(sess)end();});
+  window._kbMoveState=function(){return {pick:pick,active:!!sess};};
+})();
+
 // Init
 syncSurf();setMode('draw');
 document.getElementById('bsurf').classList.add('on');
@@ -24594,6 +25754,123 @@ setActiveLayer(0);
 _loadPrefs();
 updateGestLabel();updateInvOrbLabel();updateTapGestLabel();updateStylusLabel();updateSymBtn();updateSymAxisBtns();updateLayoutMode();_syncRenderer();
 _syncThemeBtns();
+// ── 152: settings — build line, input trace, copy diagnostics; first-launch theme pill ──
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  function short(k){return String(k||'').replace('spetchbook-','');}
+  // The build line answers "is this device running what I deployed?" before
+  // any testing. APP_BUILD is this page; the cache is what the service worker
+  // will serve next. sw.js skips waiting and claims, so a new worker deletes
+  // the old cache at once: a cache key that differs from APP_BUILD means the
+  // update is already downloaded and a reload shows it.
+  var lastBuildTxt='';
+  function buildLine(){
+    var el=$('vp-build');if(!el)return;
+    function put(txt,stale){lastBuildTxt=txt;el.textContent=txt;el.classList.toggle('stale',!!stale);}
+    var base='Build '+short(APP_BUILD);
+    if(!window.caches||!caches.keys){put(base+' · no offline cache');return;}
+    caches.keys().then(function(keys){
+      var app=[];for(var i=0;i<keys.length;i++){if(/^spetchbook-v\d/.test(keys[i]))app.push(keys[i]);/* not spetchbook-vendor-* */}
+      if(!app.length){put(base+' · no offline cache');return;}
+      var other=null;for(var j=0;j<app.length;j++){if(app[j]!==APP_BUILD)other=app[j];}
+      if(other)put(base+' · cache '+short(other)+' — reload to update',true);
+      else put(base+' · cache '+short(APP_BUILD)+' ✓');
+    }).catch(function(){put(base+' · cache ?');});
+  }
+  window._diagBuildLine=buildLine;
+  var vp=$('view-pop');
+  if(vp&&window.MutationObserver){
+    new MutationObserver(function(){if(vp.classList.contains('open'))buildLine();}).observe(vp,{attributes:true,attributeFilter:['class']});
+  }
+  setTimeout(buildLine,1500);
+
+  var tb=$('bdiagtrace');
+  function traceSync(){if(tb){tb.classList.toggle('on',!!window._trcOn);
+    tb.lastChild.nodeValue=window._trcOn?'Input trace: ON ('+window._trcDump().length+')':'Input trace';}}
+  if(tb)tb.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(window._trcSet)window._trcSet(!window._trcOn);
+    traceSync();
+    toast(window._trcOn?'Input trace on — reproduce, then Copy diagnostics':'Input trace off',2200);
+  });
+  if(vp&&window.MutationObserver){
+    new MutationObserver(function(){if(vp.classList.contains('open'))traceSync();}).observe(vp,{attributes:true,attributeFilter:['class']});
+  }
+
+  function glName(){
+    try{var gl=renderer.getContext(),x=gl.getExtension('WEBGL_debug_renderer_info');
+      return x?gl.getParameter(x.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER);}catch(ex){return '?';}
+  }
+  function iso(t){try{return new Date(t).toISOString().replace('T',' ').slice(0,19);}catch(ex){return String(t);}}
+  function report(){
+    var L=[],B=document.body,vv=window.visualViewport,su='?';
+    try{su=String(stylusOnly);}catch(ex){}
+    L.push('Spetchbook diagnostics · '+iso(Date.now()));
+    L.push(lastBuildTxt||('Build '+short(APP_BUILD)));
+    L.push('UA: '+navigator.userAgent);
+    L.push('touchPoints '+(navigator.maxTouchPoints||0)+' · dpr '+devicePixelRatio+' · screen '+screen.width+'x'+screen.height+
+      ' · window '+innerWidth+'x'+innerHeight+(vv?' · visual '+Math.round(vv.width)+'x'+Math.round(vv.height):'')+
+      ' · standalone '+(!!(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)));
+    L.push('mem '+(navigator.deviceMemory||'?')+'GB · cores '+(navigator.hardwareConcurrency||'?')+' · GPU '+glName());
+    L.push('layout: '+(B.classList.contains('uw-mode')?'ultra-wide':B.classList.contains('narrow-mode')?'bottom':'side')+
+      (B.classList.contains('rside')?' rside':'')+' · theme '+_uiTheme+' · stylusOnly '+su+' · penAuto '+_penAutoDone+
+      ' · palmOS '+_scPalmOS+' · penSeen '+_scPenSeen+' · controls '+(window._ctlVis||'?'));
+    var log=window._diagLog?window._diagLog():[];
+    L.push('');L.push('Errors ('+log.length+', newest last):');
+    if(!log.length)L.push('  none');
+    for(var i=0;i<log.length;i++){var r=log[i];
+      L.push('  '+iso(r.t)+' ['+r.k+']'+(r.n>1?' x'+r.n:'')+' '+short(r.b)+' '+r.m+(r.x?' — '+r.x:''));}
+    var tr=window._trcDump?window._trcDump():[];
+    L.push('');L.push('Input trace ('+tr.length+' events'+(window._trcOn?', recording':'')+'). Flags: D pen down · A pen on scene · G palm gesture · W palm window');
+    for(var j=0;j<tr.length;j++)L.push('  +'+tr[j][0]+'ms '+tr[j][1]+' '+tr[j][2]);
+    return L.join('\n');
+  }
+  window._diagReport=report;
+  function fallback(txt){
+    // Clipboard refused (permission, non-secure origin): select-and-copy, and
+    // if even that fails, hand the report over as a file.
+    try{
+      var ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');
+      ta.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';document.body.appendChild(ta);
+      ta.select();var ok=document.execCommand&&document.execCommand('copy');document.body.removeChild(ta);
+      if(ok){toast('Diagnostics copied',1800);return;}
+    }catch(ex){}
+    try{
+      var b=new Blob([txt],{type:'application/octet-stream'}),u=URL.createObjectURL(b),a=document.createElement('a');
+      a.href=u;a.download='spetchbook-diagnostics.txt';a.click();setTimeout(function(){URL.revokeObjectURL(u);},4000);
+      toast('Clipboard blocked — saved as a file',2400);
+    }catch(ex){toast('Could not copy diagnostics',2000);}
+  }
+  var cb=$('bdiagcopy');
+  if(cb)cb.addEventListener('click',function(e){
+    e.stopPropagation();
+    var txt=report();
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){toast('Diagnostics copied',1800);},function(){fallback(txt);});
+    }else fallback(txt);
+  });
+
+  // First-launch theme pill. Not modal: the app is fully usable around it,
+  // and it stays until the check is tapped (a reload before that shows it
+  // again, with the swatch already picked lit).
+  var ftp=$('ftp'),ok=$('ftp-ok');
+  function ftpHide(){if(!ftp)return;ftp.classList.remove('in');setTimeout(function(){ftp.classList.remove('on');},220);}
+  if(ftp&&window._themePick==='pending'){
+    ftp.classList.add('on');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){ftp.classList.add('in');});});
+    // First launch only: write 'pending' so a reload before the check still
+    // knows the pill is owed (any later save would otherwise record 'done').
+    // Deferred to after the whole script, because _savePrefs() reads state
+    // from modules defined below this point (tool card) and would write their
+    // defaults' absence. On a reload while still pending, nothing is written
+    // here — the stored blob already says 'pending'.
+    if(window._prefsWasEmpty)setTimeout(_savePrefs,0);
+  }
+  if(ok)ok.addEventListener('click',function(e){
+    e.stopPropagation();
+    window._themePick='done';_savePrefs();ftpHide();
+  });
+})();
 // PWA standalone: viewport dimensions may not be final at script execution.
 // Retry after paint and after system UI has settled to ensure correct narrow/wide layout.
 // _syncRenderer retries ensure camera projection is correct after Android freeform->fullscreen.
@@ -26983,7 +28260,9 @@ animate();
         if(other.y-d/2<M.t)return null;
         P.swap={x:cx-dg,y:(other.y+lead.y)/2};             // same x as LCL: one toggle column
       }else{
-        if(off)return null;
+        // 160: a lone puck may rise too (off>0) — on a short screen the
+        // bottom slot can sit on the status pill. Tried only after off=0.
+        if(off<0)return null;
         if(lowY-d/2<M.t)return null;
         lead={x:cx,y:lowY};
       }
@@ -27037,6 +28316,20 @@ animate();
   var VIS_OK={both:1,nav:1,giz:1,none:1};
   var vis_=VIS_OK[window._ctlVis]?window._ctlVis:'both';
   window._ctlVis=vis_;
+  // 152: last shown state, the target of a tap out of Hide.
+  var visLast_=(window._ctlVisLast==='nav'||window._ctlVisLast==='giz')?window._ctlVisLast:'both';
+  if(vis_!=='none')visLast_=vis_;
+  window._ctlVisLast=visLast_;
+  // 160 (Sebas): when BOTH pucks are chosen and they do not fit cleanly at
+  // Small or above, show ONE (autoPick_, Gizmo by default) at the size the
+  // user chose; Swap shows the other one instead. The hidden puck's pill
+  // still rides the shown puck as its second ring, as with "Gizmo only".
+  // Picking "Gizmo and NavCube" from the menu while this is on forces both
+  // (bothForced_): they then shrink to whatever fits, under Small included.
+  // vis_ stays 'both' — this is layout, not a change of the user's choice.
+  var autoPick_=(window._ctlAutoPick==='nav')?'nav':'giz';
+  var bothForced_=!!window._ctlBothForced,autoOne_=false,autoSaid_=false;
+  window._ctlAutoPick=autoPick_;window._ctlBothForced=bothForced_;
   var CUR=null,TGT=null,FROM=null,T0=0,DUR=300,raf=null;
   var lastD=0,lastSet=null;
   // Default Medium (130a); _loadPrefs may already have set the user's choice.
@@ -27196,8 +28489,10 @@ animate();
         // One puck: its own pill at R, the hidden puck's pill as a 2nd ring.
         var who=showN?'nav':'giz',oth=showN?'giz':'nav',c=P[who],ob1=cloneOb(baseOb,fixC);
         var I=mkPill(who,c.x,c.y,R,showN?nItems:gItems,P.base),O=mkPill(oth,c.x,c.y,R+C_RING2*K,showN?gItems:nItems,P.base);
-        var ri=fitOne(I,ob1,last),ro=ri?fitOne(O,ob1,last):null;
-        if(ri&&ro){Lp[who]=ri.p;Lp[oth]=ro.p;res={t:ri.t+ro.t};}
+        // 160: one puck for lack of room has NO second ring — the other
+        // puck's buttons are one Swap away, and the ring is what does not fit.
+        var ri=fitOne(I,ob1,last),ro=(ri&&!autoOne_)?fitOne(O,ob1,last):null;
+        if(ri&&(ro||autoOne_)){Lp[who]=ri.p;if(ro)Lp[oth]=ro.p;res={t:ri.t+(ro?ro.t:0)};}
       }
       if(!res&&!last)return null;
       // 133 FPS Side/UW: the look stick in the opposite bottom corner, its pill
@@ -27248,9 +28543,7 @@ animate();
     // and if the column still does not fit, the pucks go a little under
     // Small (UW_UNDER) rather than apart. One puck alone, or First Person,
     // keeps every size.
-    var stackOnly=(arr==='uw'&&showN&&showG&&!fps),szList=stackOnly?UW_STACK_SIZES:SIZES;
-    if(stackOnly)si0=0;
-    _stackOnly=stackOnly;
+    var stackOnly,szList,si0c=si0;
     var pi,got=null;
     function search(passes){
       var g=null,s2,p2;
@@ -27259,9 +28552,23 @@ animate();
         for(p2=0;p2<passes.length&&!g;p2++)g=attempt(passes[p2]);}
       return g;
     }
-    if(arr==='bottom')got=search(['bottom']);
-    else if(stackOnly)got=search(['col','colx']);
-    else got=search(['col','colx','row']);
+    function run(){
+      stackOnly=(arr==='uw'&&showN&&showG&&!fps);szList=stackOnly?UW_STACK_SIZES:SIZES;
+      si0=stackOnly?0:si0c;
+      _stackOnly=stackOnly;
+      if(arr==='bottom')got=search(['bottom']);
+      else if(stackOnly)got=search(['col','colx']);
+      else got=search(['col','colx','row']);
+    }
+    autoOne_=false;
+    run();
+    // 160: both chosen, no clean fit at Small or above (Ultra-wide: only
+    // under Small) -> one puck, searched again from the chosen size.
+    if(showN&&showG&&!fps&&!bothForced_&&(!got||K<0.75)){
+      autoOne_=true;showN=(autoPick_==='nav');showG=!showN;got=null;run();
+      warn.push('one puck: no room for both ('+autoPick_+' shown)');
+      if(!autoSaid_){autoSaid_=true;setTimeout(function(){toast('No room for both controls — Swap switches',2200);},0);}
+    }
     if(!got){
       setK(szList[szList.length-1]);cardS.right=(card&&arr!=='bottom')?card.x+card.w:M.l-8*K;
       var Pf=placePucks(W,H,M,cardS,showN,showG,0,firstVar,swapped);
@@ -27299,6 +28606,15 @@ animate();
       var lob=cloneOb(baseOb,got.pucksC.concat(got.fixC));
       for(k2 in L.pills)lob.circ=lob.circ.concat(ptsAsCirc(samples(L.pills[k2])));
       L.loose.lcl=placeLoose(P.lclHome.x,P.lclHome.y,P.d,225,lob,warn,'LCL');
+    }
+    // 160: one puck for lack of room — Swap sits beside it and switches
+    // which puck is shown (lower-right first; clear of pills, pucks, LCL).
+    L.autoOne=autoOne_;
+    if(autoOne_){
+      var sc=P.nav||P.giz,sob=cloneOb(baseOb,got.pucksC.concat(got.fixC));
+      for(k2 in L.pills)sob.circ=sob.circ.concat(ptsAsCirc(samples(L.pills[k2])));
+      if(L.loose.lcl)sob.circ.push({x:L.loose.lcl.x,y:L.loose.lcl.y,r:PB});
+      if(sc)L.loose.swap=placeLoose(sc.x,sc.y,P.d,135,sob,warn,'Swap');
     }
     return L;
   }
@@ -27454,7 +28770,7 @@ animate();
     // 131: the real card's measured stage (cardModel's estimate stays as the
     // fallback line for builds without the tool card).
     var tr=window._tcReport?window._tcReport():null;
-    if(tr&&tr.stage)o.push(' tool card: '+(tr.stage.maxN<99?'actions '+tr.stage.maxN:(tr.stage.lv>=5?'single dot':PRESET_LEVELS[tr.stage.lv].join('/')))+(tr.stage.tight?', 4px gaps':'')+(tr.stage.p34?', pitch 34':'')+'  '+tr.len+'px'+(tr.over?' OVERFLOW':''));
+    if(tr&&tr.stage)o.push(' tool card: '+(tr.stage.maxN<99?'actions '+tr.stage.maxN:(tr.stage.lv>=5?'single dot':PRESET_LEVELS[tr.stage.lv].join('/')))+(tr.stage.tight?', 4px gaps':'')+(tr.stage.p34?', pitch 34':'')+(tr.stage.min?', 27px buttons':'')+'  '+tr.len+'px'+(tr.over?' OVERFLOW':''));
     else o.push(' card model: stage '+L.card.idx+' ('+(cs.lbl||PRESET_LEVELS[cs.lv].join('/'))+') '+L.card.len+'/'+L.card.avail+'px'+(L.card.over?' OVERFLOW':''));
     o.push(' insets t'+L.ins.t+' b'+L.ins.b+' l'+L.ins.l+' r'+L.ins.r);
     o.push(L.warn.length?'⚠ '+L.warn.join(' ⚠ '):'✓ every button clear');
@@ -27743,6 +29059,7 @@ animate();
   window._ctlSetVis=function(v,quiet){
     if(!VIS_OK[v])return;
     vis_=v;window._ctlVis=v;window._cardHidden=(v==='none');
+    if(v!=='none'){visLast_=v;window._ctlVisLast=v;}
     syncUwCls();
     if(typeof _savePrefs==='function')_savePrefs();
     if(window._tcVisSync)window._tcVisSync();
@@ -27750,11 +29067,29 @@ animate();
     if(!quiet)toast(VIS_NAMES[v],1200);
   };
   window._ctlGetVis=function(){return vis_;};
+  // 160: one puck for lack of room (see autoPick_).
+  window._ctlAutoOne=function(){return autoOne_;};
+  window._ctlAutoSwap=function(){
+    autoPick_=(autoPick_==='nav')?'giz':'nav';window._ctlAutoPick=autoPick_;
+    if(typeof _savePrefs==='function')_savePrefs();
+    relayout(300);toast(autoPick_==='nav'?'NavCube shown':'Gizmo shown',1200);
+  };
+  // The hold menu's rows. Both picked while one puck is shown for lack of
+  // room = "show both anyway" (smaller); a single puck picked = not forced.
+  window._ctlMenuVis=function(v){
+    if(v==='both'&&autoOne_)bothForced_=true;
+    else if(v==='nav'||v==='giz')bothForced_=false;
+    window._ctlBothForced=bothForced_;
+    window._ctlSetVis(v);
+  };
   window._ctlGetSize=function(){return window._ctlSize;};
   // 145: true while the layout is Ultra-wide with both pucks (Small, stacked).
   window._ctlStackOnly=function(){return _stackOnly;};
-  // Tap: Both <-> Hide Both; any single-puck state goes back to Both.
-  window._ctlVisTap=function(){window._ctlSetVis(vis_==='both'?'none':'both');};
+  // 152: Tap toggles the CHOSEN state <-> Hide. Before 152 a tap from
+  // NavCube only / Gizmo only went to Both, so a single-puck choice was lost
+  // on the first tap (Sebas: "going to single puck switches back to double").
+  // Only the hold menu changes which state is chosen.
+  window._ctlVisTap=function(){window._ctlSetVis(vis_==='none'?visLast_:'none');};
   var VIS_NAMES={both:'Gizmo and NavCube',nav:'NavCube only',giz:'Gizmo only',none:'Controls hidden'};
   var dp=$('ctl-dbg');
   if(dp)dp.addEventListener('click',function(e){var t=e.target;
@@ -28102,7 +29437,7 @@ animate();
   // Content length along the main axis — NOT the card's box: in UW the card
   // is stretched to the column's full height, so its box says nothing.
   function mainLen(){
-    var h=card.classList.contains('tc-h'),k=card.children,n=0,tot=0,i,r,gap=(h&&card.classList.contains('tc-min'))?2:(card.classList.contains('tc-tight')?4:8);
+    var h=card.classList.contains('tc-h'),k=card.children,n=0,tot=0,i,r,gap=card.classList.contains('tc-min')?2:(card.classList.contains('tc-tight')?4:8);
     for(i=0;i<k.length;i++){if(k[i].offsetParent===null&&getComputedStyle(k[i]).position!=='fixed')continue;
       r=k[i].getBoundingClientRect();if(r.width<1||r.height<1)continue;tot+=h?r.width:r.height;n++;}
     return tot+Math.max(0,n-1)*gap;
@@ -28356,7 +29691,7 @@ animate();
   window._tcVisSync=function(){
     var v=curVis();if(!visB)return;
     if(v!==_visCur){_visCur=v;visB.innerHTML=VIS_ICO[v]||VIS_ICO.both;}
-    visB.title=(v==='both'?'Hide controls':'Show controls')+' (hold for options)';
+    visB.title=(v!=='none'?'Hide controls':'Show controls')+' (hold for options)';
     if(visPop&&visPop.classList.contains('open'))visFill();
   };
   function visFill(){
@@ -28365,7 +29700,13 @@ animate();
     // 134: no gizmo puck in FPS — the state decides whether the look stick
     // carries the gizmo pill (Both / Gizmo only) or its own Up/Down.
     if(typeof _fpsMode!=='undefined'&&_fpsMode)h.push('<div class="tvp-h">FIRST PERSON: STICKS STAY · GIZMO PILL ON LOOK STICK</div>');
-    VIS_ROWS.forEach(function(r){h.push('<button class="tvp-r'+(r[0]===v?' dis':'')+'" data-vis="'+r[0]+'">'+VIS_ICO[r[0]]+'<span>'+r[1]+'</span></button>');});
+    // 160: one puck shown for lack of room — "Gizmo and NavCube" stays
+    // pickable (it forces both, smaller) and the shown one is marked current.
+    var auto=!!(window._ctlAutoOne&&window._ctlAutoOne()&&v==='both');
+    var cur=auto?(window._ctlAutoPick==='nav'?'nav':'giz'):v;
+    if(auto)h.push('<div class="tvp-h">NO ROOM FOR BOTH · SWAP SWITCHES</div>');
+    VIS_ROWS.forEach(function(r){var off=(r[0]===v&&!auto);
+      h.push('<button class="tvp-r'+(off?' dis':'')+(auto&&r[0]===cur?' on':'')+'" data-vis="'+r[0]+'">'+VIS_ICO[r[0]]+'<span>'+r[1]+(auto&&r[0]==='both'?' (smaller)':'')+'</span></button>');});
     h.push('<div class="tvp-sep"></div><div class="tvp-h">SIZE</div><div class="tvp-sz">');
     // 145: Ultra-wide with both pucks is Small only — Large and Medium are
     // shown greyed (the stored choice is kept and returns with one puck or
@@ -28401,7 +29742,9 @@ animate();
     visPop.addEventListener('click',function(e){
       e.stopPropagation();
       var r=e.target.closest('[data-vis]');
-      if(r){if(window._ctlSetVis)window._ctlSetVis(r.getAttribute('data-vis'));if(window._brushClosePops)window._brushClosePops();return;}
+      if(r){if(r.classList.contains('dis'))return;
+        if(window._ctlMenuVis)window._ctlMenuVis(r.getAttribute('data-vis'));else if(window._ctlSetVis)window._ctlSetVis(r.getAttribute('data-vis'));
+        if(window._brushClosePops)window._brushClosePops();return;}
       var z=e.target.closest('[data-sz2]');
       if(z&&z.disabled)return;
       if(z){var k=+z.getAttribute('data-sz2');if(window._ctlSetSize)window._ctlSetSize(k);
