@@ -29,7 +29,7 @@
 // Session 152: CACHE_NAME MUST EQUAL index.html's APP_BUILD. The settings
 // popover compares the two to tell whether a device is running the deployed
 // build ("Build v152 · cache v152 ✓"); bump both together, every time.
-const CACHE_NAME   = 'spetchbook-v161';
+const CACHE_NAME   = 'spetchbook-v162';
 const VENDOR_CACHE = 'spetchbook-vendor-r128';
 
 const VENDOR_URLS = [

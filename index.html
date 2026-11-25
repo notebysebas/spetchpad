@@ -2367,7 +2367,7 @@ body.fb-open #toast{top:calc(62px + env(safe-area-inset-top,0px))!important;bott
 //                 decisions), memory only, OFF unless switched on in the view
 //                 popover. Callers check window._trcOn first.
 // ES5 only, and nothing here may throw: it is the code that reports throws.
-var APP_BUILD='spetchbook-v161';
+var APP_BUILD='spetchbook-v162';
 (function(){
   var KEY='sk3d_diag',DIAG_MAX=50,log=[],tmr=null;
   try{log=JSON.parse(localStorage.getItem(KEY)||'[]');if(!(log instanceof Array))log=[];}catch(ex){log=[];}
@@ -25532,14 +25532,18 @@ window.addEventListener('keydown',e=>{
 var HEAVY_LEVELS=[1500,3000,5000];
 (function(){
   var el=document.getElementById('heavy-pill');if(!el)return;
-  var tx=el.querySelector('.hp-t'),x=el.querySelector('button'),hideT=0,shownAt={},busy=false;
+  var tx=el.querySelector('.hp-t'),x=el.querySelector('button'),hideT=0,shownAt={},busy=false,want=false;
+  // 161: `want` — the fade-in runs a frame later, and the last progress call
+  // (100%) is followed at once by (0,0) -> hide(). Without the check, the
+  // frame-late add('in') came AFTER hide() and the pill stayed on screen at
+  // "Building strokes 100%", busy (no x) and with no timer to take it away.
   function show(msg,isBusy){
-    clearTimeout(hideT);busy=!!isBusy;
+    clearTimeout(hideT);busy=!!isBusy;want=true;
     tx.textContent=msg;el.classList.toggle('busy',busy);
-    el.classList.add('on');requestAnimationFrame(function(){el.classList.add('in');});
+    el.classList.add('on');requestAnimationFrame(function(){if(want)el.classList.add('in');});
     if(!busy)hideT=setTimeout(hide,7000);
   }
-  function hide(){clearTimeout(hideT);el.classList.remove('in');setTimeout(function(){if(!el.classList.contains('in'))el.classList.remove('on');},220);}
+  function hide(){want=false;clearTimeout(hideT);el.classList.remove('in');setTimeout(function(){if(!want&&!el.classList.contains('in'))el.classList.remove('on');},220);}
   x.addEventListener('click',function(e){e.stopPropagation();hide();});
   function level(n){var L=0;for(var i=0;i<HEAVY_LEVELS.length;i++)if(n>=HEAVY_LEVELS[i])L=i+1;return L;}
   function check(){
